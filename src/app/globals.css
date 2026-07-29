@@ -132,6 +132,78 @@ transform:translateY(0);
 }
 
 }
+
+/* Premium Hero Section Animations */
+
+@keyframes shimmer {
+
+  0% {
+
+    transform: translateX(-100%) skewX(-15deg);
+
+  }
+
+  100% {
+
+    transform: translateX(200%) skewX(-15deg);
+
+  }
+
+}
+
+@keyframes float {
+
+  0%, 100% {
+
+    transform: translateY(0px);
+
+  }
+
+  50% {
+
+    transform: translateY(-15px);
+
+  }
+
+}
+
+@keyframes pulse-glow {
+
+  0%, 100% {
+
+    opacity: 0.5;
+
+    transform: scale(1);
+
+  }
+
+  50% {
+
+    opacity: 0.8;
+
+    transform: scale(1.05);
+
+  }
+
+}
+
+.animate-shimmer {
+
+  animation: shimmer 3s infinite;
+
+}
+
+.animate-float {
+
+  animation: float 6s ease-in-out infinite;
+
+}
+
+.animate-pulse-glow {
+
+  animation: pulse-glow 4s ease-in-out infinite;
+
+}
 .dark {
 
   --background:#0B0B0B;
@@ -152,4 +224,7 @@ transition:
 background .35s ease,
 color .35s ease;
 
+}
+html {
+  scroll-behavior: smooth;
 }

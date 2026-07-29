@@ -6,7 +6,11 @@ import { motion } from "framer-motion";
 
 import { navigation } from "@/constants/navigation";
 
-export default function DesktopMenu() {
+interface DesktopMenuProps {
+  isScrolled: boolean;
+}
+
+export default function DesktopMenu({ isScrolled }: DesktopMenuProps) {
   const pathname = usePathname();
 
   return (
@@ -22,7 +26,9 @@ export default function DesktopMenu() {
                 className={`relative py-2 text-[15px] font-medium transition-colors duration-300 ${
                   active
                     ? "text-[var(--primary)]"
-                    : "text-[var(--black)] hover:text-[var(--primary)]"
+                    : isScrolled
+                      ? "text-gray-900 hover:text-[var(--primary)]"
+                      : "text-white/85 hover:text-white"
                 }`}
               >
                 {item.name}

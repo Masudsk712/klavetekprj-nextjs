@@ -5,7 +5,11 @@ import { Phone, MessageCircle, ArrowRight } from "lucide-react";
 
 import { company } from "@/constants/company";
 
-export default function CTAButtons() {
+interface CTAButtonsProps {
+  isScrolled: boolean;
+}
+
+export default function CTAButtons({ isScrolled }: CTAButtonsProps) {
   return (
     <div className="flex items-center gap-3">
       {/* Call Button */}
@@ -13,7 +17,11 @@ export default function CTAButtons() {
       <Link
         href={`tel:${company.phone}`}
         aria-label="Call Klavetek"
-        className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-[var(--black)] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-lg"
+        className={`flex h-11 w-11 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:-translate-y-1 ${
+          isScrolled
+            ? "border-gray-200 bg-white text-gray-900 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-lg"
+            : "border-white/25 bg-white/10 text-white hover:bg-white/20 hover:shadow-black/20"
+        }`}
       >
         <Phone size={18} />
       </Link>

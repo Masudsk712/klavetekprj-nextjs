@@ -1,35 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { Sun, Moon } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme();
-
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const dark = (theme === "system" ? resolvedTheme : theme) === "dark";
+
   if (!mounted) {
     return (
-      <div className="h-11 w-20 rounded-full border border-gray-200 bg-white" />
+      <button
+        aria-label="Toggle Theme"
+        className="relative flex h-11 w-20 items-center rounded-full border border-gray-200 bg-white p-1 shadow-md transition-all duration-300 hover:shadow-lg"
+      >
+        <div className="absolute flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary)] text-white translate-x-0">
+          <Sun size={18} />
+        </div>
+      </button>
     );
   }
-
-  const dark = (theme === "system"
-    ? resolvedTheme
-    : theme) === "dark";
 
   return (
     <button
       aria-label="Toggle Theme"
-      onClick={() =>
-        setTheme(dark ? "light" : "dark")
-      }
+      onClick={() => setTheme(dark ? "light" : "dark")}
       className="relative flex h-11 w-20 items-center rounded-full border border-gray-200 bg-white p-1 shadow-md transition-all duration-300 hover:shadow-lg"
     >
       <motion.div
@@ -43,11 +45,7 @@ export default function ThemeToggle() {
           dark ? "translate-x-9" : "translate-x-0"
         }`}
       >
-        {dark ? (
-          <Moon size={18} />
-        ) : (
-          <Sun size={18} />
-        )}
+        {dark ? <Moon size={18} /> : <Sun size={18} />}
       </motion.div>
     </button>
   );
