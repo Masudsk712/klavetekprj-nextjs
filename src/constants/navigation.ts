@@ -1,30 +1,59 @@
 export const navigation = [
-  {
-    label: "Home",
-    href: "/",
-  },
-  {
-    label: "About",
-    href: "/about",
-  },
-  {
-    label: "Products",
-    href: "/products",
-  },
-  {
-    label: "Gallery",
-    href: "/gallery",
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-  },
-  {
-    label: "Career",
-    href: "/career",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+
+{
+
+name:"Home",
+
+href:"/"
+
+},
+
+{
+
+name:"About",
+
+href:"/about"
+
+},
+
+{
+
+name:"Products",
+
+href:"/products"
+
+},
+
+{
+
+name:"Gallery",
+
+href:"/gallery"
+
+},
+
+{
+
+name:"Blog",
+
+href:"/blog"
+
+},
+
+{
+
+name:"Career",
+
+href:"/career"
+
+},
+
+{
+
+name:"Contact",
+
+href:"/contact"
+
+}
+
 ];

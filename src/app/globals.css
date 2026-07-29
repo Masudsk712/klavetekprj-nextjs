@@ -132,3 +132,24 @@ transform:translateY(0);
 }
 
 }
+.dark {
+
+  --background:#0B0B0B;
+
+  --black:#F5F5F5;
+
+  --white:#111111;
+
+}
+
+body{
+
+background:var(--background);
+
+color:var(--black);
+
+transition:
+background .35s ease,
+color .35s ease;
+
+}
