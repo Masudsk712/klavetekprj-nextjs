@@ -39,3 +39,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# local environment
+.env.local
+
+# cache
+.cache
+
+# logs
+logs
+*.log
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# temporary files
+*.tmp
+*.temp
