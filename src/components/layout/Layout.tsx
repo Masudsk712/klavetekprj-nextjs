@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer/Footer";
+import PremiumNavbar from "./Navbar/PremiumNavbar";
 interface LayoutProps {
   children: ReactNode;
 }
@@ -11,9 +11,8 @@ export default function Layout({
 }: LayoutProps) {
   return (
     <>
-      <Navbar />
-
-      <main className="min-h-screen pt-20">
+      <PremiumNavbar />
+      <main className="min-h-screen">
         {children}
       </main>
 

@@ -1,22 +1,20 @@
 import HeroBackground from "./HeroBackground";
-import HeroOverlay from "./HeroOverlay";
 import HeroContent from "./HeroContent";
 import ScrollIndicator from "./ScrollIndicator";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden">
-
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/hero/hero-poster.webp')" }} />
+    <section className="relative overflow-hidden pt-[90px] md:pt-[110px] lg:pt-[120px]">
 
       <HeroBackground />
 
-      <div className="relative z-20 flex min-h-screen items-center">
+      <div className="relative z-20 flex items-center">
         <HeroContent />
       </div>
 
       <ScrollIndicator />
 
+      {/* HeroOverlay placeholder removed: unused component */}
     </section>
   );
 }
