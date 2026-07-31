@@ -2,21 +2,24 @@ import { ReactNode } from "react";
 
 import Footer from "./Footer/Footer";
 import PremiumNavbar from "./Navbar/PremiumNavbar";
+import ScrollProgress from "@/components/shared/ScrollProgress";
+import FloatingActions from "@/components/shared/FloatingActions";
 interface LayoutProps {
-  children: ReactNode;
+ children: ReactNode;
 }
 
 export default function Layout({
-  children,
+ children,
 }: LayoutProps) {
-  return (
-    <>
-      <PremiumNavbar />
-      <main className="min-h-screen">
-        {children}
-      </main>
-
-      <Footer />
-    </>
-  );
+ return (
+ <>
+ <ScrollProgress />
+ <PremiumNavbar />
+ <main className="min-h-screen">
+ {children}
+ </main>
+ <FloatingActions />
+ <Footer />
+ </>
+ );
 }

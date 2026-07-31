@@ -1,21 +1,25 @@
-import HeroSection from "@/components/home/HeroSection";
+import { Metadata } from "next";
+import InternalHero from "@/components/shared/InternalHero";
+import GalleryGrid from "@/components/gallery/GalleryGrid";
+
+export const metadata: Metadata = {
+ title: "Gallery | Klavetek Green Blocks & Tiles",
+ description: "Explore our manufacturing facility, machinery, production process, projects, and construction sites through our visual gallery.",
+};
 
 export default function GalleryPage() {
   return (
     <>
-      <HeroSection />
-
-      <section className="bg-white py-20 dark:bg-gray-900">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Gallery
-          </h2>
-
-          <p className="mt-4 text-gray-600 dark:text-gray-300">
-            Browse through our project gallery and see our work in action.
-          </p>
-        </div>
-      </section>
-    </>
-  );
+  <InternalHero
+    title="Gallery"
+    subtitle="Explore our manufacturing facility, machinery, production processes, and construction projects through our visual journey."
+    backgroundImage="/images/gallery/gallery-hero.webp"
+    breadcrumb={[
+      { label: "Home", href: "/" },
+      { label: "Gallery" }
+    ]}
+  />
+  <GalleryGrid />
+ </>
+ );
 }

@@ -1,41 +1,39 @@
-import HeroSection from "@/components/home/HeroSection";
-import { company } from "@/constants/company";
+import { Metadata } from "next";
+import InternalHero from "@/components/shared/InternalHero";
+import CompanyStory from "@/components/about/CompanyStory";
+import MissionVision from "@/components/about/MissionVision";
+import CoreValues from "@/components/about/CoreValues";
+import FivePillars from "@/components/about/FivePillars";
+import ManufacturingProcessAbout from "@/components/about/ManufacturingProcessAbout";
+import Composition from "@/components/about/Composition";
+import WhyAacBlocks from "@/components/about/WhyAacBlocks";
+import Certifications from "@/components/about/Certifications";
+
+export const metadata: Metadata = {
+ title: "About Us | Klavetek Green Blocks & Tiles",
+ description: "Discover Klavetek's journey since 2010 — a leading AAC block manufacturer in Eastern India with ISI certification and sustainable manufacturing.",
+};
 
 export default function AboutPage() {
   return (
     <>
-      <HeroSection />
-
-      <section className="bg-white py-20 dark:bg-gray-900">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                About Us
-              </h2>
-
-              <p className="mt-4 text-gray-600 dark:text-gray-300">
-                {company.name} is a leading manufacturer of premium AAC blocks and
-                construction solutions. Established with a vision to revolutionize
-                the construction industry, we are committed to providing
-                sustainable, eco-friendly, and high-quality building materials.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                Our Mission
-              </h3>
-
-              <p className="mt-4 text-gray-600 dark:text-gray-300">
-                To deliver innovative construction solutions that combine
-                sustainability, durability, and affordability, empowering
-                builders and developers to create lasting structures.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
+  <InternalHero
+    title="About Klavetek"
+    subtitle="Leading the AAC block revolution in Eastern India with sustainable innovation, engineering excellence, and uncompromising quality since 2010."
+    backgroundImage="/images/about/about-hero.webp"
+    breadcrumb={[
+      { label: "Home", href: "/" },
+      { label: "About Us" }
+    ]}
+  />
+  <CompanyStory />
+ <MissionVision />
+ <CoreValues />
+ <FivePillars />
+ <ManufacturingProcessAbout />
+ <Composition />
+ <WhyAacBlocks />
+ <Certifications />
+ </>
+ );
 }

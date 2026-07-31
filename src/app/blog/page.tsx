@@ -1,22 +1,25 @@
-import HeroSection from "@/components/home/HeroSection";
+import { Metadata } from "next";
+import InternalHero from "@/components/shared/InternalHero";
+import BlogContent from "@/components/blog/BlogContent";
+
+export const metadata: Metadata = {
+ title: "Blog & Insights | Klavetek Green Blocks & Tiles",
+ description: "Expert insights on AAC blocks, sustainable construction, cost analysis, and building material technology from Klavetek's engineering team.",
+};
 
 export default function BlogPage() {
   return (
     <>
-      <HeroSection />
-
-      <section className="bg-white py-20 dark:bg-gray-900">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Blog & Insights
-          </h2>
-
-          <p className="mt-4 text-gray-600 dark:text-gray-300">
-            Stay updated with the latest trends, insights, and news from the
-            construction industry.
-          </p>
-        </div>
-      </section>
-    </>
-  );
+  <InternalHero
+    title="Blog & Insights"
+    subtitle="Expert insights on AAC blocks, sustainable construction, cost analysis, and building material technology from Klavetek's engineering team."
+    backgroundImage="/images/blog/blog-hero.webp"
+    breadcrumb={[
+      { label: "Home", href: "/" },
+      { label: "Blog" }
+    ]}
+  />
+  <BlogContent />
+ </>
+ );
 }

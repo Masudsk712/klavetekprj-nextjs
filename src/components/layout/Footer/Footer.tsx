@@ -21,7 +21,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#0B0D0E]">
+    <footer className="relative bg-black text-white transition-colors duration-500">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-12 py-20 md:grid-cols-3 md:gap-14 lg:py-24">
 
@@ -39,7 +39,7 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="mt-4 text-sm leading-relaxed text-gray-400">
+            <p className="mt-4 text-sm leading-relaxed text-white/70">
               Premium AAC blocks and construction solutions engineered for
               strength, sustainability and long-term performance.
             </p>
@@ -48,7 +48,7 @@ export default function Footer() {
               <Link
                 href={socialLinks.facebook}
                 aria-label="Facebook"
-                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.03] text-gray-400 backdrop-blur-sm transition-all duration-400 hover:scale-110 hover:border-green-400/50 hover:text-green-400 hover:bg-white/10 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-sm transition-all duration-400 hover:scale-110 hover:border-primary/50 hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_25px_rgba(22,163,74,0.3)]"
               >
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
               <Link
                 href={socialLinks.instagram}
                 aria-label="Instagram"
-                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.03] text-gray-400 backdrop-blur-sm transition-all duration-400 hover:scale-110 hover:border-green-400/50 hover:text-green-400 hover:bg-white/10 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-sm transition-all duration-400 hover:scale-110 hover:border-primary/50 hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_25px_rgba(22,163,74,0.3)]"
               >
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
               </Link>
@@ -64,7 +64,7 @@ export default function Footer() {
               <Link
                 href={socialLinks.youtube}
                 aria-label="Youtube"
-                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.03] text-gray-400 backdrop-blur-sm transition-all duration-400 hover:scale-110 hover:border-green-400/50 hover:text-green-400 hover:bg-white/10 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/60 backdrop-blur-sm transition-all duration-400 hover:scale-110 hover:border-primary/50 hover:text-primary hover:bg-primary/10 hover:shadow-[0_0_25px_rgba(22,163,74,0.3)]"
               >
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
               </Link>
@@ -83,12 +83,12 @@ export default function Footer() {
               Company
             </h3>
 
-            <ul className="mt-4 space-y-2.5 text-sm text-gray-400">
+            <ul className="mt-4 space-y-2.5 text-sm text-white/70">
               {quickLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="inline-block transition-colors duration-300 hover:text-white"
+                    className="inline-block transition-colors duration-300 hover:text-primary"
                   >
                     {item.name}
                   </Link>
@@ -109,9 +109,9 @@ export default function Footer() {
               Contact
             </h3>
 
-            <ul className="mt-4 space-y-3 text-sm text-gray-400">
+            <ul className="mt-4 space-y-3 text-sm text-white/70">
               <li className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 text-gray-500" />
+                <MapPin size={16} className="mt-0.5 text-primary" />
 
                 <span>Klavetek Green Blocks & Tiles Pvt. Ltd., India</span>
               </li>
@@ -119,9 +119,9 @@ export default function Footer() {
               <li>
                 <Link
                   href={`tel:${company.phone}`}
-                  className="flex items-center gap-3 transition-colors duration-300 hover:text-white"
+                  className="flex items-center gap-3 transition-colors duration-300 hover:text-primary"
                 >
-                  <Phone size={16} className="text-gray-500" />
+                  <Phone size={16} className="text-primary" />
 
                   <span>{company.phone}</span>
                 </Link>
@@ -130,9 +130,9 @@ export default function Footer() {
               <li>
                 <Link
                   href={`mailto:${contactEmail}`}
-                  className="flex items-center gap-3 transition-colors duration-300 hover:text-white"
+                  className="flex items-center gap-3 transition-colors duration-300 hover:text-primary"
                 >
-                  <Mail size={16} className="mt-0.5 text-gray-500" />
+                  <Mail size={16} className="mt-0.5 text-primary" />
 
                   <span>{contactEmail}</span>
                 </Link>
@@ -145,7 +145,7 @@ export default function Footer() {
         {/* Bottom */}
 
         <div className="border-t border-white/10 py-6">
-          <p className="text-center text-xs text-gray-500">
+          <p className="text-center text-xs text-white/60">
             © {year} Klavetek Green Blocks & Tiles Pvt. Ltd. All rights reserved.
           </p>
         </div>

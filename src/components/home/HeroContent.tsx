@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ShieldCheck, Leaf, Truck } from "lucide-react";
@@ -27,11 +27,11 @@ export default function HeroContent() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-10 text-[46px] font-semibold leading-[1.08] tracking-tight text-white md:text-[54px] lg:text-[58px]"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.5)' }}
+            className="mt-10 text-[46px] font-semibold leading-[1.08] tracking-tight text-white md:text-[54px] lg:text-[60px]"
+            style={{ textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}
           >
             Building Tomorrow
-            <span className="mt-3 block bg-gradient-to-r from-green-300 via-green-400 to-green-500 bg-clip-text text-transparent">
+            <span className="mt-3 block bg-gradient-to-r from-primary via-accent-glow to-primary-hover bg-clip-text text-transparent animate-gradient">
               With Premium AAC Blocks
             </span>
           </motion.h1>
@@ -40,7 +40,7 @@ export default function HeroContent() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mt-7 max-w-[520px] text-base leading-[1.7] text-white/88 md:text-base"
+            className="mt-7 max-w-[520px] text-base leading-[1.75] text-white/90 md:text-lg"
           >
             Engineered for superior strength, thermal insulation and sustainable construction — trusted by builders across India.
           </motion.p>
@@ -59,18 +59,24 @@ export default function HeroContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 1 }}
-            className="mt-14 flex flex-wrap items-center gap-5 text-xs font-medium text-white/75"
+            className="mt-14 flex flex-wrap items-center gap-6 text-sm font-medium text-accent-glow"
           >
             <div className="flex items-center gap-2.5">
-              <ShieldCheck size={16} className="text-green-400/90" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
+                <ShieldCheck size={16} className="text-accent-glow" />
+              </div>
               <span>ISO Certified</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <Leaf size={16} className="text-green-400/90" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
+                <Leaf size={16} className="text-accent-glow" />
+              </div>
               <span>Eco Friendly</span>
             </div>
             <div className="hidden items-center gap-2.5 md:flex">
-              <Truck size={16} className="text-green-400/90" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
+                <Truck size={16} className="text-accent-glow" />
+              </div>
               <span>PAN India Delivery</span>
             </div>
           </motion.div>

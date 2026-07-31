@@ -1,22 +1,25 @@
-import HeroSection from "@/components/home/HeroSection";
+import { Metadata } from "next";
+import InternalHero from "@/components/shared/InternalHero";
+import CareerContent from "@/components/career/CareerContent";
+
+export const metadata: Metadata = {
+ title: "Careers | Klavetek Green Blocks & Tiles",
+ description: "Join Klavetek — a leading AAC block manufacturer. Explore open positions, employee benefits, and submit your resume for future opportunities.",
+};
 
 export default function CareerPage() {
   return (
     <>
-      <HeroSection />
-
-      <section className="bg-white py-20 dark:bg-gray-900">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Careers
-          </h2>
-
-          <p className="mt-4 text-gray-600 dark:text-gray-300">
-            Join our team and be part of a growing organization that values
-            innovation, quality, and people.
-          </p>
-        </div>
-      </section>
-    </>
-  );
+  <InternalHero
+    title="Careers"
+    subtitle="Join Klavetek's team of innovators and builders. Explore opportunities to grow with India's leading AAC block manufacturer."
+    backgroundImage="/images/career/career-hero.webp"
+    breadcrumb={[
+      { label: "Home", href: "/" },
+      { label: "Careers" }
+    ]}
+  />
+  <CareerContent />
+ </>
+ );
 }
