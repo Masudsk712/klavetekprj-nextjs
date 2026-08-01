@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 import TrustBar from "@/components/home/TrustBar";
 import AboutPreview from "@/components/home/AboutPreview";
-import WhyChooseUs from "@/components/home/WhyChooseUs";
+import WhyKlavetekStandsOut from "@/components/home/WhyKlavetekStandsOut";
 import ManufacturingProcess from "@/components/home/ManufacturingProcess";
 import ProductShowcase from "@/components/home/ProductShowcase";
 import ComparisonTable from "@/components/home/ComparisonTable";
@@ -26,8 +26,8 @@ export default function HomePage() {
  <HeroSection />
  <TrustBar />
  <AboutPreview />
- <WhyChooseUs />
- <ManufacturingProcess />
+<WhyKlavetekStandsOut />
+<ManufacturingProcess />
  <ProductShowcase />
  <ComparisonTable />
  <TechnicalSpecs />

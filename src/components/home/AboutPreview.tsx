@@ -2,118 +2,187 @@
 
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Shield, Leaf, Truck } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Check, Award, Calendar, Factory } from "lucide-react";
 import { aboutPreview } from "@/data/home";
-import SectionHeader from "@/components/shared/SectionHeader";
-import GlassCard from "@/components/shared/GlassCard";
-import AnimatedCounter from "@/components/shared/AnimatedCounter";
-import { easePremium, viewportOnce, staggerContainerFast } from "@/lib/animations";
+import { easePremium, viewportOnce } from "@/lib/animations";
 
 const containerVariants: Variants = {
- hidden: {},
- visible: {
- transition: { staggerChildren: 0.12, delayChildren: 0.05 },
- },
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+  },
 };
 
 const itemVariants: Variants = {
- hidden: { opacity: 0, y: 24 },
- visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easePremium } },
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easePremium } },
 };
 
-const iconMap: Record<string, React.ReactNode> = {
- "ISI Certified": <Shield className="w-6 h-6 text-primary" />,
- "Eco-Friendly": <Leaf className="w-6 h-6 text-primary" />,
- "Pan-India Supply": <Truck className="w-6 h-6 text-primary" />,
+const floatVariants: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: easePremium },
+  },
 };
 
 export default function AboutPreview() {
- return (
- <section className="relative py-24 md:py-32 bg-[var(--secondary-bg)] overflow-hidden noise-bg">
- <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] via-transparent to-primary-hover/[0.03] pointer-events-none" />
+  return (
+    <section className="relative py-16 md:py-24 lg:py-28 bg-[var(--background)] overflow-hidden">
+      {/* Premium noise texture background */}
+      <div className="noise-bg absolute inset-0 pointer-events-none opacity-[0.03]" />
 
- {/* Decorative green glow */}
- <div className="absolute top-40 right-20 w-80 h-80 bg-primary/8 rounded-full blur-3xl pointer-events-none" />
+      {/* Theme-aware green radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/12 via-primary/5 to-transparent rounded-full blur-[100px] pointer-events-none dark:from-primary/15" />
 
- <div className="mx-auto max-w-7xl px-6 lg:px-10">
- <motion.div
- variants={containerVariants}
- initial="hidden"
- whileInView="visible"
- viewport={viewportOnce}
- className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-center"
- >
- {/* Left Content */}
- <motion.div variants={itemVariants}>
- <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.15em] text-primary mb-4">
- <span className="h-2.5 w-2.5 rounded-full bg-primary" />
- About Klavetek
- </span>
- <SectionHeader title={aboutPreview.title} subtitle={aboutPreview.subtitle} />
- <div className="mt-8 space-y-5">
- {aboutPreview.features.map((feature, index) => (
- <motion.div
- key={feature.title}
- variants={itemVariants}
- className="flex items-start gap-4 group hover-lift"
- >
- <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/10 to-primary-hover/10 border border-primary/15 flex items-center justify-center">
- {iconMap[feature.title]}
- </div>
- <div>
- <h4 className="font-semibold text-[var(--heading)]">{feature.title}</h4>
- <p className="text-sm text-[var(--muted-text)] mt-1 leading-relaxed">{feature.description}</p>
- </div>
- </motion.div>
- ))}
- </div>
- <motion.div variants={itemVariants}>
- <Link
- href={aboutPreview.ctaLink}
- className="btn-primary mt-10 inline-flex"
- >
- <span>{aboutPreview.cta}</span>
- <ArrowRight className="w-4 h-4" />
- </Link>
- </motion.div>
- </motion.div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 xl:px-10 relative z-10">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center"
+        >
+          {/* Left Content */}
+          <motion.div variants={itemVariants} className="space-y-6 md:space-y-8 max-w-xl">
+            {/* Premium Badge with glass effect */}
+            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full glass border border-[var(--border)] shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(22,163,74,0.6)]" />
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--heading)]">
+                {aboutPreview.badge}
+              </span>
+            </div>
 
- {/* Right Visual */}
- <motion.div variants={itemVariants} className="relative">
- <motion.div
- whileHover={{ scale: 1.02 }}
- className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-primary-hover/5 border border-primary/15 shadow-[0_24px_70px_rgba(var(--primary-rgb),0.10)]"
- >
- <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-white/50 to-transparent">
- <div className="text-center p-8">
- <div className="w-24 h-24 mx-auto rounded-3xl bg-[var(--surface)] border border-primary/15 shadow-sm flex items-center justify-center mb-5">
- <Shield className="w-11 h-11 text-primary" />
- </div>
- <h3 className="text-3xl font-bold text-[var(--heading)] tracking-tight">
- <AnimatedCounter value="15+" duration={2.2} />
- </h3>
- <p className="text-[var(--muted-text)] mt-2 text-base">Years of Manufacturing Excellence</p>
- </div>
- </div>
- </motion.div>
+            {/* Large Heading with premium typography */}
+            <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] xl:text-[3.75rem] font-bold leading-[1.1] tracking-tight text-[var(--heading)]">
+              {aboutPreview.title}
+            </h2>
 
- {/* Floating stat cards */}
- <GlassCard elevated className="absolute -bottom-5 -left-5 md:-bottom-8 md:-left-8 p-5 md:p-6 hover-lift">
- <div className="text-3xl font-bold text-primary">
- <AnimatedCounter value="50M+" duration={2.4} />
- </div>
- <div className="text-sm text-[var(--muted-text)] mt-1">Blocks Produced</div>
- </GlassCard>
+            {/* Short Description with optimal reading width */}
+            <p className="text-base md:text-lg text-[var(--body-text)] leading-relaxed opacity-90">
+              {aboutPreview.description}
+            </p>
 
- <GlassCard elevated className="absolute -top-5 -right-5 md:-top-8 md:-right-8 p-5 md:p-6 hover-lift">
- <div className="text-3xl font-bold text-primary">
- <AnimatedCounter value="2010" duration={2} />
- </div>
- <div className="text-sm text-[var(--muted-text)] mt-1">Established</div>
- </GlassCard>
- </motion.div>
- </motion.div>
- </div>
- </section>
- );
+            {/* Core Highlights Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {aboutPreview.highlights.map((highlight, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="flex items-start gap-3 group"
+                >
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/50 transition-all duration-300 mt-0.5">
+                    <Check className="w-3 h-3 text-primary" strokeWidth={3} />
+                  </div>
+                  <span className="text-sm font-medium text-[var(--body-text)] leading-snug">
+                    {highlight}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Brand Values - Premium glass badges */}
+            <motion.div variants={itemVariants} className="space-y-3 pt-2">
+              <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-[var(--muted-text)]">
+                Our Core Values
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {aboutPreview.values.map((value, index) => (
+                  <span
+                    key={index}
+                    className="px-4 py-2 rounded-full glass border border-[var(--border)] text-xs font-semibold text-[var(--heading)] hover:border-primary/40 hover:text-primary transition-all duration-300 cursor-default backdrop-blur-md"
+                  >
+                    {value}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div variants={itemVariants} className="pt-3">
+              <Link
+                href={aboutPreview.ctaLink}
+                className="btn-primary inline-flex group"
+              >
+                <span>{aboutPreview.cta}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Visual - Premium Image with Floating Cards */}
+          <motion.div variants={floatVariants} className="relative">
+            {/* Main Image Container - Premium styling */}
+            <motion.div
+              whileHover={{ scale: 1.015 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="relative aspect-[4/3] rounded-[32px] overflow-hidden bg-gradient-to-br from-primary/5 to-transparent border border-[var(--border)] shadow-[var(--shadow-premium)]"
+            >
+              {/* Subtle green glow behind image */}
+              <div className="absolute -inset-6 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent blur-[80px] -z-10 dark:from-primary/20" />
+
+              {/* Premium Image with Next.js optimization */}
+              <Image
+                src={aboutPreview.image}
+                alt="Klavetek Manufacturing Facility - Premium AAC Block Production"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                quality={90}
+              />
+
+              {/* Adaptive overlay based on theme */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent dark:from-black/50 dark:via-black/10" />
+            </motion.div>
+
+            {/* Floating Glass Cards */}
+            <div className="absolute -left-4 md:-left-8 top-8 md:top-12 animate-float">
+              <div className="glass-card rounded-2xl p-4 md:p-5 shadow-[var(--shadow-lg)] border border-[var(--border)] backdrop-blur-xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <Calendar className="w-5 h-5 md:w-6 md:h-6 text-primary" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="text-lg md:text-xl font-bold text-[var(--heading)] leading-tight">Since 2010</p>
+                    <p className="text-[10px] md:text-xs text-[var(--muted-text)] uppercase tracking-wider">Our Journey Began</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -right-2 md:-right-6 bottom-16 md:bottom-24 animate-float" style={{ animationDelay: "1s" }}>
+              <div className="glass-card rounded-2xl p-4 md:p-5 shadow-[var(--shadow-lg)] border border-[var(--border)] backdrop-blur-xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <Award className="w-5 h-5 md:w-6 md:h-6 text-primary" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="text-lg md:text-xl font-bold text-[var(--heading)] leading-tight">15+ Years</p>
+                    <p className="text-[10px] md:text-xs text-[var(--muted-text)] uppercase tracking-wider">Of Excellence</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -left-2 md:-left-6 bottom-4 md:bottom-8 animate-float" style={{ animationDelay: "2s" }}>
+              <div className="glass-card rounded-2xl p-4 md:p-5 shadow-[var(--shadow-lg)] border border-[var(--border)] backdrop-blur-xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                    <Factory className="w-5 h-5 md:w-6 md:h-6 text-primary" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <p className="text-lg md:text-xl font-bold text-[var(--heading)] leading-tight">Premium AAC</p>
+                    <p className="text-[10px] md:text-xs text-[var(--muted-text)] uppercase tracking-wider">Manufacturer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

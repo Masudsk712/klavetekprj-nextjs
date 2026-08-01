@@ -443,12 +443,53 @@ p, li, span, div {
 
 /* ============ Reduced motion ============ */
 @media (prefers-reduced-motion: reduce) {
- *, *::before, *::after {
- animation-duration: 0.01ms !important;
- animation-iteration-count: 1 !important;
- transition-duration: 0.01ms !important;
- scroll-behavior: auto !important;
- }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============ Premium Manufacturing Section ============ */
+.direction-rtl {
+  direction: rtl;
+}
+
+/* Manufacturing section card glassmorphism for light mode */
+@media (prefers-color-scheme: light) {
+  .manufacturing-card-glass {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(22, 163, 74, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.dark .manufacturing-card-glass {
+  background: rgba(17, 24, 39, 0.75);
+  border: 1px solid rgba(22, 163, 74, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Arrow glow animation */
+@keyframes arrowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.arrow-glow {
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+/* Timeline line glow */
+.timeline-glow {
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.4), 0 0 40px rgba(22, 163, 74, 0.2);
 }
 
 /* ============ Premium image utility ============ */
@@ -460,4 +501,152 @@ p, li, span, div {
 .img-premium:hover {
  transform: scale(1.02);
  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.20);
+}
+
+/* ============ Premium Manufacturing Timeline ============ */
+
+/* Timeline particle animation */
+@keyframes timelineParticle {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+.timeline-particle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--primary), 0 0 40px var(--primary);
+  animation: timelineParticle 6s linear infinite;
+}
+
+.timeline-particle:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.timeline-particle:nth-child(3) {
+  animation-delay: 4s;
+}
+
+/* Active step pulse */
+@keyframes activeStepPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(22, 163, 74, 0.4), 0 0 40px rgba(22, 163, 74, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(22, 163, 74, 0.6), 0 0 60px rgba(22, 163, 74, 0.3);
+  }
+}
+
+.manufacturing-card-active {
+  animation: activeStepPulse 2s ease-in-out infinite;
+}
+
+/* Arrow glow animation */
+@keyframes arrowGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(5px) scale(1.1);
+  }
+}
+
+.timeline-arrow {
+  animation: arrowGlow 2s ease-in-out infinite;
+}
+
+/* Card reveal animation */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.manufacturing-card-reveal {
+  animation: cardReveal 0.7s ease-out forwards;
+}
+
+/* Glass reflection sweep */
+@keyframes glassSweep {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(100%) skewX(-15deg);
+  }
+}
+
+.glass-reflection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.glass-reflection:hover::before {
+  transform: translateX(100%);
+}
+
+/* Progress bar animation */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+}
+
+.progress-animate {
+  animation: progressFill 1.5s ease-out forwards;
+}
+
+/* Manufacturing card landscape dimensions */
+.manufacturing-card {
+  width: 100%;
+  max-width: 360px;
+  min-height: 200px;
+  height: 200px;
+  border-radius: 24px;
+}
+
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+  .manufacturing-card {
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(22, 163, 74, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Dark mode adjustments */
+.dark .manufacturing-card {
+  background: rgba(17, 24, 39, 0.75);
+  border: 1px solid rgba(22, 163, 74, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
