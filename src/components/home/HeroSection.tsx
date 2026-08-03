@@ -8,9 +8,9 @@ export default function HeroSection() {
 
  <HeroBackground />
 
- <div className="relative z-20 flex items-center">
- <HeroContent />
- </div>
+  <div className="relative z-20 flex items-center min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-110px)]">
+  <HeroContent />
+  </div>
 
  <ScrollIndicator />
 

@@ -1,15 +1,15 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useAnimation, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { manufacturingProcess } from "@/data/home";
 import { easePremium, viewportOnce } from "@/lib/animations";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 
 // ─── Manufacturing Step Icons ────────────────────────────────
 
 const IconBox = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
     <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
     <line x1="12" y1="22.08" x2="12" y2="12" />
@@ -17,7 +17,7 @@ const IconBox = () => (
 );
 
 const IconMixer = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <path d="M12 2v4m0 12v4M2 12h4m12 0h4" />
     <circle cx="12" cy="12" r="4" />
     <path d="M12 8a4 4 0 0 0-4 4" />
@@ -25,7 +25,7 @@ const IconMixer = () => (
 );
 
 const IconMold = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <rect x="4" y="6" width="16" height="12" rx="2" />
     <path d="M4 10h16" />
     <path d="M12 6v12" />
@@ -33,7 +33,7 @@ const IconMold = () => (
 );
 
 const IconCuttingMachine = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <circle cx="6" cy="12" r="2" />
     <circle cx="18" cy="12" r="2" />
     <path d="M6 12h12" strokeDasharray="2 2" />
@@ -43,7 +43,7 @@ const IconCuttingMachine = () => (
 );
 
 const IconSteamPressure = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <path d="M12 2c0 4-3 6-3 10a3 3 0 0 0 6 0c0-4-3-6-3-10z" />
     <path d="M9 14c0 2 1.5 3 3 3s3-1 3-3" />
     <path d="M12 18v4" />
@@ -51,20 +51,20 @@ const IconSteamPressure = () => (
 );
 
 const IconShieldCheck = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     <path d="M9 12l2 2 4-4" />
   </svg>
 );
 
 const IconWaterDrop = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
   </svg>
 );
 
 const IconTruck = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
     <rect x="1" y="8" width="15" height="8" rx="1" />
     <path d="M16 8h3a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-3" />
     <circle cx="5.5" cy="17.5" r="2" />
@@ -84,14 +84,516 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 const stepImages: Record<string, string> = {
-  Box: "/images/hero/hero-poster.webp",
-  Mixer: "/images/features/sustainable-manufacturing.webp",
-  Mold: "/images/features/faster-construction.webp",
-  CuttingMachine: "/images/features/quality-inspection.webp",
-  SteamPressure: "/images/features/fire-resistant.webp",
-  ShieldCheck: "/images/features/quality-inspection.webp",
-  WaterDrop: "/images/features/thermal-efficiency.webp",
-  Truck: "/images/features/sound-insulation.webp",
+  Box: "/images/process/raw-material.webp",
+  Mixer: "/images/process/mixing.webp",
+  Mold: "/images/process/Casting.webp",
+  CuttingMachine: "/images/process/Cutting.webp",
+  SteamPressure: "/images/process/Autoclaving.webp",
+  ShieldCheck: "/images/process/QualityCheck.webp",
+  WaterDrop: "/images/process/Curing.webp",
+  Truck: "/images/process/Delivery.webp",
+};
+
+// ─── Reduced Motion Check ────────────────────────────────────
+
+const useReducedMotion = () => {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  return prefersReducedMotion;
+};
+
+// ─── Floating Particles ──────────────────────────────────────
+
+const FloatingParticles = () => {
+  const [mounted, setMounted] = useState(false);
+  const particles = useMemo(() => {
+    return [...Array(15)].map((_, i) => ({
+      id: i,
+      x: Math.random() * 100 - 50,
+      y: Math.random() * -100 - 50,
+      duration: 4 + Math.random() * 3,
+      delay: Math.random() * 2,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    }));
+  }, []);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  // Render empty div on server to match server-rendered HTML
+  if (!mounted) {
+    return <div className="absolute inset-0 overflow-hidden pointer-events-none" />;
+  }
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute w-1 h-1 bg-primary/40 rounded-full"
+          animate={{
+            x: [0, particle.x],
+            y: [0, particle.y],
+            opacity: [0, 0.6, 0],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut",
+          }}
+          style={{
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// ─── Mouse Glow Effect ───────────────────────────────────────
+
+const MouseGlow = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const glowX = useSpring(mouseX, { damping: 30, stiffness: 200 });
+  const glowY = useSpring(mouseY, { damping: 30, stiffness: 200 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div
+      className="absolute w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl pointer-events-none"
+      style={{
+        x: glowX,
+        y: glowY,
+        translateX: "-50%",
+        translateY: "-50%",
+      }}
+    />
+  );
+};
+
+// ─── Premium Story Card ──────────────────────────────────────
+
+const PremiumStoryCard = ({
+  step,
+  index,
+  isRevealed,
+  isActive,
+  imageOnLeft,
+}: {
+  step: any;
+  index: number;
+  isRevealed: boolean;
+  isActive: boolean;
+  imageOnLeft: boolean;
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-100px" });
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Ken Burns effect
+  const kenBurnsScale = useMotionValue(1);
+  
+  useEffect(() => {
+    if (prefersReducedMotion || !isActive) return;
+    
+    const interval = setInterval(() => {
+      kenBurnsScale.set(1.05 + Math.random() * 0.05);
+    }, 8000);
+    
+    return () => clearInterval(interval);
+  }, [prefersReducedMotion, isActive, kenBurnsScale]);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 80 }}
+      animate={{
+        opacity: isRevealed ? 1 : 0,
+        y: isRevealed ? 0 : 40,
+      }}
+      transition={{
+        duration: 1,
+        ease: easePremium,
+      }}
+      className={`relative min-h-[60vh] flex items-center ${
+        imageOnLeft ? "" : "flex-row-reverse"
+      }`}
+    >
+      {/* Background Glow */}
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 1, ease: easePremium }}
+            className="absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Image Section */}
+      <motion.div
+        initial={{ opacity: 0, x: imageOnLeft ? -100 : 100 }}
+        animate={{
+          opacity: isInView ? 1 : 0,
+          x: isInView ? 0 : (imageOnLeft ? -50 : 50),
+        }}
+        transition={{ duration: 1.2, ease: easePremium }}
+        className="relative w-full lg:w-[55%] h-[40vh] lg:h-[55vh] p-3 lg:p-6"
+      >
+        <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
+          {/* Image */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              scale: isActive ? 1.05 : 1,
+            }}
+            transition={{
+              duration: 20,
+              ease: "linear",
+            }}
+            style={{ scale: kenBurnsScale }}
+          >
+            <Image
+              src={stepImages[step.icon] || "/images/hero/hero-poster.webp"}
+              alt={step.title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className={`object-cover transition-all duration-1000 ${
+                imageLoaded ? "opacity-100 brightness-100" : "opacity-0 brightness-75"
+              } ${isActive ? "brightness-110" : ""}`}
+              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
+            />
+          </motion.div>
+
+          {/* Image Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+          
+          {/* Border Glow */}
+          <motion.div
+            animate={{
+              opacity: isActive ? 1 : 0.5,
+            }}
+            className="absolute inset-0 rounded-3xl ring-1 ring-white/20 pointer-events-none"
+          />
+
+          {/* Image Placeholder */}
+          {!imageLoaded && (
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
+          )}
+        </div>
+      </motion.div>
+
+      {/* Content Section */}
+      <motion.div
+        initial={{ opacity: 0, x: imageOnLeft ? 100 : -100 }}
+        animate={{
+          opacity: isInView ? 1 : 0,
+          x: isInView ? 0 : (imageOnLeft ? 50 : -50),
+        }}
+        transition={{ duration: 1.2, delay: 0.2, ease: easePremium }}
+        className="relative w-full lg:w-[45%] p-4 lg:p-8 flex flex-col justify-center"
+      >
+        {/* Step Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="inline-flex items-center gap-2 mb-3"
+        >
+          <div className="relative">
+            <div className="absolute inset-0 bg-primary/40 rounded-full blur-md" />
+            <div className="relative w-3 h-3 rounded-full bg-primary" />
+          </div>
+          <span className="text-sm font-bold text-primary tracking-[0.3em]">
+            STEP {step.step}
+          </span>
+        </motion.div>
+
+        {/* Title */}
+        <motion.h3
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight leading-tight"
+        >
+          {step.title}
+        </motion.h3>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4"
+        >
+          {step.description}
+        </motion.p>
+
+        {/* Highlights */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-wrap gap-2 mb-4"
+        >
+          {step.highlights.map((highlight: string, i: number) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.7 + i * 0.1 }}
+              className="px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-xs font-medium text-gray-900 dark:text-gray-100"
+            >
+              {highlight}
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Process Time */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="flex items-center gap-2"
+        >
+          <div className="flex items-center gap-1.5">
+            <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+              {step.processTime}
+            </span>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden max-w-[120px]">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: isActive ? 1 : 0 }}
+              transition={{ duration: 1.5, delay: 0.5 }}
+              className="h-full bg-gradient-to-r from-primary to-primary-hover rounded-full"
+              style={{ transformOrigin: "left" }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Icon */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.5 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="mt-6 w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 flex items-center justify-center text-primary"
+        >
+          {iconMap[step.icon]}
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+// ─── Section Divider ─────────────────────────────────────────
+
+const SectionDivider = () => (
+  <div className="relative h-24 w-full overflow-hidden">
+    <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+    <motion.div
+      className="absolute inset-x-0 top-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent blur-sm"
+      animate={{
+        scaleX: [0, 1, 0],
+        opacity: [0, 1, 0],
+      }}
+      transition={{
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      style={{ transformOrigin: "center" }}
+    />
+  </div>
+);
+
+// ─── Final Success Section ───────────────────────────────────
+
+const FinalSuccessSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const qualityBadges = [
+    "BIS Certified",
+    "ISO 9001",
+    "Premium Quality",
+    "Eco-Friendly",
+  ];
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 60 }}
+      animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 60 }}
+      transition={{ duration: 1.2, ease: easePremium }}
+      className="relative mt-36 lg:mt-48"
+    >
+      <FloatingParticles />
+      
+      {/* Large Background Glow */}
+      <div className="absolute inset-0 bg-gradient-radial from-primary/30 via-transparent to-transparent pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-32">
+        {/* Glass Container */}
+        <div className="relative rounded-[2.5rem] overflow-hidden bg-white/70 dark:bg-white/10 backdrop-blur-2xl border border-white/40 dark:border-white/20 shadow-2xl">
+          {/* Inner Glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent pointer-events-none" />
+
+          <div className="relative px-8 py-20 lg:px-16 lg:py-28 text-center">
+            {/* Success Icon */}
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: isInView ? 1 : 0, rotate: isInView ? 0 : -180 }}
+              transition={{ duration: 1.2, delay: 0.2, ease: easePremium }}
+             className="flex justify-center mb-12"
+           >
+             <div className="relative">
+               {/* Pulsing Glow */}
+               <motion.div
+                 animate={{
+                   scale: [1, 1.5, 1],
+                   opacity: [0.4, 0.7, 0.4],
+                 }}
+                 transition={{
+                   duration: 3,
+                   repeat: Infinity,
+                   ease: "easeInOut",
+                 }}
+                 className="absolute inset-0 bg-primary/60 rounded-full blur-3xl"
+               />
+               
+               {/* Icon Container */}
+               <div className="relative w-28 h-28 lg:w-36 lg:h-36 rounded-full bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-2xl shadow-primary/60">
+                  <svg className="w-12 h-12 lg:w-16 lg:h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Title */}
+            <motion.h3
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight"
+            >
+              Manufacturing Excellence
+            </motion.h3>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-14"
+            >
+              {manufacturingProcess.bottomStatement}
+            </motion.p>
+
+            {/* Quality Badges */}
+            <motion.div
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.15,
+                    delayChildren: 0.7,
+                  },
+                },
+              }}
+              className="flex flex-wrap items-center justify-center gap-4 lg:gap-6"
+            >
+              {qualityBadges.map((badge, i) => (
+                <motion.div
+                  key={badge}
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.8, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                      transition: { duration: 0.7, ease: easePremium },
+                    },
+                  }}
+                  className="relative group"
+                >
+                  {/* Glow Border */}
+                  <div className="absolute -inset-[1px] bg-gradient-to-r from-primary/50 via-primary/30 to-primary/50 rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Badge */}
+                  <div className="relative px-7 py-4 rounded-2xl bg-white/95 dark:bg-white/15 backdrop-blur-xl border border-white/50 dark:border-white/25 shadow-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-sm md:text-base font-bold text-gray-900 dark:text-white tracking-tight">
+                        {badge}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Hover Glow */}
+                  <div className="absolute -inset-2 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Process Time Summary */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+              transition={{ duration: 1, delay: 1.2 }}
+              className="mt-12 inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20"
+            >
+              <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span className="text-lg font-bold text-gray-900 dark:text-white">
+                Complete Process: {manufacturingProcess.processTime}
+              </span>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
 };
 
 // ─── Main Component ──────────────────────────────────────────
@@ -99,12 +601,21 @@ const stepImages: Record<string, string> = {
 export default function ManufacturingProcess() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [revealedSteps, setRevealedSteps] = useState<Set<number>>(new Set());
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [revealedSteps, setRevealedSteps] = useState<Set<number>>(new Set([0]));
+  const activeStepRef = useRef<number>(0);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
+
+  const smoothScrollProgress = useSpring(scrollYProgress, {
+    damping: 30,
+    stiffness: 100,
+  });
+
+  const prefersReducedMotion = useReducedMotion();
 
   // Responsive check
   useEffect(() => {
@@ -114,155 +625,145 @@ export default function ManufacturingProcess() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Intersection Observer
+  // Scroll-based active step tracking (more reliable than IntersectionObserver)
   useEffect(() => {
     const container = sectionRef.current;
     if (!container) return;
 
-    const cards = container.querySelectorAll("[data-step-index]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = parseInt(entry.target.getAttribute("data-step-index") || "0");
-            setRevealedSteps((prev) => new Set(prev).add(idx));
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "-60px" }
-    );
+    const handleScroll = () => {
+      const cards = container.querySelectorAll("[data-step-index]");
+      const cardArray = Array.from(cards);
+      let maxIdx = activeStepRef.current;
+      const windowHeight = window.innerHeight;
 
-    cards.forEach((c) => observer.observe(c));
-    return () => observer.disconnect();
-  }, []);
+      cardArray.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        // Check if card is in viewport (at least partially visible)
+        if (rect.top < windowHeight * 0.85 && rect.bottom > windowHeight * 0.15) {
+          const idx = parseInt(card.getAttribute("data-step-index") || "0");
+          if (idx > maxIdx) {
+            maxIdx = idx;
+          }
+        }
+      });
+
+      if (maxIdx !== activeStepRef.current) {
+        activeStepRef.current = maxIdx;
+        setActiveStep(maxIdx);
+      }
+    };
+
+    // Initial check
+    handleScroll();
+
+    // Listen to scroll events with throttling
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isMobile]);
+
+  // Keep ref in sync
+  useEffect(() => {
+    activeStepRef.current = activeStep;
+  }, [activeStep]);
 
   const steps = manufacturingProcess.steps;
-  const leftSteps = steps.filter((_, i) => i % 2 === 0);
-  const rightSteps = steps.filter((_, i) => i % 2 === 1);
 
-  // ─── Background ──────────────────────────────────────────────
-  const Background = () => (
-    <>
-      <div className="absolute inset-0 bg-gradient-radial from-primary/[0.08] via-transparent to-transparent pointer-events-none" />
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316A34A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E/svg%3E")`,
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-transparent to-transparent pointer-events-none" />
-    </>
+  // Reveal all steps so they render properly
+  const derivedRevealedSteps = useMemo(() => {
+    const set = new Set<number>();
+    steps.forEach((_, idx) => set.add(idx));
+    return set;
+  }, [steps]);
+
+  // ─── Mobile Layout ──────────────────────────────────────────
+  const MobileLayout = () => (
+    <div className="relative max-w-2xl mx-auto px-4">
+      <div className="flex flex-col gap-16">
+        {steps.map((step, idx) => {
+          const isRevealed = derivedRevealedSteps.has(idx);
+          const isActive = activeStep === idx && isRevealed;
+
+          return (
+            <div
+              key={step.step}
+              data-step-index={idx}
+              className="relative"
+            >
+              <PremiumStoryCard
+                step={step}
+                index={idx}
+                isRevealed={isRevealed}
+                isActive={isActive}
+                imageOnLeft={idx % 2 === 0}
+              />
+              {/* Mobile Divider */}
+              {idx < steps.length - 1 && <SectionDivider />}
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 
-  // ─── Single Step Card ────────────────────────────────────────
-  const StepCard = ({
-    step,
-    index,
-    globalIndex,
-  }: {
-    step: (typeof steps)[0];
-    index: number;
-    globalIndex: number;
-  }) => {
-    const imageUrl = stepImages[step.icon] || "/images/hero/hero-poster.webp";
-    const isRevealed = revealedSteps.has(globalIndex);
+  // ─── Desktop Layout ─────────────────────────────────────────
+  const DesktopLayout = () => (
+    <div className="relative max-w-7xl mx-auto">
+      {steps.map((step, idx) => {
+        const isRevealed = derivedRevealedSteps.has(idx);
+        const isActive = activeStep === idx && isRevealed;
+        const imageOnLeft = idx % 2 === 0;
 
-    return (
-      <motion.div
-        data-step-index={globalIndex}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{
-          opacity: isRevealed ? 1 : 0.5,
-          y: isRevealed ? 0 : 20,
-        }}
-        transition={{
-          duration: 0.9,
-          ease: easePremium,
-          delay: globalIndex * 0.08,
-        }}
-        whileHover={{
-          y: -6,
-          transition: { duration: 0.4, ease: easePremium },
-        }}
-        className="group relative w-[92%] max-w-[420px] mx-auto rounded-[24px] overflow-hidden border border-green-500/25 bg-white/70 dark:bg-white/5 backdrop-blur-xl shadow-lg hover:shadow-green-lg transition-all duration-500"
-      >
-        {/* Image - 16:9 */}
-        <div className="relative w-full aspect-video overflow-hidden">
-          <Image
-            src={imageUrl}
-            alt={step.title}
-            fill
-            sizes="(max-width: 1024px) 92vw, 420px"
-            className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
-            loading="lazy"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-
-          {/* Step badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{
-              opacity: isRevealed ? 1 : 0.6,
-              scale: 1,
-            }}
-            transition={{ duration: 0.5, delay: globalIndex * 0.08 + 0.2 }}
-            className="absolute top-3 left-3 z-20"
+        return (
+          <div
+            key={step.step}
+            data-step-index={idx}
+            className="relative"
           >
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 dark:bg-black/60 backdrop-blur-md border border-primary/40 shadow-lg">
-              <span className="text-[11px] font-bold text-primary tracking-widest">
-                STEP {step.step}
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Icon */}
-          <motion.div
-            initial={{ opacity: 0, rotate: -90 }}
-            animate={{
-              opacity: isRevealed ? 1 : 0.7,
-              rotate: 0,
-            }}
-            transition={{ duration: 0.6, delay: globalIndex * 0.08 + 0.3, ease: easePremium }}
-            className="absolute bottom-3 right-3 z-20"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-white shadow-lg">
-              {iconMap[step.icon]}
-            </div>
-          </motion.div>
-
-          {/* Ken Burns zoom overlay */}
-          <motion.div
-            className="absolute inset-0 bg-black/10 dark:bg-black/20 group-hover:bg-black/0 transition-colors duration-500 z-10"
-          />
-        </div>
-
-        {/* Content */}
-        <div className="p-5 md:p-6">
-          <h3 className="text-[17px] font-bold text-gray-900 dark:text-white mb-1.5 tracking-tight">
-            {step.title}
-          </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
-            {step.description}
-          </p>
-        </div>
-
-        {/* Green glow on hover */}
-        <div className="absolute inset-0 rounded-[24px] opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none shadow-[inset_0_0_50px_rgba(22,163,74,0.12)]" />
-      </motion.div>
-    );
-  };
+            <PremiumStoryCard
+              step={step}
+              index={idx}
+              isRevealed={isRevealed}
+              isActive={isActive}
+              imageOnLeft={imageOnLeft}
+            />
+            {/* Desktop Divider */}
+            {idx < steps.length - 1 && <SectionDivider />}
+          </div>
+        );
+      })}
+    </div>
+  );
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-36 lg:py-44 overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-black dark:to-gray-950"
     >
-      <Background />
+      {/* Background Effects */}
+      <MouseGlow />
+      <FloatingParticles />
+      
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316A34A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E/svg%3E")`,
+        }}
+      />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        {/* ─── Section Header ─────────────────────────────── */}
-        <div className="text-center mb-14 md:mb-24">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+          {/* ─── Section Header ─────────────────────────────── */}
+          <div className="text-center mb-24 md:mb-32 lg:mb-40">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -308,194 +809,11 @@ export default function ManufacturingProcess() {
           </motion.p>
         </div>
 
-        {/* ─── Mobile: Single Column Timeline ────────────── */}
-        {isMobile && (
-          <div className="relative">
-            {/* Mobile vertical timeline */}
-            <div className="absolute left-[22px] top-2 bottom-2 w-[2px] z-0">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
-            </div>
+        {/* ─── Manufacturing Stages ───────────────────────── */}
+        {isMobile ? <MobileLayout /> : <DesktopLayout />}
 
-            <div className="flex flex-col items-center gap-10">
-              {steps.map((step, idx) => (
-                <div key={step.step} className="relative w-full flex items-center">
-                  {/* Dot on timeline */}
-                  <div className="absolute left-[22px] -translate-x-1/2 z-10">
-                    {revealedSteps.has(idx) ? (
-                      <motion.div
-                        className="w-4 h-4 rounded-full bg-gradient-to-br from-primary to-primary-hover shadow-[0_0_16px_rgba(22,163,74,0.7)]"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.5, ease: easePremium }}
-                      >
-                        <div className="absolute inset-1 rounded-full bg-white/80" />
-                      </motion.div>
-                    ) : (
-                      <div className="w-4 h-4 rounded-full bg-gray-400 dark:bg-gray-500 shadow-md" />
-                    )}
-                  </div>
-
-                  {/* Card - offset to make room for timeline */}
-                  <div className="ml-12 flex-1">
-                    <StepCard step={step} index={idx} globalIndex={idx} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ─── Desktop: Two-Column Timeline ──────────────── */}
-        {!isMobile && (
-          <div className="relative max-w-6xl mx-auto">
-            {/* Center timeline line with scroll-based drawing */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-[2px] z-0">
-              {/* Subtle glow */}
-              <div className="absolute inset-0 bg-primary/25 blur-md dark:block hidden" />
-              {/* Animated line that draws on scroll */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-transparent via-primary to-transparent origin-top"
-                style={{ scaleY: scrollYProgress }}
-              />
-            </div>
-
-            {/* Two-column grid */}
-            <div className="grid grid-cols-2 gap-x-12 lg:gap-x-16">
-              {/* Left Column - even steps */}
-              <div className="flex flex-col gap-10 md:gap-12 lg:gap-16">
-                {leftSteps.map((step, i) => {
-                  const globalIndex = i * 2;
-                  return (
-                    <div key={step.step} className="relative flex flex-col items-center">
-                      {/* Step card */}
-                      <StepCard step={step} index={i} globalIndex={globalIndex} />
-
-                      {/* Center dot */}
-                      <div className="absolute right-0 translate-x-[calc(50%+12px)] top-1/2 -translate-y-1/2 z-10">
-                        {revealedSteps.has(globalIndex) && (
-                          <motion.div
-                            className="absolute -inset-4 rounded-full bg-primary/20"
-                            animate={{
-                              scale: [1, 1.6, 1],
-                              opacity: [0.3, 0.6, 0.3],
-                            }}
-                            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                          />
-                        )}
-                        <div
-                          className={`relative w-5 h-5 rounded-full z-10 ${
-                            revealedSteps.has(globalIndex)
-                              ? "bg-gradient-to-br from-primary to-primary-hover shadow-[0_0_22px_rgba(22,163,74,0.8)]"
-                              : "bg-gray-400 dark:bg-gray-500"
-                          }`}
-                        >
-                          <div className="absolute inset-1 rounded-full bg-white/80 dark:bg-white/90" />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Right Column - odd steps */}
-              <div className="flex flex-col gap-10 md:gap-12 lg:gap-16">
-                {rightSteps.map((step, i) => {
-                  const globalIndex = i * 2 + 1;
-                  return (
-                    <div key={step.step} className="relative flex flex-col items-center">
-                      {/* Step card */}
-                      <StepCard step={step} index={i} globalIndex={globalIndex} />
-
-                      {/* Center dot */}
-                      <div className="absolute left-0 -translate-x-[calc(50%+12px)] top-1/2 -translate-y-1/2 z-10">
-                        {revealedSteps.has(globalIndex) && (
-                          <motion.div
-                            className="absolute -inset-4 rounded-full bg-primary/20"
-                            animate={{
-                              scale: [1, 1.6, 1],
-                              opacity: [0.3, 0.6, 0.3],
-                            }}
-                            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                          />
-                        )}
-                        <div
-                          className={`relative w-5 h-5 rounded-full z-10 ${
-                            revealedSteps.has(globalIndex)
-                              ? "bg-gradient-to-br from-primary to-primary-hover shadow-[0_0_22px_rgba(22,163,74,0.8)]"
-                              : "bg-gray-400 dark:bg-gray-500"
-                          }`}
-                        >
-                          <div className="absolute inset-1 rounded-full bg-white/80 dark:bg-white/90" />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ─── Bottom CTA ───────────────────────────────── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easePremium } },
-          }}
-          className="mt-20 md:mt-28"
-        >
-          <div className="max-w-3xl mx-auto text-center">
-            {/* Premium badge */}
-            <div className="inline-flex items-center justify-center mb-6">
-              <div className="relative p-[2px] rounded-full bg-gradient-to-r from-primary/40 via-primary/25 to-primary/40">
-                <div className="px-7 py-2.5 rounded-full bg-black/50 dark:bg-black/60 backdrop-blur-sm">
-                  <span className="text-[13px] font-bold text-primary tracking-widest uppercase">
-                    Manufacturing Complete
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Quality icon */}
-            <div className="flex justify-center mb-5">
-              <div className="w-14 h-14 rounded-full bg-primary/15 dark:bg-primary/20 backdrop-blur-sm border border-primary/30 flex items-center justify-center shadow-lg shadow-primary/15">
-                <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-            </div>
-
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
-              {manufacturingProcess.bottomStatement}
-            </p>
-
-            {/* Quality badges */}
-            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
-              {[
-                "Made with Precision",
-                "Tested for Quality",
-                "Delivered with Confidence",
-              ].map((badge, i) => (
-                <motion.div
-                  key={badge}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={viewportOnce}
-                  transition={{ delay: 0.6 + i * 0.12, duration: 0.5, ease: easePremium }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/[0.07] dark:bg-primary/10 border border-primary/15 dark:border-primary/20"
-                >
-                  <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-[13px] font-medium text-gray-700 dark:text-gray-300">{badge}</span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+        {/* ─── Final Success Section ─────────────────────── */}
+        <FinalSuccessSection />
       </div>
     </section>
   );

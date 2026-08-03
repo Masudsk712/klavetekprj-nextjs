@@ -121,7 +121,7 @@ export default function ProductShowcase() {
   };
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden">
+     <section className="relative py-28 md:py-36 lg:py-40 overflow-hidden">
       {/* Premium radial green glow background */}
       <div className="absolute inset-0 bg-gradient-radial from-primary/[0.08] via-transparent to-transparent pointer-events-none" />
 
@@ -136,13 +136,17 @@ export default function ProductShowcase() {
       {/* Soft gradient lighting */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-transparent to-transparent pointer-events-none" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <SectionHeader
-          title={products.title}
-          subtitle={products.subtitle}
-        />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+          <SectionHeader
+            title={products.title}
+            subtitle={products.subtitle}
+          />
 
-        <motion.div
+          <motion.div
+            className="mb-16"
+          ></motion.div>
+          
+          <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -343,9 +347,9 @@ export default function ProductShowcase() {
           </motion.div>
         </motion.div>
 
-        {/* Product Tabs */}
-        <motion.div
-          className="mt-16 relative"
+         {/* Product Tabs */}
+         <motion.div
+           className="mt-20 relative"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}

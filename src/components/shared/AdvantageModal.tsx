@@ -51,82 +51,103 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            className="absolute inset-0 bg-black/75 backdrop-blur-lg"
             onClick={onClose}
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            className="relative overflow-hidden bg-white dark:bg-gray-900 backdrop-blur-2xl shadow-2xl border border-green-500/20"
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="relative overflow-hidden shadow-2xl border border-white/10"
             style={{
-              width: "min(92vw, 1000px)",
-              maxHeight: "650px",
+              width: "min(94vw, 1200px)",
+              maxWidth: "1200px",
               borderRadius: "32px",
+              backgroundColor: "#0F172A",
+              boxShadow: "0 0 0 1px rgba(255, 255, 255, 0.1), 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 100px -20px rgba(34, 197, 94, 0.3)",
             }}
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 flex items-center justify-center hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 shadow-lg hover:scale-110"
+              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110 shadow-lg group"
+              aria-label="Close modal"
             >
-              <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              <X className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-90" />
             </button>
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-              {/* Left Side - Feature Image (45%) */}
-              <div className="relative h-[280px] sm:h-[320px] lg:h-full lg:w-[45%] flex-shrink-0 overflow-hidden">
-                <Image
-                  src={advantage.image}
-                  alt={advantage.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  priority
-                  unoptimized
-                />
-                {/* Green Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent lg:bg-gradient-to-r" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 h-full">
+              {/* Left Side - Feature Image (40-45%) */}
+              <div className="relative lg:col-span-5 h-[280px] sm:h-[320px] lg:h-auto overflow-hidden lg:rounded-l-[32px]">
+                <motion.div
+                  initial={{ scale: 1.05 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={advantage.image}
+                    alt={advantage.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    priority
+                    unoptimized
+                  />
+                </motion.div>
+                {/* Dark Gradient Overlay at bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 {/* Green Tint Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-900/40 via-transparent to-transparent mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-900/30 via-transparent to-transparent mix-blend-overlay" />
                 
                 {/* Floating Badge */}
                 <div className="absolute bottom-8 left-8 z-10">
-                  <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl"
+                  >
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
                     <span className="text-white font-semibold text-sm tracking-wide">
                       {advantage.title}
                     </span>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
 
-              {/* Right Side - Content (55%) */}
-              <div className="p-8 sm:p-10 lg:p-12 flex flex-col overflow-y-auto lg:overflow-hidden">
+              {/* Right Side - Content (55-60%) */}
+              <div className="lg:col-span-7 p-8 sm:p-12 lg:p-16 flex flex-col overflow-y-auto">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                  className="flex flex-col h-full"
+                  transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+                  className="flex flex-col h-full max-w-2xl"
                 >
                   {/* Title */}
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight tracking-tight">
                     {advantage.title}
                   </h2>
 
                   {/* Divider */}
-                  <div className="w-20 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mb-6" />
+                  <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mb-8 shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
 
-                  {/* Brochure Content - Exact text only */}
-                  <div className="space-y-4 flex-grow">
+                  {/* Brochure Content */}
+                  <div className="space-y-5 flex-grow">
                     {contentLines.map((line, index) => (
-                      <p key={index} className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                      <motion.p
+                        key={index}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 + (index * 0.1), duration: 0.5, ease: "easeOut" }}
+                        className="text-base sm:text-lg text-slate-300 leading-relaxed"
+                      >
                         {line}
-                      </p>
+                      </motion.p>
                     ))}
                   </div>
                 </motion.div>

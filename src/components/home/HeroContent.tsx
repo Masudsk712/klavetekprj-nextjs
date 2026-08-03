@@ -9,7 +9,7 @@ import HeroBadges from "./HeroBadges";
 export default function HeroContent() {
   return (
     <Container>
-      <div className="relative z-50 py-12 md:py-16 lg:py-20">
+      <div className="relative z-50 py-16 md:py-20 lg:py-24">
 
         {/* LEFT CONTENT */}
 
@@ -59,25 +59,25 @@ export default function HeroContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9, duration: 1 }}
-            className="mt-14 flex flex-wrap items-center gap-6 text-sm font-medium text-accent-glow"
+            className="mt-16 flex flex-wrap items-center gap-6 text-sm font-medium text-accent-glow"
           >
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
-                <ShieldCheck size={16} className="text-accent-glow" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg">
+                <ShieldCheck size={17} className="text-accent-glow" />
               </div>
-              <span>ISO Certified</span>
+              <span className="font-semibold">ISO Certified</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
-                <Leaf size={16} className="text-accent-glow" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg">
+                <Leaf size={17} className="text-accent-glow" />
               </div>
-              <span>Eco Friendly</span>
+              <span className="font-semibold">Eco Friendly</span>
             </div>
             <div className="hidden items-center gap-2.5 md:flex">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
-                <Truck size={16} className="text-accent-glow" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 backdrop-blur-md border border-white/20 shadow-lg">
+                <Truck size={17} className="text-accent-glow" />
               </div>
-              <span>PAN India Delivery</span>
+              <span className="font-semibold">PAN India Delivery</span>
             </div>
           </motion.div>
 
