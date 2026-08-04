@@ -457,27 +457,27 @@ const FinalSuccessSection = () => {
       initial={{ opacity: 0, y: 60 }}
       animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 60 }}
       transition={{ duration: 1.2, ease: easePremium }}
-      className="relative mt-36 lg:mt-48"
+      className="relative mt-24 lg:mt-32"
     >
       <FloatingParticles />
       
-      {/* Large Background Glow */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/30 via-transparent to-transparent pointer-events-none" />
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-32">
+      <div className="relative max-w-4xl md:max-w-5xl lg:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6">
         {/* Glass Container */}
-        <div className="relative rounded-[2.5rem] overflow-hidden bg-white/70 dark:bg-white/10 backdrop-blur-2xl border border-white/40 dark:border-white/20 shadow-2xl">
+        <div className="relative rounded-[28px] overflow-hidden bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/40 dark:border-white/20 shadow-xl">
           {/* Inner Glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
 
-          <div className="relative px-8 py-20 lg:px-16 lg:py-28 text-center">
+          <div className="relative px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-6 text-center">
             {/* Success Icon */}
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: isInView ? 1 : 0, rotate: isInView ? 0 : -180 }}
               transition={{ duration: 1.2, delay: 0.2, ease: easePremium }}
-             className="flex justify-center mb-12"
-           >
+             className="flex justify-center mb-2 sm:mb-3"
+            >
              <div className="relative">
                {/* Pulsing Glow */}
                <motion.div
@@ -490,12 +490,12 @@ const FinalSuccessSection = () => {
                    repeat: Infinity,
                    ease: "easeInOut",
                  }}
-                 className="absolute inset-0 bg-primary/60 rounded-full blur-3xl"
+               className="absolute inset-0 bg-primary/60 rounded-full blur-2xl"
                />
                
                {/* Icon Container */}
-               <div className="relative w-28 h-28 lg:w-36 lg:h-36 rounded-full bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-2xl shadow-primary/60">
-                  <svg className="w-12 h-12 lg:w-16 lg:h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="relative w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-md shadow-primary/60">
+                  <svg className="w-7 h-7 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -507,7 +507,7 @@ const FinalSuccessSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
               transition={{ duration: 1, delay: 0.4 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight"
+              className="text-sm md:text-base lg:text-lg font-bold text-gray-900 dark:text-white mb-1.5 tracking-tight"
             >
               Manufacturing Excellence
             </motion.h3>
@@ -517,7 +517,7 @@ const FinalSuccessSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-14"
+              className="text-xs text-gray-700 dark:text-gray-300 max-w-xl mx-auto leading-relaxed mb-2 tracking-tight"
             >
               {manufacturingProcess.bottomStatement}
             </motion.p>
@@ -536,7 +536,7 @@ const FinalSuccessSection = () => {
                   },
                 },
               }}
-              className="flex flex-wrap items-center justify-center gap-4 lg:gap-6"
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4"
             >
               {qualityBadges.map((badge, i) => (
                 <motion.div
@@ -556,9 +556,9 @@ const FinalSuccessSection = () => {
                   <div className="absolute -inset-[1px] bg-gradient-to-r from-primary/50 via-primary/30 to-primary/50 rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   {/* Badge */}
-                  <div className="relative px-7 py-4 rounded-2xl bg-white/95 dark:bg-white/15 backdrop-blur-xl border border-white/50 dark:border-white/25 shadow-xl">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-lg">
+                  <div className="relative px-5 py-3 sm:px-6 sm:py-3.5 rounded-2xl bg-white/95 dark:bg-white/15 backdrop-blur-xl border border-white/50 dark:border-white/25 shadow-lg">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center shadow-lg">
                         <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                         </svg>
@@ -570,7 +570,7 @@ const FinalSuccessSection = () => {
                   </div>
 
                   {/* Hover Glow */}
-                  <div className="absolute -inset-2 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                  <div className="absolute -inset-1.5 bg-gradient-to-r from-primary/0 via-primary/30 to-primary/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
                 </motion.div>
               ))}
             </motion.div>
@@ -580,12 +580,12 @@ const FinalSuccessSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
               transition={{ duration: 1, delay: 1.2 }}
-              className="mt-12 inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20"
+               className="mt-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20"
             >
               <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              <span className="text-lg font-bold text-gray-900 dark:text-white">
+              <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
                 Complete Process: {manufacturingProcess.processTime}
               </span>
             </motion.div>
@@ -748,22 +748,25 @@ export default function ManufacturingProcess() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 md:py-36 lg:py-44 overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-black dark:to-gray-950"
+      className="relative py-24 md:py-32 overflow-hidden"
     >
-      {/* Background Effects */}
-      <MouseGlow />
-      <FloatingParticles />
+      {/* Premium radial green glow background */}
+      <div className="absolute inset-0 bg-gradient-radial from-primary/[0.08] via-transparent to-transparent pointer-events-none" />
       
-      {/* Subtle texture overlay */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none"
+      {/* Subtle grid texture */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316A34A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316A34A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+      {/* Soft gradient lighting */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-transparent to-transparent pointer-events-none" />
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
           {/* ─── Section Header ─────────────────────────────── */}
-          <div className="text-center mb-24 md:mb-32 lg:mb-40">
+          <div className="text-center mb-16 md:mb-20 lg:mb-24">
           <motion.div
             initial="hidden"
             whileInView="visible"
