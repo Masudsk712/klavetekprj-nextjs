@@ -2,31 +2,73 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Image, Play, X } from "lucide-react";
+import { Image, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { galleryData } from "@/data/gallery";
 import { easePremium, viewportOnce, staggerContainerFast } from "@/lib/animations";
 
 const containerVariants = {
  hidden: {},
  visible: {
- transition: { staggerChildren: 0.08, delayChildren: 0.05 },
- },
+  transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+  },
 };
 
 const itemVariants = {
- hidden: { opacity: 0, y: 30 },
- visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easePremium } },
+ hidden: { opacity: 0, y: 30, scale: 0.95 },
+ visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: easePremium } },
 };
+
+const categoryImages: Record<string, string> = {
+ factory: "/images/features/Lightweight.webp",
+ machinery: "/images/features/Eco-Friendly.webp",
+ production: "/images/features/EnergySavingThermalInsulation.webp",
+ projects: "/images/features/fire-resistant.webp",
+ construction: "/images/features/Noise-Resistant.webp",
+ videos: "/images/features/Pest-Resistant.webp",
+};
+
+const gradientPresets = [
+ "from-emerald-900/50 via-green-900/40 to-slate-900/50",
+ "from-green-900/50 via-emerald-900/40 to-slate-900/50",
+ "from-teal-900/50 via-green-900/40 to-slate-900/50",
+ "from-lime-900/50 via-green-900/40 to-slate-900/50",
+];
 
 export default function GalleryGrid() {
  const [activeCategory, setActiveCategory] = useState(galleryData.categories[0].id);
- const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string; title: string; isVideo?: boolean } | null>(null);
+ const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+ const [direction, setDirection] = useState(0);
 
  const activeCategoryData = galleryData.categories.find((c) => c.id === activeCategory);
+ const selectedImage = selectedImageIndex !== null ? activeCategoryData?.images[selectedImageIndex] : null;
+
+ const openLightbox = (index: number) => {
+ setSelectedImageIndex(index);
+ };
+
+ const closeLightbox = () => {
+ setSelectedImageIndex(null);
+ };
+
+ const goToPrevious = () => {
+ if (!activeCategoryData || selectedImageIndex === null) return;
+ setDirection(-1);
+ setSelectedImageIndex((selectedImageIndex - 1 + activeCategoryData.images.length) % activeCategoryData.images.length);
+ };
+
+ const goToNext = () => {
+ if (!activeCategoryData || selectedImageIndex === null) return;
+ setDirection(1);
+ setSelectedImageIndex((selectedImageIndex + 1) % activeCategoryData.images.length);
+ };
 
  return (
  <section className="relative py-24 md:py-32 bg-[var(--secondary-bg)] overflow-hidden">
  <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-transparent to-transparent pointer-events-none" />
+ 
+ {/* Background decorative elements */}
+ <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+ <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary-hover/5 rounded-full blur-3xl pointer-events-none" />
 
  <div className="mx-auto max-w-7xl px-6 lg:px-10">
  {/* Category Tabs */}
@@ -34,36 +76,49 @@ export default function GalleryGrid() {
  initial={{ opacity: 0, y: 20 }}
  whileInView={{ opacity: 1, y: 0 }}
  viewport={viewportOnce}
- className="flex flex-wrap gap-2 mb-6"
+ className="flex flex-wrap gap-2 mb-8"
  >
- {galleryData.categories.map((category) => (
+ {galleryData.categories.map((category, idx) => (
  <motion.button
  key={category.id}
- onClick={() => setActiveCategory(category.id)}
- whileHover={{ scale: 1.04 }}
- whileTap={{ scale: 0.96 }}
- transition={{ type: "spring", stiffness: 350, damping: 20 }}
- className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
+ onClick={() => { setActiveCategory(category.id); setSelectedImageIndex(null); }}
+ whileHover={{ scale: 1.05 }}
+ whileTap={{ scale: 0.95 }}
+ transition={{ type: "spring", stiffness: 400, damping: 20 }}
+ className={`relative px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 border ${
  activeCategory === category.id
  ? "bg-primary text-white border-primary shadow-[0_12px_35px_rgba(var(--primary-rgb),0.35)]"
- : "bg-[var(--surface)] text-[var(--body-text)] border-[var(--border)] hover:border-primary/40 hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)]"
+ : "bg-[var(--surface)] text-[var(--body-text)] border-[var(--border)] hover:border-primary/40 hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)]"
  }`}
  >
  {category.title}
+ {activeCategory === category.id && (
+ <motion.div
+ layoutId="activeTab"
+ className="absolute inset-0 rounded-full bg-primary shadow-[0_12px_35px_rgba(var(--primary-rgb),0.35)] -z-10"
+ transition={{ type: "spring", stiffness: 300, damping: 30 }}
+ />
+ )}
  </motion.button>
  ))}
  </motion.div>
 
  {/* Category Description */}
  {activeCategoryData && (
- <motion.p
+ <motion.div
  key={activeCategoryData.id}
- initial={{ opacity: 0 }}
- animate={{ opacity: 1 }}
- className="text-[var(--muted-text)] mb-8"
+ initial={{ opacity: 0, y: 10 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.4 }}
+ className="mb-10"
  >
+ <h3 className="text-2xl md:text-3xl font-bold text-[var(--heading)] dark:text-white mb-2">
+ {activeCategoryData.title}
+ </h3>
+ <p className="text-[var(--muted-text)] text-base md:text-lg max-w-3xl">
  {activeCategoryData.description}
- </motion.p>
+ </p>
+ </motion.div>
  )}
 
  {/* Image Grid */}
@@ -73,72 +128,144 @@ export default function GalleryGrid() {
  initial={{ opacity: 0, y: 20 }}
  animate={{ opacity: 1, y: 0 }}
  exit={{ opacity: 0, y: -20 }}
- transition={{ duration: 0.35, ease: easePremium }}
- className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+ transition={{ duration: 0.4, ease: easePremium }}
+ className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
  >
- {activeCategoryData?.images.map((image, index) => (
+{activeCategoryData?.images.map((image, index) => (
  <motion.div
  key={image.src}
  variants={itemVariants}
- whileHover={{ y: -6, scale: 1.02 }}
+ whileHover={{ y: -8, scale: 1.03 }}
  transition={{ type: "spring", stiffness: 350, damping: 20 }}
- onClick={() => setSelectedImage(image)}
- className="group relative aspect-[4/3] rounded-3xl overflow-hidden border border-primary/10 bg-[var(--surface)] shadow-[0_24px_70px_rgba(0, 0, 0,0.08)] cursor-pointer"
+ onClick={() => openLightbox(index)}
+ className="group relative aspect-[4/3] rounded-3xl overflow-hidden border border-primary/10 bg-[var(--surface)] shadow-[0_24px_70px_rgba(0, 0, 0,0.08)] cursor-pointer hover:shadow-[0_32px_90px_rgba(16,185,129,0.15)] dark:bg-[var(--surface)] dark:border-primary/25"
  >
- <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary-hover/5 transition-transform duration-700 group-hover:scale-105" />
- <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
- <div className="absolute inset-0 flex items-center justify-center">
+ {/* Background image */}
+ <div 
+ className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+ style={{ backgroundImage: `url(${categoryImages[activeCategory] || image.src})` }}
+ />
+ <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-500 group-hover:from-black/80" />
+ 
+{/* Small icon with premium styling - positioned at bottom left */}
+ <div className="absolute inset-0 flex flex-col items-start justify-end p-5 text-left">
+ <motion.div 
+ className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/15 backdrop-blur-xl flex items-center justify-center shadow-lg border border-white/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 mb-2"
+ whileHover={{ rotate: 5, scale: 1.1 }}
+ >
  {image.isVideo ? (
- <div className="w-16 h-16 rounded-full bg-[var(--surface)]/90 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
- <Play className="w-6 h-6 text-primary ml-0.5" />
- </div>
+ <Play className="w-5 h-5 md:w-6 md:h-6 text-white ml-0.5" />
  ) : (
- <div className="w-12 h-12 rounded-2xl bg-[var(--surface)]/90 backdrop-blur-md flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
- <Image className="w-6 h-6 text-primary" />
- </div>
+ <Image className="w-5 h-5 md:w-6 md:h-6 text-white" />
  )}
+ </motion.div>
+ 
+ <p className="text-white text-sm md:text-base font-semibold">{image.title}</p>
+ {image.alt && <p className="text-white/70 text-xs mt-0.5 line-clamp-1">{image.alt}</p>}
  </div>
- <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
- <span className="text-white text-sm font-medium">{image.title}</span>
- </div>
+
+ {/* Hover indicator */}
+ <motion.div
+ className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300"
+ whileHover={{ scale: 1.1 }}
+ >
+ <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+ <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+ </svg>
+ </motion.div>
+
+ {/* Corner accent */}
+ <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
  </motion.div>
  ))}
  </motion.div>
  </AnimatePresence>
 
- {/* Lightbox */}
+ {/* Lightbox with navigation */}
  <AnimatePresence>
  {selectedImage && (
  <motion.div
  initial={{ opacity: 0 }}
  animate={{ opacity: 1 }}
  exit={{ opacity: 0 }}
- onClick={() => setSelectedImage(null)}
- className="fixed inset-0 z-[2000] bg-black/80 flex items-center justify-center p-4 cursor-pointer"
+ onClick={closeLightbox}
+ className="fixed inset-0 z-[2000] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
  >
  <motion.div
- initial={{ scale: 0.9 }}
- animate={{ scale: 1 }}
- exit={{ scale: 0.9 }}
+ initial={{ scale: 0.9, opacity: 0 }}
+ animate={{ scale: 1, opacity: 1 }}
+ exit={{ scale: 0.9, opacity: 0 }}
+ transition={{ type: "spring", stiffness: 300, damping: 30 }}
  onClick={(e) => e.stopPropagation()}
- className="relative max-w-3xl w-full aspect-video rounded-3xl overflow-hidden bg-[var(--secondary-bg)]"
+ className="relative max-w-6xl w-full aspect-video md:aspect-[16/9] rounded-3xl overflow-hidden bg-[var(--secondary-bg)] shadow-[0_24px_80px_rgba(0,0,0,0.5)]"
  >
+ {/* Image placeholder with premium gradient */}
+ <div className={`absolute inset-0 bg-gradient-to-br ${gradientPresets[selectedImageIndex !== null ? selectedImageIndex % gradientPresets.length : 0]}`} />
+ <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+ 
+{/* Central icon */}
  <div className="absolute inset-0 flex items-center justify-center">
- {selectedImage.isVideo ? (
- <Play className="w-20 h-20 text-white/80" />
- ) : (
- <Image className="w-20 h-20 text-white/40" />
- )}
- </div>
- <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80">
- <h3 className="text-white text-lg font-semibold">{selectedImage.title}</h3>
- </div>
- <button
- onClick={() => setSelectedImage(null)}
- className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[var(--surface-2)]/10 flex items-center justify-center hover:bg-[var(--surface-2)]/20 transition-colors"
+ <motion.div 
+ className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-white/15 backdrop-blur-xl flex items-center justify-center shadow-lg border border-white/20"
+ initial={{ scale: 0 }}
+ animate={{ scale: 1 }}
+ transition={{ delay: 0.2, type: "spring" }}
  >
- <X className="w-5 h-5 text-white" />
- </button>
+ {selectedImage.isVideo ? (
+ <Play className="w-8 h-8 md:w-10 md:h-10 text-white ml-0.5" />
+ ) : (
+ <Image className="w-8 h-8 md:w-10 md:h-10 text-white" />
+ )}
+ </motion.div>
+ </div>
+
+ {/* Title */}
+ <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+ <h3 className="text-white text-xl md:text-2xl font-bold mb-1">{selectedImage.title}</h3>
+ {selectedImage.alt && <p className="text-white/70 text-sm">{selectedImage.alt}</p>}
+ </div>
+
+ {/* Close button */}
+ <motion.button
+ onClick={closeLightbox}
+ whileHover={{ scale: 1.1 }}
+ whileTap={{ scale: 0.9 }}
+ className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
+ >
+ <X className="w-6 h-6 text-white" />
+ </motion.button>
+
+ {/* Navigation arrows */}
+ {activeCategoryData && activeCategoryData.images.length > 1 && (
+ <>
+ <motion.button
+ onClick={(e) => { e.stopPropagation(); goToPrevious(); }}
+ whileHover={{ scale: 1.1 }}
+ whileTap={{ scale: 0.9 }}
+ className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
+ >
+ <ChevronLeft className="w-6 h-6 text-white" />
+ </motion.button>
+ 
+ <motion.button
+ onClick={(e) => { e.stopPropagation(); goToNext(); }}
+ whileHover={{ scale: 1.1 }}
+ whileTap={{ scale: 0.9 }}
+ className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
+ >
+ <ChevronRight className="w-6 h-6 text-white" />
+ </motion.button>
+ </>
+ )}
+ 
+ {/* Image counter */}
+ {activeCategoryData && (
+ <div className="absolute bottom-6 right-6 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+ <span className="text-white text-sm font-medium">
+ {selectedImageIndex !== null ? selectedImageIndex + 1 : 0} / {activeCategoryData.images.length}
+ </span>
+ </div>
+ )}
  </motion.div>
  </motion.div>
  )}
@@ -146,4 +273,4 @@ export default function GalleryGrid() {
  </div>
  </section>
  );
-}
+ }

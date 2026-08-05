@@ -27,10 +27,10 @@
  --color-navbar-glass: var(--navbar-glass);
  --color-hero-overlay: var(--hero-overlay);
 
- /* Semantic aliases */
- --color-text-primary: var(--color-body);
- --color-text-secondary: var(--color-muted);
- --color-text-heading: var(--color-heading);
+  /* Semantic aliases */
+  --color-text-primary: var(--color-body);
+  --color-text-secondary: var(--color-muted);
+  --color-text-heading: var(--color-heading);
 }
 
 :root {
@@ -100,6 +100,12 @@
  --premium-grey: #000000;
  --section-grey: #000000;
 
+ /* Premium Table Colors */
+ --color-table-row: #F8F9FA;
+ --color-table-row-alt: #FFFFFF;
+ --color-table-hover: #F1F5F9;
+ --color-table-border: rgba(15, 23, 42, 0.08);
+
  /* Radius */
  --radius-sm: 12px;
  --radius-md: 18px;
@@ -121,12 +127,12 @@
  --shadow-card-hover: 0 4px 8px rgba(0, 0, 0, 0.10), 0 24px 60px rgba(0, 0, 0, 0.16);
 }
 
-/* ====== Dark mode — Pure Black, White Text, Green Accents ONLY ====== */
+/* ====== Dark mode — Dark Grey, White Text, Green Accents ONLY ====== */
 .dark {
- --background: #000000;
- --secondary-bg: #000000;
- --surface: #000000;
- --surface-2: #FFFFFF;
+  --background: #171717;
+  --secondary-bg: #1f1f1f;
+  --surface: #171717;
+  --surface-2: #FFFFFF;
 
  --heading: #FFFFFF;
  --body-text: #FFFFFF;
@@ -135,15 +141,21 @@
  --border: rgba(255, 255, 255, 0.15);
  --border-strong: rgba(255, 255, 255, 0.25);
 
- --navbar-glass: rgba(0, 0, 0, 0.80);
- --hero-overlay: rgba(0, 0, 0, 0.55);
+  --navbar-glass: rgba(23, 23, 23, 0.80);
+  --hero-overlay: rgba(0, 0, 0, 0.55);
 
- --ink: #FFFFFF;
- --text-primary: #FFFFFF;
- --text-secondary: #FFFFFF;
- --dark-surface: #000000;
- --premium-grey: #000000;
- --section-grey: #000000;
+  --ink: #FFFFFF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #FFFFFF;
+  --dark-surface: #171717;
+  --premium-grey: #171717;
+  --section-grey: #171717;
+
+  /* Premium Table Colors — Dark Mode */
+  --color-table-row: #1E1E1E;
+  --color-table-row-alt: #252525;
+  --color-table-hover: #2F2F2F;
+  --color-table-border: rgba(255, 255, 255, 0.08);
 
  --primary: #16A34A;
  --primary-dark: #15803D;
@@ -160,13 +172,13 @@
  --primary-900: #15803D;
  --secondary: #FFFFFF;
 
- --background-rgb: 0, 0, 0;
- --surface-rgb: 0, 0, 0;
- --surface-2-rgb: 255, 255, 255;
- --heading-rgb: 255, 255, 255;
- --heading-rgb: 255, 255, 255;
- --body-text-rgb: 255, 255, 255;
- --muted-text-rgb: 255, 255, 255;
+  --background-rgb: 23, 23, 23;
+  --surface-rgb: 23, 23, 23;
+  --surface-2-rgb: 255, 255, 255;
+  --heading-rgb: 255, 255, 255;
+  --heading-rgb: 255, 255, 255;
+  --body-text-rgb: 255, 255, 255;
+  --muted-text-rgb: 255, 255, 255;
 
  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -649,4 +661,21 @@ p, li, span, div {
   background: rgba(17, 24, 39, 0.75);
   border: 1px solid rgba(22, 163, 74, 0.35);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ============ Premium Technical Specifications Table ============ */
+.spec-row {
+  transition: background-color 250ms ease;
+}
+
+.spec-row:nth-child(odd) {
+  background-color: var(--color-table-row);
+}
+
+.spec-row:nth-child(even) {
+  background-color: var(--color-table-row-alt);
+}
+
+.spec-row:hover {
+  background-color: var(--color-table-hover);
 }

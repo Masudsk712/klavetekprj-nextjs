@@ -1,29 +1,27 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import {
   Check,
+  Download,
+  ArrowRight,
+  Box,
   Ruler,
   Weight,
-  ArrowRight,
-  Download,
-  ChevronRight,
-  Box,
+  Sparkles,
 } from "lucide-react";
 import { products } from "@/data/home";
 import SectionHeader from "@/components/shared/SectionHeader";
-import GlassCard from "@/components/shared/GlassCard";
 import { easePremium, viewportOnce } from "@/lib/animations";
 
-const AUTO_PLAY_INTERVAL = 2000;
-
+// ─── Animation Variants ───────────────────────────────────
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
   },
 };
 
@@ -36,58 +34,36 @@ const itemVariants = {
   },
 };
 
-const productImageVariants = {
-  hidden: {
-    opacity: 0,
-    scale: 0.9,
-    rotateX: 15,
-    rotateY: -15,
-    y: 40,
-  },
+const headingReveal = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
-    scale: 1,
-    rotateX: 0,
-    rotateY: 0,
     y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.85,
-    rotateX: -15,
-    rotateY: 15,
-    y: -40,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
+    transition: { duration: 0.8, ease: easePremium },
   },
 };
 
-const glowVariants = {
-  idle: {
-    scale: 1,
-    opacity: 0.4,
-    transition: { duration: 3, repeat: Infinity, repeatType: "reverse" as const },
-  },
-  hover: {
-    scale: 1.15,
-    opacity: 0.7,
-    transition: { duration: 0.5 },
-  },
+// ─── Simple Fade Animation ───────────────────────────────
+const simpleFade = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: easePremium } },
+  exit: { opacity: 0, transition: { duration: 0.4 } },
 };
 
-const floatAnimation = {
-  y: [0, -12, 0],
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut" as const,
-  },
+// ─── Spec Row Animation ───────────────────────────────────
+const specRowVariants = {
+  hidden: { opacity: 0 },
+  visible: (i: number) => ({
+    opacity: 1,
+    transition: { delay: i * 0.06, duration: 0.5, ease: easePremium },
+  }),
+};
+
+// ─── Pill Selector Variants ───────────────────────────────
+const pillVariants = {
+  idle: { scale: 1 },
+  hover: { scale: 1.05 },
+  active: { scale: 1 },
 };
 
 export default function ProductShowcase() {
@@ -96,24 +72,23 @@ export default function ProductShowcase() {
   const [direction, setDirection] = useState(0);
 
   const activeProduct = products.items[activeIndex];
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  const nextProduct = useCallback(() => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % products.items.length);
-  }, []);
+  // Simple hover state
+  const [isHovered, setIsHovered] = useState(false);
 
-  const prevProduct = useCallback(() => {
-    setDirection(-1);
-    setActiveIndex((prev) =>
-      prev === 0 ? products.items.length - 1 : prev - 1
-    );
-  }, []);
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
+  // Auto-play
   useEffect(() => {
     if (isPaused) return;
-    const timer = setInterval(nextProduct, AUTO_PLAY_INTERVAL);
+    const timer = setInterval(() => {
+      setDirection(1);
+      setActiveIndex((prev) => (prev + 1) % products.items.length);
+    }, 4000);
     return () => clearInterval(timer);
-  }, [isPaused, nextProduct]);
+  }, [isPaused]);
 
   const handleProductSelect = (index: number) => {
     setDirection(index > activeIndex ? 1 : -1);
@@ -121,272 +96,280 @@ export default function ProductShowcase() {
   };
 
   return (
-     <section className="relative py-28 md:py-36 lg:py-40 overflow-hidden">
-      {/* Premium radial green glow background */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/[0.08] via-transparent to-transparent pointer-events-none" />
-
-      {/* Subtle grid texture */}
+    <section className="relative py-28 md:py-36 lg:py-40 overflow-hidden">
+      {/* ─── Background Effects ─────────────────────────── */}
+      {/* Subtle grid */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2316A34A' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Soft gradient lighting */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.04] via-transparent to-transparent pointer-events-none" />
+      {/* Green radial glow */}
+      <div className="absolute inset-0 bg-gradient-radial from-primary/[0.12] via-transparent to-transparent pointer-events-none" />
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <SectionHeader
-            title={products.title}
-            subtitle={products.subtitle}
-          />
+      {/* Soft spotlight behind product */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/20 via-primary/5 to-transparent blur-3xl opacity-60 pointer-events-none" />
 
-          <motion.div
-            className="mb-16"
-          ></motion.div>
-          
-          <motion.div
+      {/* Noise texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* ─── Main Content ──────────────────────────────── */}
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+        {/* Header */}
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          className="text-center mb-16 md:mb-20"
         >
-          {/* LEFT: Ultra Premium Product Showcase (55%) */}
-          <motion.div variants={itemVariants} className="lg:col-span-7 relative">
-            <div className="relative">
-              {/* Floating product image with glass background */}
-              <motion.div
-                className="relative z-10"
-                animate={floatAnimation}
-              >
-                <div className="relative">
-                  {/* Soft shadow */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent blur-3xl translate-y-1/2 scale-90 opacity-60" />
+          <motion.div variants={headingReveal} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">
+              Product Range
+            </span>
+          </motion.div>
 
-                  {/* Green ambient glow */}
-                  <motion.div
-                    className="absolute -inset-8 bg-gradient-to-br from-primary/40 via-accent-glow/20 to-primary/30 rounded-full blur-3xl -z-10"
-                    variants={glowVariants}
-                    initial="idle"
-                    whileHover="hover"
-                  />
+          <motion.h2
+            variants={headingReveal}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--heading)] dark:text-white mb-6 leading-tight"
+          >
+            Choose the Perfect AAC Block
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">
+              for Every Construction Need
+            </span>
+          </motion.h2>
 
-                  {/* Glass background */}
-                  <div className="relative rounded-[32px] bg-gradient-to-br from-white/10 via-white/5 to-transparent dark:from-white/10 dark:via-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 md:p-12 shadow-2xl">
-                    {/* Premium radial lighting */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent dark:from-white/20 dark:via-transparent rounded-[32px] pointer-events-none" />
+          <motion.p
+            variants={headingReveal}
+            className="text-lg md:text-xl text-[var(--body-text)] dark:text-[var(--muted-text)] max-w-3xl mx-auto leading-relaxed"
+          >
+            Precision-engineered AAC blocks available in multiple sizes to deliver
+            superior strength, thermal efficiency, and sustainable construction
+            performance.
+          </motion.p>
+        </motion.div>
 
-                    <div className="relative aspect-square flex items-center justify-center">
-                      <AnimatePresence mode="wait" custom={direction}>
+        {/* ─── Premium Glass Card ──────────────────────── */}
+        <motion.div
+          ref={cardRef}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative"
+        >
+          {/* Soft ambient glow */}
+          <div className="absolute -inset-8 bg-gradient-to-br from-primary/30 via-accent-glow/10 to-primary/20 rounded-full blur-3xl -z-10 opacity-60" />
+
+          {/* Glass card container */}
+          <motion.div
+            animate={isHovered ? { scale: 1.01 } : { scale: 1 }}
+            transition={{ duration: 0.5, ease: easePremium }}
+            className="relative rounded-[32px] bg-gradient-to-br from-white/10 via-white/5 to-transparent dark:from-white/10 dark:via-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl overflow-hidden"
+          >
+            {/* Premium lighting overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-transparent dark:from-white/15 dark:via-transparent rounded-[32px] pointer-events-none" />
+
+            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0">
+              {/* LEFT: 3D Product Display (55%) */}
+              <motion.div variants={itemVariants} className="lg:col-span-7 p-8 md:p-12 lg:p-16">
+                <div className="relative aspect-square flex items-center justify-center">
+                  {/* Floating shadow beneath product */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-gradient-to-t from-primary/30 to-transparent blur-3xl opacity-60" />
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeProduct.size}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.6, ease: easePremium }}
+                      className="relative w-full h-full flex items-center justify-center"
+                    >
+                      {/* Product image with simple hover */}
+                      <motion.div
+                        animate={isHovered ? { scale: 1.03 } : { scale: 1 }}
+                        transition={{ duration: 0.5, ease: easePremium }}
+                        className="relative w-full h-full"
+                      >
+                        <Image
+                          src={activeProduct.image}
+                          alt={activeProduct.title}
+                          fill
+                          className="object-contain"
+                          style={{ filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))" }}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 45vw"
+                          priority={activeIndex === 0}
+                          loading={activeIndex === 0 ? "eager" : "lazy"}
+                        />
+
+                        {/* Soft shadow beneath */}
+                        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-t from-primary/25 to-transparent blur-2xl opacity-50" />
+                      </motion.div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+
+              {/* RIGHT: Product Information (45%) */}
+              <motion.div variants={itemVariants} className="lg:col-span-5 p-8 md:p-12 lg:p-16 lg:border-l lg:border-white/10">
+                <motion.div
+                  key={activeProduct.size}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5, ease: easePremium }}
+                >
+                  {/* Product Title */}
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--heading)] dark:text-white mb-4 leading-tight">
+                    {activeProduct.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-base md:text-lg text-[var(--body-text)] dark:text-[var(--muted-text)] mb-8 leading-relaxed">
+                    {activeProduct.description}
+                  </p>
+
+                  {/* Premium Specification Panel */}
+                  <div className="mb-8 rounded-2xl border border-white/20 dark:border-white/10 bg-white/5 dark:bg-white/5 backdrop-blur-xl overflow-hidden">
+                    <div className="px-6 py-4 border-b border-white/10">
+                      <h4 className="text-sm font-bold uppercase tracking-wider text-primary">
+                        Technical Specifications
+                      </h4>
+                    </div>
+                    <div>
+                      {[
+                        {
+                          label: "Length",
+                          value: activeProduct.specs.length,
+                          icon: Ruler,
+                        },
+                        {
+                          label: "Height",
+                          value: activeProduct.specs.height,
+                          icon: Ruler,
+                        },
+                        {
+                          label: "Thickness",
+                          value: activeProduct.specs.thickness,
+                          icon: Box,
+                        },
+                        {
+                          label: "Weight",
+                          value: activeProduct.specs.weight,
+                          icon: Weight,
+                        },
+                      ].map((spec, idx) => (
                         <motion.div
-                          key={activeProduct.size}
-                          custom={direction}
-                          variants={productImageVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="exit"
-                          className="relative w-full h-full flex items-center justify-center"
-                          style={{ perspective: 1000 }}
+                          key={spec.label}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: idx * 0.05, duration: 0.4 }}
+                          className="spec-row flex items-center justify-between px-6 py-4"
                         >
-                          <motion.div
-                            className="relative w-full h-full"
-                            whileHover={{
-                              rotateX: 5,
-                              rotateY: -5,
-                              scale: 1.05,
-                              transition: { type: "spring", stiffness: 300, damping: 20 },
-                            }}
-                            style={{ transformStyle: "preserve-3d" }}
-                          >
-                            <Image
-                              src={activeProduct.image}
-                              alt={activeProduct.title}
-                              fill
-                              className="object-contain drop-shadow-2xl"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 45vw"
-                              priority={activeIndex === 0}
-                              loading={activeIndex === 0 ? "eager" : "lazy"}
-                            />
-
-                            {/* Reflection below */}
-                            <div className="absolute -bottom-20 left-0 right-0 h-32 bg-gradient-to-t from-primary/20 to-transparent blur-2xl opacity-40 scale-y-[-1]" />
-                          </motion.div>
+                          <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                              <spec.icon className="w-5 h-5 text-primary" />
+                            </div>
+                            <span className="text-sm font-semibold text-[var(--body-text)] dark:text-[var(--muted-text)]">
+                              {spec.label}
+                            </span>
+                          </div>
+                          <span className="text-lg font-bold text-[var(--heading)] dark:text-white tabular-nums">
+                            {spec.value}
+                          </span>
                         </motion.div>
-                      </AnimatePresence>
+                      ))}
                     </div>
                   </div>
-                </div>
+
+                  {/* Applications */}
+                  <div className="mb-8">
+                    <h4 className="text-base font-semibold text-[var(--heading)] dark:text-white mb-3">
+                      Ideal Applications
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {activeProduct.applications.map((app, idx) => (
+                        <motion.div
+                          key={app}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.1 + idx * 0.04, duration: 0.4 }}
+                          className="flex items-center gap-2.5 text-sm text-[var(--body-text)] dark:text-[var(--muted-text)]"
+                        >
+                          <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                            <Check className="w-3 h-3 text-primary" />
+                          </div>
+                          {app}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.15, duration: 0.4 }}
+                    className="flex flex-wrap gap-3"
+                  >
+                    <motion.a
+                      href="/products"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="btn-primary inline-flex items-center gap-2"
+                    >
+                      View Details
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.a>
+
+                    <motion.a
+                      href="/documents/brochure.pdf"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="btn-ghost inline-flex items-center gap-2"
+                    >
+                      <Download className="w-4 h-4" />
+                      Download Datasheet
+                    </motion.a>
+                  </motion.div>
+                </motion.div>
               </motion.div>
             </div>
           </motion.div>
-
-          {/* RIGHT: Product Information (45%) */}
-          <motion.div variants={itemVariants} className="lg:col-span-5">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeProduct.size}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -30 }}
-                transition={{ duration: 0.5, ease: easePremium }}
-              >
-                {/* Product Name */}
-                <motion.h2
-                  className="text-4xl md:text-5xl font-bold text-[var(--heading)] dark:text-white mb-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  {activeProduct.title}
-                </motion.h2>
-
-                {/* Description */}
-                <motion.p
-                  className="text-lg text-[var(--body-text)] dark:text-[var(--muted-text)] mb-8 leading-relaxed"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 }}
-                >
-                  {activeProduct.description}
-                </motion.p>
-
-                {/* Specifications */}
-                <motion.div
-                  className="grid grid-cols-2 gap-3 mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {[
-                    { label: "Length", value: activeProduct.specs.length, icon: Ruler },
-                    { label: "Height", value: activeProduct.specs.height, icon: Ruler },
-                    { label: "Thickness", value: activeProduct.specs.thickness, icon: Box },
-                    { label: "Weight", value: activeProduct.specs.weight, icon: Weight },
-                  ].map((spec, idx) => (
-                    <motion.div
-                      key={spec.label}
-                      className="rounded-2xl border border-[var(--border)] bg-[var(--surface)]/60 dark:bg-[var(--surface)]/40 backdrop-blur-xl p-4 hover-lift"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.25 + idx * 0.05 }}
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <spec.icon className="w-4 h-4 text-primary" />
-                        <span className="text-xs font-semibold uppercase tracking-wider text-primary/70 dark:text-primary/80">
-                          {spec.label}
-                        </span>
-                      </div>
-                      <span className="text-sm font-bold text-[var(--heading)] dark:text-white">
-                        {spec.value}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                {/* Applications */}
-                <motion.div
-                  className="mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <h4 className="text-base font-semibold text-[var(--heading)] dark:text-white mb-3">
-                    Applications
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {activeProduct.applications.map((app, idx) => (
-                      <motion.div
-                        key={app}
-                        className="flex items-center gap-2.5 text-sm text-[var(--body-text)] dark:text-[var(--muted-text)]"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.35 + idx * 0.05 }}
-                      >
-                        <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
-                          <Check className="w-3 h-3 text-primary" />
-                        </div>
-                        {app}
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {/* CTA Buttons */}
-                <motion.div
-                  className="flex flex-wrap gap-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <motion.a
-                    href="/products"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn-primary inline-flex items-center gap-2"
-                  >
-                    View Details
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.a>
-
-                  <motion.a
-                    href="/documents/brochure.pdf"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn-ghost inline-flex items-center gap-2"
-                  >
-                    <Download className="w-4 h-4" />
-                    Download Datasheet
-                  </motion.a>
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
         </motion.div>
 
-         {/* Product Tabs */}
-         <motion.div
-           className="mt-20 relative"
-          initial={{ opacity: 0, y: 20 }}
+        {/* ─── Premium Pill Selector ───────────────────── */}
+        <motion.div
+          className="mt-16 flex justify-center"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
+          transition={{ delay: 0.2 }}
         >
-          <div className="relative inline-flex items-center gap-1 p-1.5 rounded-full bg-[var(--surface)]/60 dark:bg-[var(--surface)]/40 backdrop-blur-xl border border-[var(--border)] mx-auto overflow-x-auto max-w-full">
-            {/* Animated indicator */}
-            <motion.div
-              className="absolute h-[calc(100%-12px)] bg-gradient-to-r from-primary to-primary-hover rounded-full shadow-lg"
-              style={{
-                top: "6px",
-                height: "calc(100% - 12px)",
-              }}
-              animate={{
-                x: `calc(${activeIndex * 100}% + ${activeIndex * 4}px)`,
-                width: `calc(${100 / products.items.length}% - 4px)`,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-              }}
-            />
-
+          <div className="relative inline-flex items-center gap-1.5 p-1.5 rounded-full bg-[var(--surface)]/60 dark:bg-[var(--surface)]/40 backdrop-blur-xl border border-[var(--border)]">
             {products.items.map((item, idx) => (
-              <motion.button
+              <button
                 key={item.size}
                 onClick={() => handleProductSelect(idx)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative z-10 px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 whitespace-nowrap ${
+                className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-500 whitespace-nowrap ${
                   activeIndex === idx
-                    ? "text-white"
+                    ? "text-white bg-gradient-to-r from-primary to-primary-hover shadow-md"
                     : "text-[var(--body-text)] dark:text-[var(--muted-text)] hover:text-[var(--heading)] dark:hover:text-white"
                 }`}
               >
                 {item.size}
-              </motion.button>
+              </button>
             ))}
           </div>
         </motion.div>

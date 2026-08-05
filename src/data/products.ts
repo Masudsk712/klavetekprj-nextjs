@@ -1,4 +1,6 @@
-export const productsPage = {
+import { Product, ProductsPage } from "@/types";
+
+export const productsPage: ProductsPage = {
  hero: {
  title: "Our Products",
  subtitle: "Precision-engineered AAC blocks for every construction need — from residential villas to industrial complexes.",

@@ -4,7 +4,7 @@ import TrustBar from "@/components/home/TrustBar";
 import AboutPreview from "@/components/home/AboutPreview";
 import WhyKlavetekStandsOut from "@/components/home/WhyKlavetekStandsOut";
 import ManufacturingProcess from "@/components/home/ManufacturingProcess";
-import ProductShowcase from "@/components/home/ProductShowcase";
+import ProductCardGrid from "@/components/products/ProductCardGrid";
 import ComparisonTable from "@/components/home/ComparisonTable";
 import TechnicalSpecs from "@/components/home/TechnicalSpecs";
 import Applications from "@/components/home/Applications";
@@ -28,7 +28,7 @@ export default function HomePage() {
  <AboutPreview />
 <WhyKlavetekStandsOut />
 <ManufacturingProcess />
- <ProductShowcase />
+  <ProductCardGrid />
  <ComparisonTable />
  <TechnicalSpecs />
  <Applications />

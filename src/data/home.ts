@@ -179,63 +179,83 @@ export const products = {
   title: "Our Product Range",
   subtitle: "Precision-engineered AAC blocks available in multiple sizes to suit every construction need.",
   items: [
-  {
-  size: "100mm",
-  title: "100 mm AAC Block",
-  description: "Ideal for internal partition walls, providing excellent space utilization with superior strength.",
-  image: "/images/products/product-100.webp",
-  specs: { length: "600mm", height: "200mm", thickness: "100mm", weight: "~8.5 kg" },
-  applications: ["Internal Walls", "Partitions", "High-rise Buildings"],
-  },
-  {
-  size: "125mm",
-  title: "125 mm AAC Block",
-  description: "Perfect balance of strength and space efficiency for residential interior walls.",
-  image: "/images/products/product-100.webp",
-  specs: { length: "600mm", height: "200mm", thickness: "125mm", weight: "~10.5 kg" },
-  applications: ["Residential Walls", "Apartment Partitions", "Interior Walls"],
-  },
-  {
-  size: "150mm",
-  title: "150 mm AAC Block",
-  description: "Standard load-bearing block for external and internal walls in residential construction.",
-  image: "/images/products/product-100.webp",
-  specs: { length: "600mm", height: "200mm", thickness: "150mm", weight: "~12.5 kg" },
-  applications: ["External Walls", "Load Bearing Walls", "Villas & Homes"],
-  },
-  {
-  size: "200mm",
-  title: "200 mm AAC Block",
-  description: "Heavy-duty block for external walls requiring enhanced structural integrity and insulation.",
-  image: "/images/products/product-100.webp",
-  specs: { length: "600mm", height: "200mm", thickness: "200mm", weight: "~16.5 kg" },
-  applications: ["External Walls", "Commercial Buildings", "Industrial Structures"],
-  },
-  {
-  size: "250mm",
-  title: "250 mm AAC Block",
-  description: "Maximum strength block for industrial and large-scale commercial construction projects.",
-  image: "/images/products/product-100.webp",
-  specs: { length: "600mm", height: "200mm", thickness: "250mm", weight: "~20.5 kg" },
-  applications: ["Industrial Buildings", "Warehouses", "Large Commercial Complexes"],
-  },
-  ],
-  };
+    {
+    size: "100mm",
+    title: "100 mm AAC Block",
+    description: "Ideal for internal partition walls, providing excellent space utilization with superior strength.",
+    image: "/images/products/product-100.webp",
+    specs: { length: "600mm", height: "200mm", thickness: "100mm", weight: "~8.5 kg" },
+    applications: ["Internal Walls", "Partitions", "High-rise Buildings"],
+    },
+    {
+    size: "125mm",
+    title: "125 mm AAC Block",
+    description: "Perfect balance of strength and space efficiency for residential interior walls.",
+    image: "/images/products/product-125.webp",
+    specs: { length: "600mm", height: "200mm", thickness: "125mm", weight: "~10.5 kg" },
+    applications: ["Residential Walls", "Apartment Partitions", "Interior Walls"],
+    },
+    {
+    size: "150mm",
+    title: "150 mm AAC Block",
+    description: "Standard load-bearing block for external and internal walls in residential construction.",
+    image: "/images/products/product-150.webp",
+    specs: { length: "600mm", height: "200mm", thickness: "150mm", weight: "~12.5 kg" },
+    applications: ["External Walls", "Load Bearing Walls", "Villas & Homes"],
+    },
+    {
+    size: "200mm",
+    title: "200 mm AAC Block",
+    description: "Heavy-duty block for external walls requiring enhanced structural integrity and insulation.",
+    image: "/images/products/product-200.webp",
+    specs: { length: "600mm", height: "200mm", thickness: "200mm", weight: "~16.5 kg" },
+    applications: ["External Walls", "Commercial Buildings", "Industrial Structures"],
+    },
+    {
+    size: "250mm",
+    title: "250 mm AAC Block",
+    description: "Maximum strength block for industrial and large-scale commercial construction projects.",
+    image: "/images/products/product-250.webp",
+    specs: { length: "600mm", height: "200mm", thickness: "250mm", weight: "~20.5 kg" },
+    applications: ["Industrial Buildings", "Warehouses", "Large Commercial Complexes"],
+    },
+    ],
+    };
 
 export const comparisonData = {
   title: "AAC Blocks vs. Clay Bricks",
   subtitle: "See why leading builders are switching to AAC blocks for modern construction.",
   features: [
-  { feature: "Size", aac: "8x larger (600×200mm)", clay: "Standard (230×75mm)" },
-  { feature: "Weight", aac: "Lightweight (40% lighter)", clay: "Heavy" },
-  { feature: "Compressive Strength", aac: "3-5 N/mm²", clay: "2.5-3.5 N/mm²" },
-  { feature: "Thermal Insulation", aac: "Excellent (0.16 W/mK)", clay: "Poor (0.8 W/mK)" },
-  { feature: "Sound Insulation", aac: "45+ dB reduction", clay: "35-40 dB reduction" },
-  { feature: "Fire Resistance", aac: "Up to 4 hours", clay: "Up to 2 hours" },
-  { feature: "Mortar Consumption", aac: "60% less", clay: "Standard" },
-  { feature: "Plastering", aac: "40% less plaster", clay: "Standard" },
-  { feature: "Eco-Friendly", aac: "Uses fly ash (waste)", clay: "Uses topsoil" },
-  { feature: "Construction Speed", aac: "2x faster", clay: "Standard" },
+  { 
+    feature: "Strength", 
+    aac: "AAC Blocks have compressive strength of 4-5 N/mm²", 
+    clay: "The compressive strength of Clay Bricks is 6-7 N/mm² so are slightly stronger." 
+  },
+  { 
+    feature: "Appearance", 
+    aac: "AAC's are durable but have a refined surface that can be exposed over time.", 
+    clay: "Bricks last longer than AACs but they are also prone to chips and cracks." 
+  },
+  { 
+    feature: "Flexibility", 
+    aac: "AAC blocks are extremely versatile and can be used for variety of projects.", 
+    clay: "Bricks are collectively flexible but individual bricks are difficult to cut." 
+  },
+  { 
+    feature: "Weight", 
+    aac: "AAC blocks are light-weight hence easy to transport and save overall cost. (1 Block = 12 kgs)", 
+    clay: "Bricks are almost twice the weight of AAC Blocks & hence heavy to transport & more difficult to handle. (7 Bricks = 24.5 kgs)" 
+  },
+  { 
+    feature: "Overall Cost", 
+    aac: "AAC blocks are cheaper alternative to conventional clay bricks.", 
+    clay: "Bricks are more expensive as they are less flexible and require more labor costs." 
+  },
+  { 
+    feature: "Enviro-Friendly", 
+    aac: "There is no top soil consumption and it emits very low carbon dioxide.", 
+    clay: "It actually damages environment." 
+  },
   ],
   };
 
@@ -243,14 +263,16 @@ export const technicalSpecs = {
   title: "Technical Specifications",
   subtitle: "Our AAC blocks meet and exceed BIS standards for quality, strength, and durability.",
   specs: [
-  { parameter: "Density", value: "550-650 kg/m³", standard: "IS 2185 (Part 3)" },
-  { parameter: "Compressive Strength", value: "3-5 N/mm²", standard: "IS 2185 (Part 3)" },
-  { parameter: "Thermal Conductivity", value: "0.16-0.18 W/mK", standard: "ASTM C518" },
-  { parameter: "Sound Reduction", value: "45+ dB", standard: "IS 1950" },
-  { parameter: "Fire Resistance", value: "4 hours (150mm)", standard: "IS 3809" },
-  { parameter: "Drying Shrinkage", value: "<0.06%", standard: "IS 2185 (Part 3)" },
-  { parameter: "Water Absorption", value: "<10% by volume", standard: "IS 2185 (Part 3)" },
-  { parameter: "Dimensional Tolerance", value: "±1.5mm", standard: "IS 2185 (Part 3)" },
+  { parameter: "Density", value: "550-650", unit: "kg/m³", standard: "IS 2185 (Part 3)", icon: "Weight" },
+  { parameter: "Compressive Strength", value: "4.0", unit: "N/mm²", standard: "IS 2185 (Part 3)", icon: "Gauge" },
+  { parameter: "Thermal Conductivity", value: "0.16-0.18", unit: "W/mK", standard: "ASTM C518", icon: "Thermometer" },
+  { parameter: "Sound Reduction", value: "45+", unit: "dB", standard: "IS 1950", icon: "Volume2" },
+  { parameter: "Fire Resistance", value: "8", unit: "Hours", standard: "IS 3809", icon: "Flame" },
+  { parameter: "Drying Shrinkage", value: "<0.06", unit: "%", standard: "IS 2185 (Part 3)", icon: "Minus" },
+  { parameter: "Water Absorption", value: "<10", unit: "% by volume", standard: "IS 2185 (Part 3)", icon: "Droplets" },
+  { parameter: "Dimensional Tolerance", value: "±1.5", unit: "mm", standard: "IS 2185 (Part 3)", icon: "Ruler" },
+  { parameter: "Thermal Resistance", value: "1.95", unit: "(200mm width)", standard: "IS 2185 (Part 3)", icon: "Thermometer" },
+  { parameter: "Sound Transmission", value: "210", unit: "gm/dm²", standard: "NFP 14396", icon: "Waves" },
   ],
   };
 
@@ -258,10 +280,12 @@ export const applications = {
   title: "Built for Every Structure",
   subtitle: "From luxury homes to industrial complexes, our AAC blocks deliver unmatched performance across all construction types.",
   categories: [
-  { title: "Residential", description: "Villas, apartments, housing societies", image: "/images/residential.jpg" },
-  { title: "Commercial", description: "Offices, malls, hotels, hospitals", image: "/images/commercial.jpg" },
-  { title: "Industrial", description: "Factories, warehouses, cold storage", image: "/images/industrial.jpg" },
-  { title: "Institutional", description: "Schools, colleges, government buildings", image: "/images/institutional.jpg" },
+  { title: "Residential Buildings", description: "Ideal for villas, apartments and modern housing projects", image: "/images/features/Eco-Friendly.webp" },
+  { title: "Commercial Buildings", description: "Perfect for offices, shopping complexes and business spaces", image: "/images/features/EnergySavingThermalInsulation.webp" },
+  { title: "Industrial Projects", description: "Designed for factories, manufacturing units and warehouses", image: "/images/process/Autoclaving.webp" },
+  { title: "Hospitals", description: "Excellent thermal insulation and fire resistance", image: "/images/features/fire-resistant.webp" },
+  { title: "Educational Institutions", description: "Comfortable, energy-efficient classrooms and campuses", image: "/images/features/Lightweight.webp" },
+  { title: "Warehouses", description: "Durable walls with superior strength and insulation", image: "/images/features/Cost&Time-Saving.webp" },
   ],
   };
 

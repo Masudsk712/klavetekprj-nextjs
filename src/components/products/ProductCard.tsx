@@ -14,67 +14,45 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.06, delayChildren: 0.1 },
   },
   exit: { opacity: 0 },
 };
 
 const imageVariants = {
-  hidden: { 
-    opacity: 0, 
-    scale: 0.9,
-    rotateY: -15,
-    rotateX: 5,
-  },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: { 
     opacity: 1, 
     scale: 1,
-    rotateY: 0,
-    rotateX: 0,
-    transition: { 
-      duration: 0.8, 
-      ease: easePremium 
-    }
+    transition: { duration: 0.7, ease: easePremium }
   },
   exit: { 
     opacity: 0, 
-    scale: 1.05,
-    rotateY: 15,
-    rotateX: -5,
-    transition: { 
-      duration: 0.5, 
-      ease: easePremium 
-    }
+    scale: 0.95,
+    transition: { duration: 0.5, ease: easePremium }
   },
 };
 
 const contentVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { 
-      duration: 0.7, 
-      ease: easePremium 
-    }
+    transition: { duration: 0.6, ease: easePremium }
   },
   exit: { 
     opacity: 0, 
-    y: -20,
-    transition: { 
-      duration: 0.4, 
-      ease: easePremium 
-    }
+    y: -10,
+    transition: { duration: 0.4, ease: easePremium }
   },
 };
 
 const specCardVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0 },
   visible: (i: number) => ({
     opacity: 1,
-    scale: 1,
     transition: {
-      delay: 0.3 + i * 0.05,
+      delay: 0.2 + i * 0.05,
       duration: 0.5,
       ease: easePremium,
     },
@@ -100,7 +78,7 @@ export default function ProductCard() {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % products.length);
-    }, 2000);
+    }, 4000);
   }, [products.length]);
 
   const stopAutoPlay = useCallback(() => {
@@ -238,19 +216,11 @@ export default function ProductCard() {
                       transformStyle: "preserve-3d"
                     }}
                   >
-                    {/* Floating animation */}
+                    {/* Gentle float */}
                     <motion.div
-                      animate={{
-                        y: [0, -15, 0],
-                        rotateZ: [0, 1, 0],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
+                      animate={{ y: [0, -8, 0] }}
+                      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                       className="relative w-4/5 h-4/5"
-                      style={{ transformStyle: "preserve-3d" }}
                     >
                       {/* Soft shadow */}
                       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-primary/20 blur-2xl rounded-full" />
@@ -258,16 +228,16 @@ export default function ProductCard() {
                       {/* Green glow */}
                       <div className="absolute -inset-4 bg-gradient-radial from-primary/40 via-primary/10 to-transparent opacity-60 blur-xl rounded-full" />
                       
-                      {/* Image */}
-                      <Image
-                        src="/images/products/product-100.webp"
-                        alt={currentProduct.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        className="object-contain relative z-10 drop-shadow-2xl"
-                        priority={currentIndex === 0}
-                        loading={currentIndex === 0 ? "eager" : "lazy"}
-                      />
+                       {/* Image */}
+                       <Image
+                         src={`/images/products/product-${currentProduct.size.replace('mm', '')}.webp`}
+                         alt={currentProduct.title}
+                         fill
+                         sizes="(max-width: 1024px) 100vw, 50vw"
+                         className="object-contain relative z-10 drop-shadow-2xl"
+                         priority={currentIndex === 0}
+                         loading={currentIndex === 0 ? "eager" : "lazy"}
+                       />
                       
                       {/* Reflection */}
                       <div className="absolute -bottom-20 left-0 right-0 h-40 bg-gradient-to-b from-primary/10 to-transparent opacity-50 blur-2xl -z-10" />
@@ -318,7 +288,7 @@ export default function ProductCard() {
                         key={spec.label}
                         custom={i}
                         variants={specCardVariants}
-                        className="group relative p-4 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-green-500/20 shadow-md hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 hover:-translate-y-1"
+                        className="p-4 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-green-500/20"
                       >
                         <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
                           {spec.label}
@@ -326,7 +296,6 @@ export default function ProductCard() {
                         <div className="text-sm font-bold text-gray-900 dark:text-white">
                           {spec.value}
                         </div>
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </motion.div>
                     ))}
                   </div>
@@ -355,15 +324,15 @@ export default function ProductCard() {
 
                 {/* Action Buttons */}
                 <motion.div variants={contentVariants} className="flex flex-wrap gap-3 pt-2">
-                  <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-green-500/30 hover:scale-105">
+                  <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-primary-hover text-white font-semibold transition-all duration-300 shadow-lg">
                     <FileText className="w-5 h-5" />
                     View Details
                   </button>
-                  <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-green-500/30 hover:border-green-500/50 text-gray-900 dark:text-white font-semibold transition-all duration-300 hover:scale-105">
+                  <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-green-500/30 text-gray-900 dark:text-white font-semibold transition-all duration-300">
                     <MessageSquare className="w-5 h-5" />
                     Get Quote
                   </button>
-                  <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-green-500/30 hover:border-green-500/50 text-gray-900 dark:text-white font-semibold transition-all duration-300 hover:scale-105">
+                  <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-green-500/30 text-gray-900 dark:text-white font-semibold transition-all duration-300">
                     <Download className="w-5 h-5" />
                     Download Datasheet
                   </button>
@@ -385,21 +354,11 @@ export default function ProductCard() {
                     }`}
                   >
                     {index === currentIndex && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute inset-0 bg-gradient-to-r from-primary to-primary-hover rounded-full shadow-md"
-                        initial={{ scaleX: 0 }}
-                        animate={{ 
-                          scaleX: 1,
-                          transition: {
-                            type: "spring",
-                            stiffness: 300,
-                            damping: 30,
-                            delay: 0.1,
-                          }
-                        }}
-                        exit={{ scaleX: 0, transition: { duration: 0.2 } }}
-                      />
+              <motion.div
+                layoutId="activeTab"
+                className="absolute inset-0 bg-gradient-to-r from-primary to-primary-hover rounded-full"
+                transition={{ duration: 0.4, ease: easePremium }}
+              />
                     )}
                     <span className="relative z-10">{product.size}</span>
                   </button>
