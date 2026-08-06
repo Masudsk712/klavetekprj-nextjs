@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#fff;stop-opacity:0.02" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Factory skyline silhouette -->
+  <g fill="url(#grad1)">
+    <!-- Main factory building -->
+    <rect x="100" y="300" width="120" height="500" />
+    <rect x="140" y="250" width="40" height="550" />
+    
+    <!-- Chimney 1 -->
+    <rect x="160" y="150" width="30" height="100" />
+    <rect x="155" y="140" width="40" height="20" />
+    
+    <!-- Chimney 2 -->
+    <rect x="240" y="200" width="25" height="80" />
+    <rect x="236" y="190" width="33" height="15" />
+    
+    <!-- Secondary building -->
+    <rect x="280" y="350" width="150" height="450" />
+    <rect x="320" y="320" width="70" height="480" />
+    
+    <!-- Warehouse style -->
+    <rect x="480" y="380" width="200" height="420" />
+    <polygon points="480,380 580,320 680,380" />
+    
+    <!-- Crane -->
+    <rect x="720" y="280" width="15" height="520" />
+    <rect x="720" y="280" width="180" height="12" />
+    <rect x="880" y="280" width="12" height="80" />
+    <line x1="735" y1="292" x2="886" y2="340" stroke="url(#grad1)" stroke-width="3" />
+    
+    <!-- Office building -->
+    <rect x="920" y="250" width="100" height="550" />
+    <rect x="940" y="200" width="60" height="600" />
+    
+    <!-- Small structure -->
+    <rect x="1060" y="400" width="80" height="400" />
+    <rect x="1100" y="350" width="40" height="450" />
+    
+    <!-- More industrial elements -->
+    <rect x="1180" y="320" width="140" height="480" />
+    <rect x="1220" y="280" width="60" height="520" />
+    
+    <!-- Storage tanks -->
+    <ellipse cx="1360" cy="400" rx="40" ry="40" />
+    <rect x="1320" y="400" width="80" height="400" />
+    <ellipse cx="1360" cy="800" rx="40" ry="10" />
+  </g>
+  
+  <!-- Subtle grid pattern overlay -->
+  <g fill="none" stroke="#fff" stroke-opacity="0.03" stroke-width="1">
+    <line x1="0" y1="100" x2="1440" y2="100" />
+    <line x1="0" y1="200" x2="1440" y2="200" />
+    <line x1="0" y1="300" x2="1440" y2="300" />
+    <line x1="0" y1="400" x2="1440" y2="400" />
+    <line x1="0" y1="500" x2="1440" y2="500" />
+    <line x1="0" y1="600" x2="1440" y2="600" />
+    <line x1="0" y1="700" x2="1440" y2="700" />
+    
+    <line x1="100" y1="0" x2="100" y2="800" />
+    <line x1="200" y1="0" x2="200" y2="800" />
+    <line x1="300" y1="0" x2="300" y2="800" />
+    <line x1="400" y1="0" x2="400" y2="800" />
+    <line x1="500" y1="0" x2="500" y2="800" />
+    <line x1="600" y1="0" x2="600" y2="800" />
+    <line x1="700" y1="0" x2="700" y2="800" />
+    <line x1="800" y1="0" x2="800" y2="800" />
+    <line x1="900" y1="0" x2="900" y2="800" />
+    <line x1="1000" y1="0" x2="1000" y2="800" />
+    <line x1="1100" y1="0" x2="1100" y2="800" />
+    <line x1="1200" y1="0" x2="1200" y2="800" />
+    <line x1="1300" y1="0" x2="1300" y2="800" />
+    <line x1="1400" y1="0" x2="1400" y2="800" />
+  </g>
+</svg>

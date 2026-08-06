@@ -298,24 +298,28 @@ export const testimonials = {
   role: "Chief Engineer, Bengal Construction Co.",
   content: "We've been using Klavetek AAC blocks for over 5 years. The consistency in quality and dimensional accuracy is remarkable. It has significantly reduced our plastering costs.",
   rating: 5,
+  image: "/images/testimonials/satyajit-banerjee.webp",
   },
   {
   name: "Priyanka Sharma",
   role: "Architect, Studio A+D",
   content: "Klavetek's thermal efficiency data matches real-world performance. Our clients consistently report lower energy bills. A game-changer for sustainable design.",
   rating: 5,
+  image: "/images/testimonials/priyanka-sharma.webp",
   },
   {
   name: "Rajesh Kumar",
   role: "Project Manager, Sunrise Developers",
   content: "The 2x faster construction speed is real. We completed a 12-story project 3 months ahead of schedule using Klavetek blocks. Excellent technical support team.",
   rating: 5,
+  image: "/images/testimonials/rajesh-kumar.webp",
   },
   {
   name: "Anil Das",
   role: "Contractor, Malda Infrastructure",
   content: "Switching from clay bricks to Klavetek AAC was the best decision. Less mortar, less plaster, less labor — and better quality. My clients are happier.",
   rating: 5,
+  image: "/images/testimonials/anil-das.webp",
   },
   ],
   };
@@ -325,45 +329,33 @@ export const faqData = {
   subtitle: "Everything you need to know about AAC blocks and our services.",
   items: [
   {
-  question: "What are AAC blocks and how are they different from clay bricks?",
-  answer: "AAC (Autoclaved Aerated Concrete) blocks are lightweight, precast building materials made from fly ash, cement, lime, and aluminum powder. Unlike clay bricks that require topsoil and high-temperature firing, AAC blocks are manufactured using industrial waste (fly ash) and cured in autoclaves. They are 8x larger, 40% lighter, and provide superior thermal and sound insulation compared to clay bricks.",
+  question: "Why is an AAC Block better than conventional clay bricks?",
+  answer: "AAC Blocks are superior to conventional clay bricks because of their excellent thermal insulation and soundproofing properties. They are also highly resistant to fire and earthquakes compared to other construction materials.",
   },
   {
-  question: "Are Klavetek AAC blocks ISI certified?",
-  answer: "Yes, our AAC blocks are manufactured in compliance with IS 2185 (Part 3) standards. We maintain rigorous quality control at every stage of production, with in-house testing for density, compressive strength, dimensional accuracy, and other critical parameters.",
+  question: "Is building construction more expensive with AAC Blocks than with conventional bricks?",
+  answer: "Although the price of AAC Blocks may appear slightly higher, the overall construction cost is reduced by approximately 30% compared to conventional bricks. This is because the blocks are larger in size, require less mortar, reduce labor costs, and are lightweight, making transportation and handling easier",
   },
   {
-  question: "What sizes of AAC blocks do you offer?",
-  answer: "We manufacture AAC blocks in 100mm, 125mm, 150mm, 200mm, and 250mm thicknesses, all with a standard length of 600mm and height of 200mm. Custom sizes can be produced for large-scale projects subject to minimum order quantities.",
+  question: "How much mason skill is required?",
+  answer: "The method of laying AAC Blocks is similar to that of conventional bricks. However, to achieve the best results, proper technical knowledge is recommended. Skilled masons can also receive guidance and training from engineers or other technical experts during construction.",
   },
   {
-  question: "How much can I save by using AAC blocks instead of clay bricks?",
-  answer: "Builders typically save 20-30% on overall construction costs with AAC blocks. Savings come from: 60% less mortar consumption, 40% less plastering material, 40% reduced labor costs, faster construction timelines, and lower energy bills due to superior insulation.",
+  question: " Can ACs, geysers, chimneys, or other fixtures be installed on AAC block walls?",
+  answer: "Yes. On walls constructed with AAC blocks, plugs/anchors can be used to securely install air conditioners (ACs), geysers, chimneys, bathroom fittings, and other modern fixtures. These fittings can be mounted safely when appropriate plugs and fasteners are used.",
   },
   {
-  question: "What is the delivery timeline and minimum order quantity?",
-  answer: "We maintain ready stock for standard sizes and can dispatch within 24-48 hours of order confirmation. Minimum order quantity is 100 cubic meters for standard sizes. For large projects, we offer scheduled deliveries to match your construction timeline.",
-  },
-  {
-  question: "Do you provide technical support for construction teams?",
-  answer: "Absolutely. We provide on-site technical guidance for first-time AAC block users, including proper laying techniques, mortar mix ratios, and plastering recommendations. Our team also provides structural load calculations for engineering teams.",
-  },
-  {
-  question: "Are AAC blocks suitable for high-rise buildings?",
-  answer: "Yes, AAC blocks are ideal for high-rise construction. Their lightweight nature reduces dead load on the structure, allowing for taller buildings with optimized foundation design. They also provide excellent fire resistance — critical for high-rise safety.",
-  },
-  {
-  question: "What is the warranty on Klavetek AAC blocks?",
-  answer: "We stand behind our product quality with a comprehensive warranty against manufacturing defects. Our blocks are tested to ensure they meet all specified parameters including strength, density, and dimensional accuracy as per IS standards.",
+  question: "Are AAC blocks suitable for all types of construction projects?",
+  answer: "Yes, AAC blocks are versatile and suitable for virtually all construction types including residential homes, commercial buildings, high-rise towers, industrial complexes, hospitals, schools, and warehouses. They meet IS 2185 (Part 3) standards and are approved by major construction authorities across India for all structural and non-structural applications.",
   },
   ],
   };
 
 export const ctaData = {
   title: "Ready to Build Better?",
-  subtitle: "Get in touch with our team for pricing, technical specifications, or a free consultation for your project.",
+  subtitle: "Partner with Klavetek Green Blocks & Tiles Pvt. Ltd. for premium AAC Blocks, expert technical support and reliable project delivery.",
   primaryCta: "Get a Quote",
   primaryLink: "/contact",
   secondaryCta: "Download Brochure",
   secondaryLink: "/documents/brochure.pdf",
-  };
+};

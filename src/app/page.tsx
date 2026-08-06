@@ -11,7 +11,7 @@ import Applications from "@/components/home/Applications";
 import GalleryPreview from "@/components/home/GalleryPreview";
 import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
-import CTA from "@/components/home/CTA";
+import CinematicCTA from "@/components/home/CinematicCTA";
 
 export const metadata: Metadata = {
  title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
@@ -35,7 +35,7 @@ export default function HomePage() {
  <GalleryPreview />
  <Testimonials />
  <FAQ />
- <CTA />
+  <CinematicCTA />
  </>
  );
 }
