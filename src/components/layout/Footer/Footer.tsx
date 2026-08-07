@@ -23,6 +23,7 @@ const quickLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Products", href: "/products" },
+  { name: "Projects", href: "/projects" },
   { name: "Gallery", href: "/gallery" },
   { name: "Career", href: "/career" },
   { name: "Blog", href: "/blog" },
@@ -193,7 +194,6 @@ export default function Footer() {
                     height={44}
                     width={140}
                     className="h-full w-auto object-contain"
-                    style={{ width: "auto", height: "100%" }}
                     priority
                   />
                 </div>
@@ -280,6 +280,7 @@ export default function Footer() {
                     src="/images/footer/isi.png"
                     alt="ISI Certified"
                     fill
+                    sizes="(max-width: 768px) 64px, 64px"
                     className="object-contain"
                   />
                 </motion.div>
@@ -293,6 +294,7 @@ export default function Footer() {
                     src="/images/footer/igbc.png"
                     alt="Indian Green Building Council Member"
                     fill
+                    sizes="(max-width: 768px) 64px, 64px"
                     className="object-contain"
                   />
                 </motion.div>

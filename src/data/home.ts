@@ -357,5 +357,5 @@ export const ctaData = {
   primaryCta: "Get a Quote",
   primaryLink: "/contact",
   secondaryCta: "Download Brochure",
-  secondaryLink: "/documents/brochure.pdf",
+  secondaryLink: "public/Klavetek-EBrochure-2022-23.pdf",
 };

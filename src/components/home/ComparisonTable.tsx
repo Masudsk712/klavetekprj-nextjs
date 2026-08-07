@@ -221,7 +221,7 @@ export default function ComparisonTable() {
   
   {/* AAC Blocks Header */}
   <div className="col-span-6 md:col-span-4 bg-gradient-to-r from-emerald-500 to-emerald-600 p-4 md:p-6 relative overflow-hidden">
-  <div className="absolute inset-0 bg-[url('/images/textures/noise.png')] opacity-10 mix-blend-overlay" />
+  <div className="absolute inset-0 bg-[var(--border)] opacity-10 mix-blend-overlay" />
   <div className="relative text-center">
   <h3 className="text-lg md:text-xl font-bold text-white uppercase tracking-wide">AAC Blocks</h3>
   </div>
@@ -229,7 +229,7 @@ export default function ComparisonTable() {
 
   {/* Clay Bricks Header */}
   <div className="col-span-6 md:col-span-5 bg-gradient-to-r from-orange-500 to-orange-600 p-4 md:p-6 relative overflow-hidden">
-  <div className="absolute inset-0 bg-[url('/images/textures/noise.png')] opacity-10 mix-blend-overlay" />
+  <div className="absolute inset-0 bg-[var(--border)] opacity-10 mix-blend-overlay" />
   <div className="relative text-center">
   <h3 className="text-lg md:text-xl font-bold text-white uppercase tracking-wide">Clay Bricks</h3>
   </div>
@@ -272,3 +272,4 @@ export default function ComparisonTable() {
   </section>
   );
 }
+

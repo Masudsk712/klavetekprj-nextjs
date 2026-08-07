@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Building2, Monitor, Factory, GraduationCap, Hospital, School, Warehouse } from "lucide-react";
+import Link from "next/link";
 import { applications } from "@/data/home";
 import SectionHeader from "@/components/shared/SectionHeader";
 import GlassCard from "@/components/shared/GlassCard";
@@ -27,6 +28,15 @@ const iconMap: Record<string, React.ReactNode> = {
  "Educational Institutions": <School className="w-7 h-7 text-white" />,
  "Warehouses": <Warehouse className="w-7 h-7 text-white" />,
 };
+const categorySlugMap: Record<string, string> = {
+  "Residential Buildings": "residential-buildings",
+  "Commercial Buildings": "commercial-buildings",
+  "Industrial Projects": "industrial-projects",
+  "Hospitals": "hospitals",
+  "Educational Institutions": "educational-institutions",
+  "Warehouses": "warehouses",
+};
+
 
 export default function Applications() {
  return (
@@ -49,6 +59,7 @@ export default function Applications() {
   >
   {applications.categories.map((category, index) => (
   <motion.div key={category.title} variants={itemVariants}>
+  <Link href={`/projects/${categorySlugMap[category.title]}`} className="block">
   <GlassCard className="group relative overflow-hidden hover-lift">
   {/* Background Image with Clean Overlay */}
   <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
@@ -89,6 +100,7 @@ export default function Applications() {
   </motion.div>
   </div>
   </GlassCard>
+  </Link>
   </motion.div>
   ))}
  </motion.div>

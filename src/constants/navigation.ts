@@ -26,6 +26,14 @@ href:"/products"
 
 {
 
+name:"Projects",
+
+href:"/projects"
+
+},
+
+{
+
 name:"Gallery",
 
 href:"/gallery"

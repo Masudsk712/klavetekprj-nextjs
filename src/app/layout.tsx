@@ -19,10 +19,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
- title: {
- default: "Klavetek Green Blocks & Tiles Pvt. Ltd. | Premium AAC Block Manufacturer",
- template: "%s | Klavetek Green Blocks & Tiles",
- },
+ title: "Klavetek Green Blocks & Tiles Pvt. Ltd. | Premium AAC Block Manufacturer",
  description:
  "Klavetek manufactures premium ISI-certified AAC blocks in 100mm, 125mm, 150mm, 200mm & 250mm sizes. Sustainable, lightweight, fire-resistant building materials since 2010.",
  keywords: [
@@ -54,7 +51,7 @@ export const metadata: Metadata = {
  "ISI-certified AAC blocks manufactured with German technology. Sustainable, lightweight, fire-resistant building materials since 2010.",
  images: [
  {
- url: "/social/og-image.jpg",
+ url: "/images/about/about-hero.webp",
  width: 1200,
  height: 630,
  alt: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
@@ -66,7 +63,7 @@ export const metadata: Metadata = {
  title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
  description:
  "ISI-certified AAC blocks manufactured with German technology. Sustainable, lightweight, fire-resistant building materials since 2010.",
- images: ["/social/og-image.jpg"],
+ images: ["/images/about/about-hero.webp"],
  },
  robots: {
  index: true,
@@ -79,8 +76,8 @@ export const metadata: Metadata = {
  },
  },
  icons: {
- icon: "/favicon/favicon.ico",
- apple: "/favicon/apple-touch-icon.png",
+ icon: "/logos/logo.png",
+ apple: "/logos/logo.png",
  },
 };
 
@@ -90,7 +87,7 @@ export default function RootLayout({
  children: React.ReactNode;
 }>) {
  return (
- <html lang="en" suppressHydrationWarning>
+ <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
  <body className={`${inter.variable} ${poppins.variable}`}>
  <StructuredData />
  <ThemeProvider>
@@ -102,3 +99,5 @@ export default function RootLayout({
  </html>
  );
 }
+
+

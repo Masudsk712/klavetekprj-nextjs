@@ -9,10 +9,10 @@ export const galleryData = {
  title: "Factory",
  description: "Our state-of-the-art manufacturing facility in Malda, West Bengal",
  images: [
- { src: "/images/factory-1.jpg", alt: "Klavetek Factory Exterior", title: "Factory Exterior", isVideo: false },
- { src: "/images/factory-2.jpg", alt: "Factory Premises", title: "Factory Premises", isVideo: false },
- { src: "/images/factory-3.jpg", alt: "Storage Yard", title: "Storage Yard", isVideo: false },
- { src: "/images/factory-4.jpg", alt: "Loading Bay", title: "Loading Bay", isVideo: false },
+ { src: "/images/features/Lightweight.webp", alt: "Klavetek Factory Exterior", title: "Factory Exterior", isVideo: false },
+ { src: "/images/features/Eco-Friendly.webp", alt: "Factory Premises", title: "Factory Premises", isVideo: false },
+ { src: "/images/features/EnergySavingThermalInsulation.webp", alt: "Storage Yard", title: "Storage Yard", isVideo: false },
+ { src: "/images/features/fire-resistant.webp", alt: "Loading Bay", title: "Loading Bay", isVideo: false },
  ],
  },
  {
@@ -20,10 +20,10 @@ export const galleryData = {
  title: "Machinery",
  description: "German autoclaving technology and automated production lines",
  images: [
- { src: "/images/machinery-1.jpg", alt: "Autoclave Machine", title: "Autoclave Machine", isVideo: false },
- { src: "/images/machinery-2.jpg", alt: "Cutting Machine", title: "Precision Cutting", isVideo: false },
- { src: "/images/machinery-3.jpg", alt: "Mixing Unit", title: "Automated Mixing", isVideo: false },
- { src: "/images/machinery-4.jpg", alt: "Control Room", title: "Quality Control", isVideo: false },
+ { src: "/images/process/Autoclaving.webp", alt: "Autoclave Machine", title: "Autoclave Machine", isVideo: false },
+ { src: "/images/process/Cutting.webp", alt: "Cutting Machine", title: "Precision Cutting", isVideo: false },
+ { src: "/images/process/mixing.webp", alt: "Mixing Unit", title: "Automated Mixing", isVideo: false },
+ { src: "/images/process/QualityCheck.webp", alt: "Control Room", title: "Quality Control", isVideo: false },
  ],
  },
  {
@@ -31,10 +31,10 @@ export const galleryData = {
  title: "Production",
  description: "From raw material mixing to finished block packaging",
  images: [
- { src: "/images/production-1.jpg", alt: "Raw Material Storage", title: "Raw Materials", isVideo: false },
- { src: "/images/production-2.jpg", alt: "Mixing Process", title: "Mixing Process", isVideo: false },
- { src: "/images/production-3.jpg", alt: "Curing Process", title: "Autoclave Curing", isVideo: false },
- { src: "/images/production-4.jpg", alt: "Quality Testing", title: "Quality Testing", isVideo: false },
+ { src: "/images/process/raw-material.webp", alt: "Raw Material Storage", title: "Raw Materials", isVideo: false },
+ { src: "/images/process/mixing.webp", alt: "Mixing Process", title: "Mixing Process", isVideo: false },
+ { src: "/images/process/Curing.webp", alt: "Curing Process", title: "Autoclave Curing", isVideo: false },
+ { src: "/images/process/QualityCheck.webp", alt: "Quality Testing", title: "Quality Testing", isVideo: false },
  ],
  },
  {
@@ -42,10 +42,10 @@ export const galleryData = {
  title: "Projects",
  description: "Buildings and structures built with Klavetek AAC blocks",
  images: [
- { src: "/images/project-1.jpg", alt: "Residential Project", title: "Residential Complex", isVideo: false },
- { src: "/images/project-2.jpg", alt: "Commercial Project", title: "Commercial Building", isVideo: false },
- { src: "/images/project-3.jpg", alt: "Industrial Project", title: "Industrial Facility", isVideo: false },
- { src: "/images/project-4.jpg", alt: "Institutional Project", title: "School Building", isVideo: false },
+ { src: "/images/features/Eco-Friendly.webp", alt: "Residential Project", title: "Residential Complex", isVideo: false },
+ { src: "/images/features/EnergySavingThermalInsulation.webp", alt: "Commercial Project", title: "Commercial Building", isVideo: false },
+ { src: "/images/features/fire-resistant.webp", alt: "Industrial Project", title: "Industrial Facility", isVideo: false },
+ { src: "/images/features/Lightweight.webp", alt: "Institutional Project", title: "School Building", isVideo: false },
  ],
  },
  {
@@ -53,10 +53,10 @@ export const galleryData = {
  title: "Construction Sites",
  description: "On-site application and installation of AAC blocks",
  images: [
- { src: "/images/site-1.jpg", alt: "Construction Site 1", title: "Wall Installation", isVideo: false },
- { src: "/images/site-2.jpg", alt: "Construction Site 2", title: "Site Progress", isVideo: false },
- { src: "/images/site-3.jpg", alt: "Construction Site 3", title: "Team at Work", isVideo: false },
- { src: "/images/site-4.jpg", alt: "Construction Site 4", title: "Completed Structure", isVideo: false },
+ { src: "/images/process/Delivery.webp", alt: "Construction Site 1", title: "Wall Installation", isVideo: false },
+ { src: "/images/process/Casting.webp", alt: "Construction Site 2", title: "Site Progress", isVideo: false },
+ { src: "/images/features/Noise-Resistant.webp", alt: "Construction Site 3", title: "Team at Work", isVideo: false },
+ { src: "/images/features/Pest-Resistant.webp", alt: "Construction Site 4", title: "Completed Structure", isVideo: false },
  ],
  },
  {
@@ -64,10 +64,11 @@ export const galleryData = {
  title: "Videos",
  description: "Watch our manufacturing process and project walkthroughs",
  images: [
- { src: "/images/video-1.jpg", alt: "Factory Tour Video", title: "Factory Tour", isVideo: true },
- { src: "/images/video-2.jpg", alt: "Process Video", title: "Manufacturing Process", isVideo: true },
- { src: "/images/video-3.jpg", alt: "Testimonial Video", title: "Client Testimonial", isVideo: true },
+ { src: "/images/hero/hero-poster.webp", alt: "Factory Tour Video", title: "Factory Tour", isVideo: true },
+ { src: "/images/process/Autoclaving.webp", alt: "Process Video", title: "Manufacturing Process", isVideo: true },
+ { src: "/images/testimonials/satyajit-banerjee.webp", alt: "Testimonial Video", title: "Client Testimonial", isVideo: true },
  ],
  },
  ],
 };
+
