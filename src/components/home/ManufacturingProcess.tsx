@@ -6,6 +6,26 @@ import { manufacturingProcess } from "@/data/home";
 import { easePremium, viewportOnce } from "@/lib/animations";
 import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 
+interface ManufacturingStep {
+  step: string;
+  title: string;
+  description: string;
+  icon: string;
+  highlights: string[];
+  processTime: string;
+}
+
+// Decorative particles generated once at module load (only rendered after mount)
+const FLOATING_PARTICLES = [...Array(15)].map((_, i) => ({
+  id: i,
+  x: Math.random() * 100 - 50,
+  y: Math.random() * -100 - 50,
+  duration: 4 + Math.random() * 3,
+  delay: Math.random() * 2,
+  left: Math.random() * 100,
+  top: Math.random() * 100,
+}));
+
 // ─── Manufacturing Step Icons ────────────────────────────────
 
 const IconBox = () => (
@@ -101,6 +121,8 @@ const useReducedMotion = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // Read the initial match once on mount; the listener keeps it in sync afterwards.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPrefersReducedMotion(mediaQuery.matches);
     const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handler);
@@ -114,19 +136,9 @@ const useReducedMotion = () => {
 
 const FloatingParticles = () => {
   const [mounted, setMounted] = useState(false);
-  const particles = useMemo(() => {
-    return [...Array(15)].map((_, i) => ({
-      id: i,
-      x: Math.random() * 100 - 50,
-      y: Math.random() * -100 - 50,
-      duration: 4 + Math.random() * 3,
-      delay: Math.random() * 2,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-    }));
-  }, []);
-  
   useEffect(() => {
+    // Hydration guard: only render the animated particles after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
   
@@ -137,7 +149,7 @@ const FloatingParticles = () => {
   
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
+      {FLOATING_PARTICLES.map((particle) => (
         <motion.div
           key={particle.id}
           className="absolute w-1 h-1 bg-primary/40 rounded-full"
@@ -201,7 +213,7 @@ const PremiumStoryCard = ({
   isActive,
   imageOnLeft,
 }: {
-  step: any;
+  step: ManufacturingStep;
   index: number;
   isRevealed: boolean;
   isActive: boolean;
@@ -687,7 +699,7 @@ export default function ManufacturingProcess() {
   }, [steps]);
 
   // ─── Mobile Layout ──────────────────────────────────────────
-  const MobileLayout = () => (
+  const mobileLayout = () => (
     <div className="relative max-w-2xl mx-auto px-4">
       <div className="flex flex-col gap-16">
         {steps.map((step, idx) => {
@@ -717,7 +729,7 @@ export default function ManufacturingProcess() {
   );
 
   // ─── Desktop Layout ─────────────────────────────────────────
-  const DesktopLayout = () => (
+  const desktopLayout = () => (
     <div className="relative max-w-7xl mx-auto">
       {steps.map((step, idx) => {
         const isRevealed = derivedRevealedSteps.has(idx);
@@ -813,7 +825,7 @@ export default function ManufacturingProcess() {
         </div>
 
         {/* ─── Manufacturing Stages ───────────────────────── */}
-        {isMobile ? <MobileLayout /> : <DesktopLayout />}
+        {isMobile ? mobileLayout() : desktopLayout()}
 
         {/* ─── Final Success Section ─────────────────────── */}
         <FinalSuccessSection />

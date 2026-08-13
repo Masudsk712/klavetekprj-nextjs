@@ -40,7 +40,7 @@ export default function TechnicalSpecs() {
   const [isPaused, setIsPaused] = useState(false);
   const [direction, setDirection] = useState(0);
   const [progress, setProgress] = useState(0);
-  const intervalRef = useRef<any>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<number>(0);
   const rafRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -52,6 +52,8 @@ export default function TechnicalSpecs() {
     (currentSlide + 1) * ITEMS_PER_SLIDE
   ), [currentSlide]);
 
+  const animateProgressRef = useRef<(time: number) => void>(() => {});
+
   const animateProgress = useCallback((time: number) => {
     if (startTimeRef.current === 0) {
       startTimeRef.current = time;
@@ -59,11 +61,16 @@ export default function TechnicalSpecs() {
     const elapsed = time - startTimeRef.current;
     progressRef.current = Math.min(elapsed / AUTO_SLIDE_INTERVAL, 1);
     setProgress(progressRef.current);
-    
+
     if (progressRef.current < 1) {
-      rafRef.current = requestAnimationFrame(animateProgress);
+      rafRef.current = requestAnimationFrame(animateProgressRef.current);
     }
   }, []);
+
+  // Keep the ref in sync so the recursive animation references the latest callback
+  useEffect(() => {
+    animateProgressRef.current = animateProgress;
+  }, [animateProgress]);
 
   useEffect(() => {
     if (!isPaused && !isTouchingRef.current && totalSlides > 1) {

@@ -23,7 +23,7 @@ export default function ProjectCTA() {
             Ready to Build Your <span className="gradient-text">Dream Project</span>?
           </h2>
           <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Partner with Klavetek for premium AAC blocks, expert guidance, and unmatched quality. Let's build something extraordinary together.
+            Partner with Klavetek for premium AAC blocks, expert guidance, and unmatched quality. Let&apos;s build something extraordinary together.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/contact" className="btn-primary text-base px-8 py-4">

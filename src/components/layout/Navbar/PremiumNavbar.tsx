@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { company } from "@/constants/company";
+import { useScrollState } from "@/hooks/useScrollState";
 
 /* ===== DATA ===== */
 type DropdownKey = "products" | "projects";
@@ -190,7 +191,7 @@ function NavThemeToggle() {
     <Magnetic strength={0.35}>
       <motion.button
         onClick={() => setTheme(isDark ? "light" : "dark")}
-        aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        aria-label={mounted ? (isDark ? "Switch to light mode" : "Switch to dark mode") : "Toggle theme"}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
         transition={{ type: "spring", stiffness: 380, damping: 20 }}
@@ -303,18 +304,14 @@ function Hamburger({ open, onClick }: { open: boolean; onClick: () => void }) {
 
 /* ===== MAIN COMPONENT ===== */
 export default function PremiumNavbar() {
-  const [scrolled, setScrolled] = useState(false);
+  // Scrolled once the user travels ~30px. Initialises to `false` so SSR and the
+  // first client render are identical (no hydration mismatch); the scroll
+  // listener is attached only in a browser `useEffect`.
+  const scrolled = useScrollState(30);
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const [prevPathname, setPrevPathname] = useState(pathname);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Reset transient UI when the route changes (render-time adjustment pattern).
   if (prevPathname !== pathname) {
@@ -335,14 +332,30 @@ export default function PremiumNavbar() {
 
   return (
     <>
-      <motion.header variants={navbarEntrance} initial="hidden" animate="visible" className="fixed inset-x-0 top-0 z-50">
-        {/* Ambient green glow (fades once scrolled) */}
+      <motion.header variants={navbarEntrance} initial="hidden" animate="visible" className="fixed inset-x-0 top-0 z-50 w-full">
+        {/* Full-width glassmorphism background — edge-to-edge across the entire
+            viewport (top: 0 / left: 0 / right: 0, no insets, no outer radius).
+            Fully transparent over the hero at the top, then an elegant frosted
+            glass bar once scrolled. Only this background layer is full width;
+            the navigation content below stays centered in its own container. */}
+        <motion.div
+          initial={false}
+          animate={{ opacity: scrolled ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className={cn(
+            "pointer-events-none absolute inset-0 z-0 border-b backdrop-blur-xl",
+            "border-[var(--border)] bg-white/60 shadow-[0_10px_40px_rgba(0,0,0,0.08)]",
+            "dark:border-white/10 dark:bg-[#171717]/70 dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+          )}
+          style={{ backdropFilter: scrolled ? "blur(22px) saturate(150%)" : "blur(0px) saturate(100%)" }}
+        />
+        {/* Ambient green glow (softens once scrolled) */}
         <div className={cn("pointer-events-none absolute inset-x-0 top-0 z-0 transition-opacity duration-700", scrolled ? "opacity-25" : "opacity-100")}>
           <div className="absolute left-1/2 top-0 h-44 w-[min(84vw,760px)] -translate-x-1/2 rounded-full bg-[#16A34A]/25 blur-[90px] dark:bg-[#22C55E]/20" />
         </div>
 
         {/* Bar / floating panel */}
-        <div className={cn("relative z-10 mx-auto flex max-w-[1440px] items-center justify-between px-4 transition-all duration-700 sm:px-6 lg:px-8", "h-[80px]", scrolled && "h-[68px]")}>
+        <div className={cn("relative z-10 mx-auto flex max-w-[1440px] items-center justify-between px-4 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 lg:px-8", "h-[80px]", scrolled && "h-[64px] sm:h-[68px]")}>
           {/* Logo — left */}
           <div className="flex shrink-0 items-center">
             <Magnetic strength={0.2}>
@@ -372,8 +385,10 @@ export default function PremiumNavbar() {
                     onMouseLeave={() => setOpenDropdown(null)}>
                     <Magnetic strength={0.22}>
                       <Link href={item.href} onClick={closeAll}
-                        className={cn("group relative flex items-center gap-1.5 rounded-full px-2.5 py-2 text-[15px] font-semibold tracking-[0.2px] transition-colors duration-300 2xl:px-4",
-                          active ? "text-primary" : "text-[var(--muted-text)] hover:text-primary")}>
+                        className={cn("group relative flex items-center gap-1.5 rounded-full px-2.5 py-2 text-[15px] font-semibold tracking-[0.2px] transition-colors duration-300 hover:-translate-y-px 2xl:px-4",
+                          active
+                            ? "text-primary"
+                            : cn("hover:text-primary", scrolled ? "text-[var(--muted-text)]" : "text-white/90"))}>
                         {active && (
                           <motion.span layoutId="desktopActivePill" className="absolute inset-0 rounded-full border border-primary/30 bg-primary/10"
                             style={{ boxShadow: "0 0 24px rgba(var(--primary-rgb),0.35), inset 0 0 14px rgba(var(--primary-rgb),0.15)" }}

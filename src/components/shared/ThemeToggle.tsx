@@ -10,6 +10,8 @@ export default function ThemeToggle() {
  const [mounted, setMounted] = useState(false);
 
  useEffect(() => {
+ // Hydration guard: only set mounted in the browser to avoid SSR mismatch.
+ // eslint-disable-next-line react-hooks/set-state-in-effect
  setMounted(true);
  }, []);
 

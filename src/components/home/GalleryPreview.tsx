@@ -64,7 +64,7 @@ export default function GalleryPreview() {
  A Glimpse Inside Klavetek
  </h2>
  <p className="mt-4 text-base md:text-lg text-[var(--body-text)] max-w-2xl mx-auto leading-relaxed dark:text-[var(--muted-text)]">
- Take a visual tour of our manufacturing facility, machinery, and the projects we've helped build.
+ Take a visual tour of our manufacturing facility, machinery, and the projects we&apos;ve helped build.
  </p>
  </motion.div>
 

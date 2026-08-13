@@ -18,6 +18,8 @@ function FloatingParticles() {
   }> | null>(null);
 
   useEffect(() => {
+    // Generate once on the client only to avoid SSR hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setParticles(
       Array.from({ length: 30 }).map((_, i) => ({
         id: i,
@@ -67,6 +69,8 @@ function ProgressBar({ active, count, duration, isPaused }: { active: number; co
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Reset the progress bar whenever the active slide changes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(0);
     if (isPaused) {
       if (intervalRef.current) clearInterval(intervalRef.current);

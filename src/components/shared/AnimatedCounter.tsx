@@ -19,15 +19,11 @@ function parseValue(value: string) {
 
 export default function AnimatedCounter({ value, duration = 2, className = "" }: AnimatedCounterProps) {
  const ref = useRef<HTMLSpanElement>(null);
+ const { prefix, target, suffix, isNumeric } = parseValue(value);
  const [display, setDisplay] = useState(value);
 
  useEffect(() => {
- const node = ref.current;
- const { prefix, target, suffix, isNumeric } = parseValue(value);
- if (!isNumeric) {
- setDisplay(value);
- return;
- }
+ if (!isNumeric) return;
 
  const startTime = performance.now();
  const dur = duration * 1000;
@@ -47,7 +43,7 @@ export default function AnimatedCounter({ value, duration = 2, className = "" }:
 
  raf = requestAnimationFrame(tick);
  return () => cancelAnimationFrame(raf);
- }, [value, duration]);
+ }, [value, duration, isNumeric, prefix, target, suffix]);
 
  return <span ref={ref} className={className}>{display}</span>;
 }

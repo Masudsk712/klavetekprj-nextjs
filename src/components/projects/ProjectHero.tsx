@@ -6,6 +6,23 @@ import { ArrowRight, Download, ChevronDown } from "lucide-react";
 import { getCategoryBreadcrumb } from "@/lib/project-utils";
 import type { Project } from "@/types/project";
 
+// Deterministic (seeded) pseudo-random values so server & client render identical particles
+const heroDots = (() => {
+  let seed = 20240117;
+  const rand = () => {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    return seed / 4294967296;
+  };
+  return Array.from({ length: 10 }).map((_, i) => ({
+    id: i,
+    x: rand() * 100,
+    y: rand() * 100,
+    drift: -20 + rand() * 40,
+    duration: 6 + rand() * 8,
+    delay: rand() * 4,
+  }));
+})();
+
 interface ProjectHeroProps {
   project: Project;
   category: string;
@@ -32,11 +49,11 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
       </div>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(10)].map((_, i) => (
-          <motion.div key={i} className="absolute w-1 h-1 bg-primary/40 rounded-full"
-            initial={{ x: `${Math.random()*100}%`, y: `${Math.random()*100}%`, opacity: 0 }}
-            animate={{ y: [null, `${-20 + Math.random()*40}%`], opacity: [0, 0.6, 0] }}
-            transition={{ duration: 6 + Math.random()*8, repeat: Infinity, delay: Math.random()*4 }}
+        {heroDots.map((p) => (
+          <motion.div key={p.id} className="absolute w-1 h-1 bg-primary/40 rounded-full"
+            initial={{ x: `${p.x}%`, y: `${p.y}%`, opacity: 0 }}
+            animate={{ y: [null, `${p.y + p.drift}%`], opacity: [0, 0.6, 0] }}
+            transition={{ duration: p.duration, repeat: Infinity, delay: p.delay }}
           />
         ))}
       </div>
