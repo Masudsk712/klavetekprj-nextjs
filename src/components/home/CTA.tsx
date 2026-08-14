@@ -55,13 +55,15 @@ export default function CTA() {
  <span>{ctaData.primaryCta}</span>
  <ArrowRight className="w-4 h-4" />
  </Link>
- <Link
+ <a
  href={ctaData.secondaryLink}
+ download="Klavetek-AAC-Blocks-Brochure.pdf"
+ aria-label="Download Klavetek brochure"
  className="btn-ghost border-[var(--border)] text-white hover:border-[var(--border)] hover:bg-[var(--surface-2)]/5"
  >
  <Download className="w-4 h-4" />
  <span>{ctaData.secondaryCta}</span>
- </Link>
+ </a>
  </motion.div>
  </motion.div>
  </div>

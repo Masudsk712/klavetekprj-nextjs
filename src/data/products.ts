@@ -156,6 +156,6 @@ export const productsPage: ProductsPage = {
  title: "Need Detailed Specifications?",
  subtitle: "Download our comprehensive product brochure with complete technical data, load calculations, and installation guidelines.",
  buttonText: "Download Brochure",
- buttonLink: "/documents/brochure.pdf",
+ buttonLink: "/Klavetek-EBrochure-2022-23.pdf",
  },
 };

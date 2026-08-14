@@ -257,14 +257,16 @@ export default function CinematicCTA() {
 
             {/* Secondary Button */}
             <MagneticButton strength={0.2}>
-              <Link
+              <a
                 href={ctaData.secondaryLink}
+                download="Klavetek-AAC-Blocks-Brochure.pdf"
+                aria-label="Download Klavetek brochure"
                 className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:border-white/40 hover:bg-white/10 hover:shadow-[0_10px_40px_rgba(255,255,255,0.15)]"
               >
                 <Download className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
                 <span>{ctaData.secondaryCta}</span>
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              </Link>
+              </a>
             </MagneticButton>
           </motion.div>
 

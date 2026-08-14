@@ -102,9 +102,14 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }} className="mt-8 flex flex-wrap gap-4">
               <a href="/contact" className="btn-primary">Get Quote <ArrowRight className="w-4 h-4" /></a>
-              <button className="btn-ghost text-white border-white/30 hover:border-primary hover:text-primary">
+              <a
+                href="/Klavetek-EBrochure-2022-23.pdf"
+                download="Klavetek-AAC-Blocks-Brochure.pdf"
+                aria-label="Download Klavetek brochure"
+                className="btn-ghost text-white border-white/30 hover:border-primary hover:text-primary"
+              >
                 <Download className="w-4 h-4" /> Download Brochure
-              </button>
+              </a>
             </motion.div>
           </div>
         </Container>

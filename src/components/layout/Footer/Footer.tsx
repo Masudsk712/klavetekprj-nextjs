@@ -35,7 +35,7 @@ const products = [
   { name: "Fire Resistant", href: "/products#fire-resistant" },
   { name: "Thermal Insulation", href: "/products#thermal" },
   { name: "Applications", href: "/applications" },
-  { name: "Download Brochure", href: "/documents/brochure.pdf", external: true },
+  { name: "Download Brochure", href: "/Klavetek-EBrochure-2022-23.pdf", external: true, download: "Klavetek-AAC-Blocks-Brochure.pdf" },
 ];
 
 const contactEmail = (company as { email?: string }).email || "info@klavetek.com";
@@ -305,8 +305,9 @@ export default function Footer() {
                   {item.external ? (
                     <a
                       href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      {...(item.download
+                        ? { download: item.download, "aria-label": "Download Klavetek brochure" }
+                        : { target: "_blank", rel: "noopener noreferrer" })}
                       className={`group flex items-center gap-2.5 text-sm transition-all duration-300 hover:translate-x-1 ${
                         isDark ? "text-white/60 hover:text-white" : "text-black/60 hover:text-black"
                       }`}
