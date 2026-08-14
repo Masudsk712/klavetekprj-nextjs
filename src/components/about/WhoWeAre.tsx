@@ -22,7 +22,11 @@ const leftContainer: Variants = {
 
 const itemReveal: Variants = {
   hidden: { opacity: 0, y: 26 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: easePremium } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: easePremium },
+  },
 };
 
 const headingContainer: Variants = {
@@ -73,7 +77,10 @@ export default function WhoWeAre() {
             className="lg:col-span-6"
           >
             {/* Eyebrow — thin green accent line on either side */}
-            <motion.span variants={itemReveal} className="inline-flex items-center gap-3">
+            <motion.span
+              variants={itemReveal}
+              className="inline-flex items-center gap-3"
+            >
               <span className="h-px w-9 bg-gradient-to-r from-primary to-transparent" />
               <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-primary">
                 {whoWeAre.label}
@@ -94,12 +101,16 @@ export default function WhoWeAre() {
                   <motion.span
                     variants={wordReveal}
                     className={
-                      word.isHighlight ? "inline-block text-primary" : "inline-block"
+                      word.isHighlight
+                        ? "inline-block text-primary"
+                        : "inline-block"
                     }
                   >
                     {word.text}
                     {word.isHighlight ? (
-                      <span className="text-[var(--heading)] dark:text-white">.</span>
+                      <span className="text-[var(--heading)] dark:text-white">
+                        .
+                      </span>
                     ) : null}
                   </motion.span>
                   {"\u00A0"}
@@ -119,7 +130,8 @@ export default function WhoWeAre() {
                 {para}
               </motion.p>
             ))}
-{/* Belief statement */}
+
+            {/* Belief statement */}
             <motion.blockquote
               variants={itemReveal}
               className="mt-5 max-w-xl border-l-2 border-primary pl-5 text-lg font-medium leading-relaxed text-[var(--heading)] dark:text-white"
@@ -134,7 +146,9 @@ export default function WhoWeAre() {
             >
               {whoWeAre.facts.map((fact) => (
                 <div key={fact.label}>
-                  <div className="text-xl font-bold text-primary">{fact.value}</div>
+                  <div className="text-xl font-bold text-primary">
+                    {fact.value}
+                  </div>
                   <div className="mt-1 text-xs font-medium uppercase tracking-wider text-[var(--muted-text)]">
                     {fact.label}
                   </div>
@@ -151,7 +165,7 @@ export default function WhoWeAre() {
                 <span className="pointer-events-none absolute inset-0 rounded-full bg-primary/40 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
                 <span className="relative z-10">Explore Our Products</span>
                 <ArrowRight className="relative z-10 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-colors duration-700 group-hover:translate-x-full" />
               </Link>
             </motion.div>
           </motion.div>
@@ -177,20 +191,26 @@ export default function WhoWeAre() {
               transition={{ duration: 0.95, ease: easePremium }}
             >
               <div className="relative overflow-hidden rounded-[28px] border border-[var(--border)] bg-[linear-gradient(160deg,#0d1a12_0%,#0a1410_55%,#050a07_100%)] shadow-[0_40px_90px_rgba(0,0,0,0.45)] dark:border-white/10">
+                {/* green stage light + faint noise texture */}
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_110%,rgba(34,197,94,0.30),transparent_62%)]" />
                 <div className="noise-bg pointer-events-none absolute inset-0 opacity-[0.05]" />
 
+                {/* parallax + gentle float + hover zoom on the art-directed elephant */}
                 <div className="relative aspect-[4/5] w-full sm:aspect-[3/4] lg:aspect-[4/5]">
-<motion.div
+                  <motion.div
                     className="relative h-full w-full"
                     style={prefersReducedMotion ? undefined : { y: imageY }}
                     initial={{ scale: 1.08 }}
-                    whileHover={prefersReducedMotion ? undefined : { scale: 1.15 }}
+                    whileHover={
+                      prefersReducedMotion ? undefined : { scale: 1.15 }
+                    }
                     transition={{ duration: 0.9, ease: easePremium }}
                   >
                     <motion.div
                       className="relative h-full w-full"
-                      animate={prefersReducedMotion ? { y: 0 } : { y: [0, -10, 0] }}
+                      animate={
+                        prefersReducedMotion ? { y: 0 } : { y: [0, -10, 0] }
+                      }
                       transition={{
                         duration: 8,
                         ease: "easeInOut",
@@ -242,7 +262,9 @@ export default function WhoWeAre() {
                   <div className="text-sm font-semibold text-[var(--heading)] dark:text-white">
                     {whoWeAre.badge}
                   </div>
-                  <div className="text-xs text-[var(--muted-text)]">{whoWeAre.badgeSub}</div>
+                  <div className="text-xs text-[var(--muted-text)]">
+                    {whoWeAre.badgeSub}
+                  </div>
                 </div>
               </div>
             </motion.div>

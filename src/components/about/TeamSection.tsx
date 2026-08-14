@@ -52,8 +52,8 @@ export default function TeamSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 26 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={viewportOnce}
           transition={{ duration: 0.8, ease: easePremium }}
           className="group relative mb-16 overflow-hidden rounded-[28px] border border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-sm md:mb-20"

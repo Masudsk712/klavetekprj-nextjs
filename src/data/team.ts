@@ -24,7 +24,7 @@ export const managingDirector: TeamMember = {
     "Lead the team in delivering innovative AAC building solutions",
     "Build lasting partnerships with builders, developers, and stakeholders",
   ],
-  image: "/images/team/managing-director.jpg",
+  image: "/images/team/MD.webp",
   linkedin: undefined,
 };
 
@@ -43,7 +43,7 @@ export const teamMembers: TeamMember[] = [
       "Lead process optimization initiatives for energy efficiency",
       "Mentor production supervisors and floor supervisors",
     ],
-    image: "/images/team/member-01.jpg",
+    image: "/images/team/MD.webp",
     linkedin: "https://linkedin.com/in/priya-sharma-aac",
   },
   {
@@ -60,7 +60,7 @@ export const teamMembers: TeamMember[] = [
       "Ensure ISI and BIS standard compliance across all product lines",
       "Collaborate with R&D on next-generation eco-friendly additives",
     ],
-    image: "/images/team/member-02.jpg",
+    image: "/images/team/MD.webp",
     linkedin: "https://linkedin.com/in/rahul-mehta-engineer",
   },
   {
@@ -77,7 +77,7 @@ export const teamMembers: TeamMember[] = [
       "Investigate and resolve quality deviations with corrective action plans",
       "Train quality team on new testing methodologies and standards",
     ],
-    image: "/images/team/member-03.jpg",
+    image: "/images/team/MD.webp",
     linkedin: "https://linkedin.com/in/meera-qaa",
   },
   {
@@ -94,7 +94,7 @@ export const teamMembers: TeamMember[] = [
       "Facilitate IGBC and green-building certification for client projects",
       "Report sustainability metrics and lead ESG initiatives",
     ],
-    image: "/images/team/member-04.jpg",
+    image: "/images/team/MD.webp",
     linkedin: "https://linkedin.com/in/arjun-sustainability",
   },
   {
@@ -111,7 +111,7 @@ export const teamMembers: TeamMember[] = [
       "Conduct site surveys and prepare material requirement estimates",
       "Represent Klavetek at trade shows, conferences, and industry seminars",
     ],
-    image: "/images/team/member-05.jpg",
+    image: "/images/team/MD.webp",
     linkedin: "https://linkedin.com/in/sanjay-verma-sales",
   },
 ];
