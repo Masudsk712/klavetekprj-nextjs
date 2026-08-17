@@ -4,7 +4,7 @@ import WhoWeAre from "@/components/about/WhoWeAre";
 import JourneyTimeline from "@/components/about/JourneyTimeline";
 import WhyKlavetek from "@/components/about/WhyKlavetek";
 import Philosophy from "@/components/about/Philosophy";
-import MDMessage from "@/components/about/MDMessage";
+import ManagingDirectorSection from "@/components/about/ManagingDirectorSection";
 import TeamSection from "@/components/about/TeamSection";
 import AwardsCertifications from "@/components/about/AwardsCertifications";
 import ImpactStats from "@/components/about/ImpactStats";
@@ -23,7 +23,7 @@ export default function AboutPage() {
       <JourneyTimeline />
       <WhyKlavetek />
       <Philosophy />
-      <MDMessage />
+      <ManagingDirectorSection />
       <TeamSection />
       <AwardsCertifications />
       <ImpactStats />

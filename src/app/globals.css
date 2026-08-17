@@ -679,3 +679,79 @@ p, li, span, div {
 .spec-row:hover {
   background-color: var(--color-table-hover);
 }
+
+/* ============ About — Team section ============ */
+
+/* Premium placeholder surface for team members without a real photo */
+.team-avatar-placeholder {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(22, 163, 74, 0.28), transparent 60%),
+    linear-gradient(160deg, #101413 0%, #0a0d0b 55%, #111410 100%);
+}
+
+/* Fine architectural grid lines on the avatar placeholder */
+.team-avatar-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Modal internal scrollbar — Klavetek green themed */
+.team-modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+.team-modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.team-modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.team-modal-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary), var(--primary-hover));
+  border-radius: 20px;
+  border: 2px solid var(--surface);
+}
+.team-modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-hover);
+}
+
+/* Premium framed portrait inside the team profile modal */
+.team-portrait-frame {
+  box-shadow:
+    inset 0 0 0 1px rgba(22, 163, 74, 0.28),
+    0 18px 50px -20px rgba(0, 0, 0, 0.85),
+    0 0 52px -14px rgba(22, 163, 74, 0.42);
+}
+
+/* Soft green ambient glow for the profile modal surface */
+.team-modal-glow {
+  box-shadow:
+    0 30px 90px -26px rgba(0, 0, 0, 0.9),
+    0 0 90px -28px rgba(22, 163, 74, 0.38);
+}
+
+/* Respect reduced motion at the CSS level for non-Framer animations */
+@media (prefers-reduced-motion: reduce) {
+  .team-avatar-grid {
+    opacity: 0.4;
+  }
+}
+
+/* ============ About — Managing Director section ============ */
+
+/* Thin architectural grid used as a subtle decoration over / near the MD portrait */
+.md-arch-grid {
+  background-image:
+    linear-gradient(rgba(22, 163, 74, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 163, 74, 0.14) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.dark .md-arch-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+}
+

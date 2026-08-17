@@ -128,28 +128,38 @@ export const philosophy = {
   },
 };
 
-export const mdMessage = {
-  eyebrow: "A MESSAGE FROM OUR MANAGING DIRECTOR",
-  title: "Leadership That Builds With Purpose",
+export const managingDirector = {
+  eyebrow: "LEADERSHIP",
+  titleLineOne: "Built With Vision.",
+  titleLineTwo: "Driven By Purpose.",
+  subtitle:
+    "Meet the leadership shaping Klavetek's journey towards better, stronger and more sustainable construction.",
+  label: "A MESSAGE FROM OUR MANAGING DIRECTOR",
+  name: "Mr. Kuddus Ali",
+  designation: "Managing Director, Klavetek",
   quote:
-    "Every structure we help build is part of a larger responsibility — to our customers, our communities, and the environment.",
-  message:
-    "At Klavetek we measure success not only in the blocks we manufacture, but in the structures that stand strong, the spaces that are healthier to live and work in, and a commitment to sustainability that reaches far beyond our factory floor. Our entire team works every day to earn the trust of every builder and developer we serve.",
-  name: "Managing Director",
-  isPlaceholder: true,
-  designation: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
+    "True progress is built when quality, responsibility and innovation come together.",
+  message: [
+    "At Klavetek, we believe that every building begins with a promise — to create spaces that are stronger, smarter and better for the future.",
+    "Our commitment is simple: deliver trusted materials through quality manufacturing, responsible practices and continuous innovation.",
+    "For us, success is measured by the lasting value we create for our customers, our people and the communities we serve.",
+  ],
+  identityLine: "Leadership · Trust · Quality · Responsibility",
+  image: "/images/team/Mdphoto.webp",
+  imageAlt: "Mr. Kuddus Ali, Managing Director of Klavetek",
+  imageLabel: "MANAGING DIRECTOR",
+  microLabel: "KLAVETEK",
 };
 
 export const teamSection = {
+  eyebrow: "THE PEOPLE BEHIND KLAVETEK",
   title: "The People Behind Klavetek",
-  subtitle: "People, expertise and purpose working together.",
-  statement:
-    "Behind every block is a team of skilled professionals — engineers, technicians, operators and support teams — working with precision and pride.",
-  note:
-    "Detailed team profiles and leadership portraits are being added here. We're excited to introduce the people who make Klavetek what it is.",
+  subtitle:
+    "Engineers, technicians, operators and support teams who build with precision.",
+  intro:
+    "From the factory floor to the laboratory and the construction site, every Klavetek professional works to a single standard — precision without compromise. Meet the people who turn premium materials into stronger, greener buildings.",
   cta: "Explore Careers at Klavetek",
   ctaHref: "/career",
-  members: [],
 };
 
 export const awardsCertifications = {

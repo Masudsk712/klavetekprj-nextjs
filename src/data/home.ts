@@ -32,42 +32,6 @@ export const aboutPreview = {
   ],
   };
 
-  export const whyChooseUs = {
-  title: "Why Klavetek Stands Out",
-  subtitle: "Discover the engineering, innovation and manufacturing excellence that make Klavetek the trusted AAC Block partner across India.",
-  reasons: [
-  {
-  icon: "Shield",
-  title: "Uncompromising Quality",
-  description: "Every AAC block is precision-tested to deliver consistent strength, accuracy and long-lasting performance.",
-  },
-  {
-  icon: "Leaf",
-  title: "Sustainable Manufacturing",
-  description: "Eco-friendly production using fly ash technology for a greener and more sustainable future.",
-  },
-  {
-  icon: "Zap",
-  title: "Faster Construction",
-  description: "Larger, lightweight blocks accelerate construction while reducing labor and mortar usage.",
-  },
-  {
-  icon: "Thermometer",
-  title: "Thermal Efficiency",
-  description: "Excellent thermal insulation keeps buildings cooler in summer and warmer in winter.",
-  },
-  {
-  icon: "Volume2",
-  title: "Sound Insulation",
-  description: "High-density AAC blocks reduce external noise for peaceful living and productive workspaces.",
-  },
-  {
-  icon: "Flame",
-  title: "Fire Resistant",
-  description: "Non-combustible AAC blocks provide up to four hours of fire resistance for enhanced safety.",
-  },
-  ],
-  };
 
 export const manufacturingProcess = {
   title: "From Raw Material to Premium AAC Blocks",
@@ -175,52 +139,6 @@ export const manufacturingProcess = {
   ],
   };
 
-export const products = {
-  title: "Our Product Range",
-  subtitle: "Precision-engineered AAC blocks available in multiple sizes to suit every construction need.",
-  items: [
-    {
-    size: "100mm",
-    title: "100 mm AAC Block",
-    description: "Ideal for internal partition walls, providing excellent space utilization with superior strength.",
-    image: "/images/products/product-100.webp",
-    specs: { length: "600mm", height: "200mm", thickness: "100mm", weight: "~8.5 kg" },
-    applications: ["Internal Walls", "Partitions", "High-rise Buildings"],
-    },
-    {
-    size: "125mm",
-    title: "125 mm AAC Block",
-    description: "Perfect balance of strength and space efficiency for residential interior walls.",
-    image: "/images/products/product-125.webp",
-    specs: { length: "600mm", height: "200mm", thickness: "125mm", weight: "~10.5 kg" },
-    applications: ["Residential Walls", "Apartment Partitions", "Interior Walls"],
-    },
-    {
-    size: "150mm",
-    title: "150 mm AAC Block",
-    description: "Standard load-bearing block for external and internal walls in residential construction.",
-    image: "/images/products/product-150.webp",
-    specs: { length: "600mm", height: "200mm", thickness: "150mm", weight: "~12.5 kg" },
-    applications: ["External Walls", "Load Bearing Walls", "Villas & Homes"],
-    },
-    {
-    size: "200mm",
-    title: "200 mm AAC Block",
-    description: "Heavy-duty block for external walls requiring enhanced structural integrity and insulation.",
-    image: "/images/products/product-200.webp",
-    specs: { length: "600mm", height: "200mm", thickness: "200mm", weight: "~16.5 kg" },
-    applications: ["External Walls", "Commercial Buildings", "Industrial Structures"],
-    },
-    {
-    size: "250mm",
-    title: "250 mm AAC Block",
-    description: "Maximum strength block for industrial and large-scale commercial construction projects.",
-    image: "/images/products/product-250.webp",
-    specs: { length: "600mm", height: "200mm", thickness: "250mm", weight: "~20.5 kg" },
-    applications: ["Industrial Buildings", "Warehouses", "Large Commercial Complexes"],
-    },
-    ],
-    };
 
 export const comparisonData = {
   title: "AAC Blocks vs. Clay Bricks",

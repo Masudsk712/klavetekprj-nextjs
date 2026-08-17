@@ -3,9 +3,10 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import Container from "@/components/shared/Container";
 import { aboutCta } from "@/data/about";
+import { company } from "@/constants/company";
 import { viewportOnce, staggerContainer, staggerItem } from "@/lib/animations";
 
 export default function AboutCTA() {
@@ -96,14 +97,15 @@ export default function AboutCTA() {
               whileHover={prefersReducedMotion ? undefined : { y: -3 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
             >
-              <Link
-                href={aboutCta.secondaryHref}
+              <a
+                href={`tel:${company.phone.replace(/\s/g, "")}`}
+                aria-label="Talk to the Klavetek team by phone"
                 className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full border border-white/25 bg-white/5 px-8 py-4 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:border-white/55 hover:bg-white/10 hover:shadow-[0_0_0_0px_rgba(255,255,255,0)]"
               >
-                <Download className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                <Phone className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
                 <span>{aboutCta.secondaryCta}</span>
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/12 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
         </motion.div>

@@ -1,127 +1,115 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import Image from "next/image";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import TeamAvatar from "@/components/about/TeamAvatar";
+import { FacebookIcon, LinkedinIcon } from "@/components/about/social-icons";
+import { easePremium } from "@/lib/animations";
+import type { TeamMember } from "@/data/team";
 
 interface TeamMemberCardProps {
-  member: {
-    id: string;
-    name: string;
-    position: string;
-    department: string;
-    experience: string;
-    bio: string;
-    responsibilities: string[];
-    image: string;
-    linkedin?: string;
-  };
+  member: TeamMember;
   onSelect: () => void;
 }
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
-    },
-  },
-};
+export default function TeamMemberCard({ member, onSelect }: TeamMemberCardProps) {
+  const prefersReducedMotion = useReducedMotion();
 
-export default function TeamMemberCard({
-  member,
-  onSelect,
-}: TeamMemberCardProps) {
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: easePremium },
+    },
+  };
+
+  const links = [
+    { icon: LinkedinIcon, href: member.linkedin, label: `${member.name} on LinkedIn` },
+    { icon: FacebookIcon, href: member.facebook, label: `${member.name} on Facebook` },
+  ].filter((l) => l.href);
+
   return (
     <motion.div
       variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      className="group/vertical"
+      whileHover={prefersReducedMotion ? undefined : { y: -5 }}
+      transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.8 }}
       onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+      className="group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-card-hover"
+      aria-label={`View profile of ${member.name}`}
     >
-      {/* Portrait image frame */}
-      <motion.div
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-sm transition-all duration-500 hover:shadow-card-hover"
-      >
-        <Image
-          src={member.image}
-          alt={member.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] group-hover:brightness-110"
-          style={{ objectPosition: "center 40%" }}
-        />
-        {/* Subtle dark gradient overlay on hover */}
-        <motion.div
-          whileHover={{
-            opacity: 0.6,
-            transition: { type: "spring", stiffness: 300, damping: 30 },
-          }}
-          className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
-        />
-        {/* Green ambient glow when hovered */}
-        <motion.div
-          whileHover={{
-            boxShadow: "0 0 40px rgba(22, 163, 74, 0.15)",
-            transition: { type: "spring", stiffness: 300, damping: 30 },
-          }}
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
-      </motion.div>
-
-      {/* Card lift and info on hover */}
-      <motion.div
-        whileHover={{ y: -6, scale: 1.008 }}
-        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        className="relative pt-6 pb-4 transition-all duration-300"
-      >
-        <div className="text-center">
-          <div className="text-lg font-semibold text-[var(--heading)] dark:text-white">
-            {member.name}
-          </div>
-          <div className="mt-1 text-sm text-[var(--muted-text)] dark:text-white/70">
-            {member.position}
-          </div>
-          <div className="mt-0.5">
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-primary/60 dark:text-primary/40">
-              {member.department}
-            </span>
-          </div>
-          <div className="mt-2">
-            <span className="text-xs font-medium tracking-[0.1em] text-gray-600 dark:text-gray-400">
-              {member.experience}
-            </span>
-          </div>
+      {/* ── Portrait ── */}
+      <div className="relative aspect-[3/4] w-full overflow-hidden">
+        <div className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-[1.05]">
+          <TeamAvatar member={member} />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
 
-        {/* "View Profile" indicator - slides up on hover */}
-        <motion.div
-          whileHover={{ y: -10 }}
-          transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs font-medium uppercase tracking-widest transition-all duration-300 group-hover:text-primary group-hover:translate-y-[-10px]"
-        >
-          {"View Profile"}
-          <svg
-            className="inline-block mt-1 h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-y-[-4px]"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </motion.div>
-      </motion.div>
-      {/* Accessibility: card is clickable */}
-      <button className="sr-only" aria-label={`View ${member.name}'s profile`} tabIndex={-1}>
-        View {member.name}&apos;s profile
-      </button>
+        {/* green ambient glow on hover */}
+        <div className="pointer-events-none absolute inset-0 opacity-0 shadow-[inset_0_0_70px_rgba(22,163,74,0.35)] transition-opacity duration-500 group-hover:opacity-100" />
+
+        {/* social icons — slide in on hover (only rendered when a real URL exists) */}
+        {links.length > 0 && (
+          <div className="absolute bottom-14 right-3 flex translate-x-3 flex-col gap-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
+            {links.map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                onClick={(e) => e.stopPropagation()}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur transition-colors duration-300 hover:bg-primary hover:text-white"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* ── Info ── */}
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
+        <div className="text-base font-semibold text-[var(--heading)] dark:text-white">
+          {member.name}
+        </div>
+        <div className="mt-0.5 text-sm font-medium text-primary">
+          {member.position}
+        </div>
+        <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted-text)] dark:text-white/55">
+            {member.department}
+          </span>
+          {member.experience && (
+            <>
+              <span className="h-1 w-1 rounded-full bg-primary/60" />
+              <span className="text-[11px] font-medium text-[var(--muted-text)] dark:text-white/55">
+                {member.experience}
+              </span>
+            </>
+          )}
+        </div>
+        {member.shortDescription && (
+          <p className="mt-3 text-[13px] leading-relaxed text-[var(--muted-text)] dark:text-white/60">
+            {member.shortDescription}
+          </p>
+        )}
+
+        <div className="mt-auto pt-4">
+          <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-primary transition-all duration-300 group-hover:gap-2.5">
+            View Profile
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </span>
+        </div>
+      </div>
     </motion.div>
   );
 }
