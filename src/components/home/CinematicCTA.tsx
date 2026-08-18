@@ -102,10 +102,16 @@ export default function CinematicCTA() {
   const glowScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.15, 1]);
   const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 0]);
 
-  return (
+    return (
+    // Top padding + scroll-margin-top account for the fixed PremiumNavbar height
+    // (80px) so the CTA content never renders underneath it — during normal
+    // scroll (padding) and anchor/navigation scroll (scroll-margin-top). The
+    // full-bleed video background (absolute inset-0) fills the offset area, so
+    // no visible gap is introduced. Value mirrors the navbar bar height
+    // (`h-[80px]`) and the 80px viewport reference used in viewportOnce.
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden"
+      className="relative isolate w-full overflow-hidden pt-[100px] scroll-mt-[100px]"
       style={{
         height: "clamp(750px, 95vh, 1100px)",
         minHeight: "750px",
@@ -222,6 +228,7 @@ export default function CinematicCTA() {
               </span>
             </h1>
           </motion.div>
+
 
           {/* Subtext */}
           <motion.p
