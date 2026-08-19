@@ -155,7 +155,7 @@ export default function TechnicalSpecs() {
         {/* Section Header with Premium Animation */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
           transition={{ duration: 0.8, ease: easePremium }}
           className="text-center mb-16 md:mb-20"
@@ -285,7 +285,7 @@ export default function TechnicalSpecs() {
         {/* Bottom Statement */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-16 text-center"

@@ -203,7 +203,7 @@ export default function CinematicCTA() {
           {/* Premium Badge */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.6, ease: easePremium }}
             className="mb-8"
@@ -217,7 +217,7 @@ export default function CinematicCTA() {
           <motion.div
             variants={staggerItem}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={viewportOnce}
             className="mb-8"
           >
@@ -234,7 +234,7 @@ export default function CinematicCTA() {
           <motion.p
             variants={fadeUp}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={viewportOnce}
             transition={{ delay: 0.3 }}
             className="mx-auto mb-10 max-w-[650px] text-base leading-relaxed text-white/85 md:text-lg lg:text-xl"
@@ -246,7 +246,7 @@ export default function CinematicCTA() {
           <motion.div
             variants={staggerContainer}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={viewportOnce}
             className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
           >

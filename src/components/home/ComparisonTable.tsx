@@ -86,7 +86,7 @@ export default function ComparisonTable() {
   <motion.div
   variants={imageRevealVariants}
   initial="hidden"
-  whileInView="visible"
+  animate="visible"
   viewport={viewportOnce}
   className="mb-12 md:mb-16"
   >
@@ -204,7 +204,7 @@ export default function ComparisonTable() {
   <motion.div
   variants={containerVariants}
   initial="hidden"
-  whileInView="visible"
+  animate="visible"
   viewport={viewportOnce}
   className="relative"
   >

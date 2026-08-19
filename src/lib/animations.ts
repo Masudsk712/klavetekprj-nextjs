@@ -69,7 +69,13 @@ export const staggerItem: Variants = {
 };
 
 // Viewport defaults
-export const viewportOnce = { once: true, margin: "-80px" } as const;
+//
+// NOTE (root-cause fix): a negative rootMargin (e.g. "-80px") tightens the
+// observed viewport, so large / last-on-page sections (Testimonials, FAQ,
+// CinematicCTA) can stay just outside the shrunken observer box and their
+// `whileInView` reveal never fires — leaving content stuck at opacity:0.
+// Use a tolerant `amount` and NO shrinking margin so every reveal is reached.
+export const viewportOnce = { once: true, amount: 0 } as const;
 
 // Helper to create a delayed variant
 export function withDelay(variants: Variants, delay: number): Variants {

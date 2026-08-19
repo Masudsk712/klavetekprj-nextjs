@@ -237,6 +237,13 @@ export default function ProductCard() {
                          className="object-contain relative z-10 drop-shadow-2xl"
                          priority={currentIndex === 0}
                          loading={currentIndex === 0 ? "eager" : "lazy"}
+                         onError={(e) => {
+                           const img = e.currentTarget;
+                           if (img.getAttribute("data-fallback") !== "1") {
+                             img.setAttribute("data-fallback", "1");
+                             img.src = "/images/products/products-hero.webp";
+                           }
+                         }}
                        />
                       
                       {/* Reflection */}

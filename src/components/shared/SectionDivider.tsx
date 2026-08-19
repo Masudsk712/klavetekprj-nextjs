@@ -18,7 +18,7 @@ export default function SectionDivider({
  <motion.span
  key={i}
  initial={{ opacity: 0, scale: 0 }}
- whileInView={{ opacity: 1, scale: 1 }}
+ animate={{ opacity: 1, scale: 1 }}
  viewport={{ once: true }}
  transition={{ delay: i * 0.1, type: "spring", stiffness: 300, damping: 20 }}
  className="h-1.5 w-1.5 rounded-full bg-primary dark:bg-primary"
@@ -31,7 +31,7 @@ export default function SectionDivider({
  return (
  <motion.div
  initial={{ opacity: 0, scaleX: 0 }}
- whileInView={{ opacity: 1, scaleX: 1 }}
+ animate={{ opacity: 1, scaleX: 1 }}
  viewport={{ once: true }}
  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
  className={`section-divider mx-auto w-full max-w-xs ${className}`}

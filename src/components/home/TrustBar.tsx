@@ -100,7 +100,7 @@ export default function TrustBar() {
           {/* Premium Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.6, ease: easePremium }}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-primary/15 bg-primary/[0.06] backdrop-blur-sm mb-6"
@@ -114,7 +114,7 @@ export default function TrustBar() {
           {/* Main Heading */}
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.7, ease: easePremium, delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--heading)] dark:text-white leading-tight"
@@ -128,7 +128,7 @@ export default function TrustBar() {
           {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             viewport={viewportOnce}
             transition={{ duration: 0.65, ease: easePremium, delay: 0.2 }}
             className="mt-5 md:mt-6 text-base md:text-lg max-w-3xl mx-auto leading-relaxed text-[var(--body-text)] dark:text-[var(--muted-text)]"
@@ -140,7 +140,7 @@ export default function TrustBar() {
         {/* Trust Features Grid */}
         <motion.div
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           viewport={viewportOnce}
           transition={{ staggerChildren: 0.08, delayChildren: 0.3 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mb-12 md:mb-14"
@@ -192,7 +192,7 @@ export default function TrustBar() {
         {/* Statistics Section */}
         <motion.div
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           viewport={viewportOnce}
           transition={{ staggerChildren: 0.1, delayChildren: 0.5 }}
           className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5 mb-14 md:mb-16"
@@ -283,7 +283,7 @@ export default function TrustBar() {
         {/* Bottom Trust Strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           viewport={viewportOnce}
           transition={{ duration: 0.7, ease: easePremium, delay: 0.8 }}
         >

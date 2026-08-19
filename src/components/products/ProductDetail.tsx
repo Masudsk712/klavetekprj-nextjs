@@ -80,6 +80,13 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-contain relative z-10 drop-shadow-2xl"
                     priority
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (img.getAttribute("data-fallback") !== "1") {
+                        img.setAttribute("data-fallback", "1");
+                        img.src = "/images/products/products-hero.webp";
+                      }
+                    }}
                   />
                   
                   {/* Reflection */}

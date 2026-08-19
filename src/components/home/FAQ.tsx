@@ -87,7 +87,7 @@ export default function FAQ() {
   <div className="mx-auto max-w-4xl px-6 lg:px-10">
   <motion.div
   initial={{ opacity: 0, y: -20 }}
-  whileInView={{ opacity: 1, y: 0 }}
+  animate={{ opacity: 1, y: 0 }}
   viewport={viewportOnce}
   transition={{ duration: 0.6, ease: easePremium }}
   >
@@ -98,7 +98,7 @@ export default function FAQ() {
   className="space-y-4"
   variants={containerVariants}
   initial="hidden"
-  whileInView="visible"
+  animate="visible"
   viewport={viewportOnce}
   >
   {faqData.items.map((item, index) => (
@@ -191,7 +191,7 @@ export default function FAQ() {
   <motion.div
   className="mt-16 flex justify-center"
   initial={{ opacity: 0, scale: 0 }}
-  whileInView={{ opacity: 1, scale: 1 }}
+  animate={{ opacity: 1, scale: 1 }}
   viewport={viewportOnce}
   transition={{ duration: 0.6, delay: 0.8 }}
   >

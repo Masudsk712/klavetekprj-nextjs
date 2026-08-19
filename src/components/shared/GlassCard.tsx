@@ -34,7 +34,7 @@ export default function GlassCard({
  <motion.div
  variants={cardVariants}
  initial="hidden"
- whileInView="visible"
+ animate="visible"
  viewport={viewportOnce}
  transition={{ delay }}
  whileHover={

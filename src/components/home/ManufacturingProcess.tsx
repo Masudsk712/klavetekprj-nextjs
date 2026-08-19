@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimation, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { manufacturingProcess } from "@/data/home";
 import { easePremium, viewportOnce } from "@/lib/animations";
@@ -220,7 +220,13 @@ const PremiumStoryCard = ({
   imageOnLeft: boolean;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-100px" });
+  // ROOT-CAUSE FIX: the card content used to be gated behind
+  // useInView(cardRef, { once: true, margin: "-100px" }). A negative
+  // rootMargin shrinks the observed viewport, so large / last cards could
+  // stay outside it and their reveal never fired — leaving every inner image,
+  // heading and paragraph stuck at opacity:0. Reveal on mount instead so the
+  // card is guaranteed visible.
+  const isInView = true;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -298,7 +304,9 @@ const PremiumStoryCard = ({
               className={`object-cover transition-all duration-1000 ${
                 imageLoaded ? "opacity-100 brightness-100" : "opacity-0 brightness-75"
               } ${isActive ? "brightness-110" : ""}`}
-              loading="lazy"
+              // Eager so these render even before the user scrolls to them —
+              // combined with the mount reveal this guarantees visibility.
+              loading="eager"
               onLoad={() => setImageLoaded(true)}
             />
           </motion.div>
@@ -454,7 +462,9 @@ const SectionDivider = () => (
 
 const FinalSuccessSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  // ROOT-CAUSE FIX: same negative rootMargin bug — reveal on mount so the
+  // final success section is guaranteed visible instead of stuck at opacity:0.
+  const isInView = true;
 
   const qualityBadges = [
     "BIS Certified",
@@ -781,7 +791,7 @@ export default function ManufacturingProcess() {
           <div className="text-center mb-16 md:mb-20 lg:mb-24">
           <motion.div
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={viewportOnce}
             variants={{
               hidden: { opacity: 0, y: 30 },
@@ -796,7 +806,7 @@ export default function ManufacturingProcess() {
 
           <motion.h2
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={viewportOnce}
             variants={{
               hidden: { opacity: 0, y: 30 },
@@ -812,7 +822,7 @@ export default function ManufacturingProcess() {
 
           <motion.p
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
             viewport={viewportOnce}
             variants={{
               hidden: { opacity: 0, y: 24 },

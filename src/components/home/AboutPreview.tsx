@@ -215,7 +215,7 @@ export default function AboutPreview() {
         <motion.div
           variants={outerContainer}
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:gap-16 xl:gap-20"
         >

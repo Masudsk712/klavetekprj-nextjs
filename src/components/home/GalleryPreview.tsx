@@ -56,7 +56,7 @@ export default function GalleryPreview() {
  <div className="mx-auto max-w-7xl px-6 lg:px-10">
  <motion.div
  initial={{ opacity: 0, y: 20 }}
- whileInView={{ opacity: 1, y: 0 }}
+ animate={{ opacity: 1, y: 0 }}
  viewport={viewportOnce}
  className="text-center mb-12 md:mb-16"
  >
@@ -71,7 +71,7 @@ export default function GalleryPreview() {
  <motion.div
  variants={containerVariants}
  initial="hidden"
- whileInView="visible"
+ animate="visible"
  viewport={viewportOnce}
  className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
  >
@@ -113,7 +113,7 @@ export default function GalleryPreview() {
 
  <motion.div
  initial={{ opacity: 0, y: 10 }}
- whileInView={{ opacity: 1, y: 0 }}
+ animate={{ opacity: 1, y: 0 }}
  viewport={viewportOnce}
  transition={{ delay: 0.3 }}
  className="text-center mt-12 md:mt-16"

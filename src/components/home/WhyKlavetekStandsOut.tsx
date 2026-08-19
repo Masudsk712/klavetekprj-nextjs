@@ -69,7 +69,7 @@ export default function WhyKlavetekStandsOut() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           viewport={viewportOnce}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
@@ -87,6 +87,13 @@ export default function WhyKlavetekStandsOut() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     loading="lazy"
                     unoptimized
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (img.getAttribute("data-fallback") !== "1") {
+                        img.setAttribute("data-fallback", "1");
+                        img.src = "/images/features/Eco-Friendly.webp";
+                      }
+                    }}
                   />
                   
                   {/* Soft dark/green gradient overlay */}

@@ -31,7 +31,7 @@ export default function SectionHeader({
  return (
  <motion.div
  initial="hidden"
- whileInView="visible"
+ animate="visible"
  viewport={viewportOnce}
  className={`mb-14 md:mb-20 ${centered ? "text-center" : ""} ${className}`}
  >

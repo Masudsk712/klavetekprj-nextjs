@@ -117,7 +117,7 @@ export default function ProductCardGrid() {
         {/* Section Header */}
         <motion.div
           initial="hidden"
-          whileInView="visible"
+          animate="visible"
           viewport={viewportOnce}
           variants={{
             hidden: { opacity: 0, y: 30 },
@@ -229,6 +229,13 @@ export default function ProductCardGrid() {
                       height={400}
                       className="relative z-10 w-full h-full object-contain drop-shadow-2xl"
                       priority={currentIndex === 0}
+                      onError={(e) => {
+                        const img = e.currentTarget;
+                        if (img.getAttribute("data-fallback") !== "1") {
+                          img.setAttribute("data-fallback", "1");
+                          img.src = "/images/products/products-hero.webp";
+                        }
+                      }}
                     />
                   </motion.div>
                 </div>

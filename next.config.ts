@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["192.168.1.116"],
+  // Allow trusted development origins so HMR works when the site is accessed
+  // over the local network (e.g. http://192.168.1.115:3000) without Next.js
+  // blocking the webpack-HMR cross-origin request.
+  allowedDevOrigins: ["192.168.1.115", "192.168.1.116", "localhost"],
   images: {
     // Allow every quality value requested by <Image> across the app.
     // Next.js 16 restricts the optimizer to this list by default [75];
