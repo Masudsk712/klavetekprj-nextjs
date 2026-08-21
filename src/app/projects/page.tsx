@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import Container from "@/components/shared/Container";
 import SectionHeader from "@/components/shared/SectionHeader";
 import ProjectCTA from "@/components/projects/ProjectCTA";
@@ -47,6 +48,12 @@ export default function ProjectsPage() {
       <section className="py-12">
         <Container>
           <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <Link
+              href="/projects"
+              className="px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent-glow text-sm font-semibold text-white shadow-green"
+            >
+              All
+            </Link>
             {categories.map((cat, i) => (
               <a
                 key={cat.key}

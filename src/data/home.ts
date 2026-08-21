@@ -203,7 +203,6 @@ export const applications = {
   { title: "Industrial Projects", description: "Designed for factories, manufacturing units and warehouses", image: "/images/process/Autoclaving.webp" },
   { title: "Hospitals", description: "Excellent thermal insulation and fire resistance", image: "/images/features/fire-resistant.webp" },
   { title: "Educational Institutions", description: "Comfortable, energy-efficient classrooms and campuses", image: "/images/features/Lightweight.webp" },
-  { title: "Warehouses", description: "Durable walls with superior strength and insulation", image: "/images/features/Cost&Time-Saving.webp" },
   ],
   };
 

@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 import {
   Sun, Moon, Phone, MessageCircle, ArrowRight, ArrowUpRight, Menu, X,
   ChevronDown, Layers, Box, Building2, Factory, Home, GraduationCap,
-  Warehouse, HeartPulse, Blocks, ShieldCheck,
+  HeartPulse, Blocks, ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { company } from "@/constants/company";
@@ -43,7 +43,6 @@ const projectMenu = [
   { key: "industrial-projects", title: "Industrial", desc: "Heavy-duty structures", icon: Factory },
   { key: "hospitals", title: "Hospitals", desc: "Safe, acoustic care", icon: HeartPulse },
   { key: "educational-institutions", title: "Education", desc: "Safe learning campuses", icon: GraduationCap },
-  { key: "warehouses", title: "Warehouses", desc: "Large-span storage", icon: Warehouse },
 ];
 
 const whatsappNumber = company.phone2.replace(/\D/g, "");

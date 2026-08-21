@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { Building2, Monitor, Factory, GraduationCap, Hospital, School, Warehouse } from "lucide-react";
+import { Building2, Monitor, Factory, GraduationCap, Hospital, School } from "lucide-react";
 import Link from "next/link";
 import { applications } from "@/data/home";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -26,7 +26,6 @@ const iconMap: Record<string, React.ReactNode> = {
  "Industrial Projects": <Factory className="w-7 h-7 text-white" />,
  "Hospitals": <Hospital className="w-7 h-7 text-white" />,
  "Educational Institutions": <School className="w-7 h-7 text-white" />,
- "Warehouses": <Warehouse className="w-7 h-7 text-white" />,
 };
 const categorySlugMap: Record<string, string> = {
   "Residential Buildings": "residential-buildings",
@@ -34,7 +33,6 @@ const categorySlugMap: Record<string, string> = {
   "Industrial Projects": "industrial-projects",
   "Hospitals": "hospitals",
   "Educational Institutions": "educational-institutions",
-  "Warehouses": "warehouses",
 };
 
 

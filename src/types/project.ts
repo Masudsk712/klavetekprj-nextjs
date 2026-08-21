@@ -5,8 +5,7 @@ export type ProjectCategory =
   | "commercial-buildings"
   | "industrial-projects"
   | "hospitals"
-  | "educational-institutions"
-  | "warehouses";
+  | "educational-institutions";
 
 export interface ProjectStats {
   totalBlocksUsed: string;

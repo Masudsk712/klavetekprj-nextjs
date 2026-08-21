@@ -559,34 +559,11 @@ export default function Footer() {
       {/* ===== Bottom bar ===== */}
       <div className="relative z-10 border-t border-[var(--border)]">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex flex-col items-center justify-between gap-4 py-6 md:flex-row">
-            <p className={`text-center text-xs leading-relaxed md:text-left ${isDark ? "text-white/50" : "text-black/50"}`}>
+          <div className="flex flex-col items-center gap-4 py-6 md:flex-row md:items-center md:justify-between md:gap-6">
+            <p className={`text-center text-xs leading-relaxed md:text-left md:min-w-0 ${isDark ? "text-white/50" : "text-black/50"}`}>
               © {year} Klavetek Green Blocks &amp; Tiles Pvt. Ltd. All rights reserved.
             </p>
-            <nav className="flex items-center gap-3 text-xs md:gap-6" aria-label="Footer legal links">
-              <Link
-                href="/privacy"
-                className={`transition-colors duration-300 hover:text-primary ${isDark ? "text-white/50" : "text-black/50"}`}
-              >
-                Privacy Policy
-              </Link>
-              <span className={isDark ? "text-white/25" : "text-black/25"}>·</span>
-              <Link
-                href="/terms"
-                className={`transition-colors duration-300 hover:text-primary ${isDark ? "text-white/50" : "text-black/50"}`}
-              >
-                Terms
-              </Link>
-              <span className={isDark ? "text-white/25" : "text-black/25"}>·</span>
-              <Link
-                href="/cookies"
-                className={`transition-colors duration-300 hover:text-primary ${isDark ? "text-white/50" : "text-black/50"}`}
-              >
-                Cookies
-              </Link>
-            </nav>
-
-            <p className={`text-center text-xs md:text-right ${isDark ? "text-white/50" : "text-black/50"}`}>
+            <p className={`text-center text-xs md:text-right md:ml-auto md:mr-[96px] lg:mr-[72px] md:max-w-[46%] ${isDark ? "text-white/50" : "text-black/50"}`}>
               Designed &amp; Developed by{" "}
               <a
                 href="https://www.linkedin.com/in/masud-sk-254b581b9/"
