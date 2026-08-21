@@ -29,13 +29,19 @@ const quickLinks = [
   { name: "Contact", href: "/contact" },
 ];
 
-const products = [
-  { name: "AAC Blocks", href: "/products#aac-blocks" },
-  { name: "Lightweight Blocks", href: "/products#lightweight" },
-  { name: "Fire Resistant", href: "/products#fire-resistant" },
-  { name: "Thermal Insulation", href: "/products#thermal" },
-  { name: "Applications", href: "/applications" },
-  { name: "Download Brochure", href: "/Klavetek-EBrochure-2022-23.pdf", external: true, download: "Klavetek-AAC-Blocks-Brochure.pdf" },
+interface FooterProductItem {
+  name: string;
+  href: string;
+  external?: boolean;
+  download?: string;
+}
+
+const products: FooterProductItem[] = [
+  { name: "100mm AAC Blocks", href: "/products/100mm" },
+  { name: "125mm AAC Blocks", href: "/products/125mm" },
+  { name: "150mm AAC Blocks", href: "/products/150mm" },
+  { name: "200mm AAC Blocks", href: "/products/200mm" },
+  { name: "250mm AAC Blocks", href: "/products/250mm" },
 ];
 
 const contactEmail = (company as { email?: string }).email || "info@klavetek.com";
