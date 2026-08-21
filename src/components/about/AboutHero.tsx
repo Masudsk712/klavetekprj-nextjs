@@ -41,6 +41,7 @@ export default function AboutHero() {
 
   return (
     <section
+      data-hero-section
       id="story"
       ref={sectionRef}
       className="relative overflow-hidden pt-[90px] md:pt-[110px] lg:pt-[120px]"
@@ -75,12 +76,14 @@ export default function AboutHero() {
           </motion.video>
         )}
 
-        {/* Subtle dark overlay — kept light so the image stays visible */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/45" />
-        <div
-          className="absolute inset-0"
-          style={{ boxShadow: "inset 0 0 140px rgba(0,0,0,0.6)" }}
-        />
+        {/* Overlay wash — light in light mode, dark cinematic in dark mode */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/10 to-white/55 dark:from-black/55 dark:via-black/35 dark:to-black/45" />
+        {/* Light-mode only: horizontal readability wash on the content (left) side,
+            fading to transparent so the factory footage stays visible. Hidden in dark mode. */}
+        <div className="absolute inset-0 hero-light-overlay dark:hidden transition-opacity duration-500" />
+
+        {/* Vignette — lighter in light mode, cinematic in dark mode */}
+        <div className="absolute inset-0 hero-vignette" />
 
         {/* Soft green ambient accents */}
         <div className="absolute left-1/4 top-0 h-96 w-96 rounded-full bg-primary/15 blur-3xl pointer-events-none" />
@@ -99,7 +102,7 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE }}
-              className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-accent-glow"
+              className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--hero-eyebrow)] dark:text-accent-glow"
             >
               <span className="h-px w-10 bg-gradient-to-r from-accent-glow to-transparent" />
               {aboutHero.eyebrow}
@@ -110,11 +113,11 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: 34 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.85, ease: EASE }}
-              className="mt-7 text-[44px] font-semibold leading-[1.06] tracking-tight text-white md:text-[56px] lg:text-[66px]"
-              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.55)" }}
+              className="mt-7 text-[44px] font-semibold leading-[1.06] tracking-tight text-[var(--hero-heading)] dark:text-white md:text-[56px] lg:text-[66px]"
+              style={{ textShadow: "var(--heading-shadow)" }}
             >
               {aboutHero.titleLine}
-              <span className="block bg-gradient-to-r from-primary via-accent-glow to-primary-hover bg-clip-text text-transparent">
+              <span className="block text-[var(--hero-heading)] dark:bg-gradient-to-r dark:from-primary dark:via-accent-glow dark:to-primary-hover dark:bg-clip-text dark:text-transparent">
                 {aboutHero.titleAccent}
               </span>
             </motion.h1>
@@ -124,7 +127,7 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.8, ease: EASE }}
-              className="mt-7 max-w-[520px] text-base leading-[1.75] text-white/90 md:text-lg"
+              className="mt-7 max-w-[520px] text-base leading-[1.75] text-[var(--hero-body)] dark:text-white/90 md:text-lg"
             >
               {aboutHero.subtitle}
             </motion.p>
@@ -161,10 +164,10 @@ export default function AboutHero() {
         }}
         className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2"
       >
-        <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/70">
+        <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-[var(--muted-text)] dark:text-white/70">
           {aboutHero.scrollLabel}
         </span>
-        <div className="relative h-9 w-5 rounded-full border border-white/60">
+        <div className="relative h-9 w-5 rounded-full border border-[color:rgba(17,24,39,0.35)] dark:border-white/60">
           <motion.span
             animate={
               prefersReducedMotion

@@ -39,23 +39,25 @@ export default async function CategoryPage({ params }: PageProps) {
 
   return (
     <>
-      <section className="relative pt-[90px] md:pt-[110px] lg:pt-[120px] overflow-hidden">
+      <section data-hero-section className="relative pt-[90px] md:pt-[110px] lg:pt-[120px] overflow-hidden">
         <div className="absolute inset-0 -z-20">
           <div className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url('${info.heroImage}')` }} />
-          <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+          <div className="absolute inset-0 bg-black/10 dark:bg-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/15 to-white/60 dark:from-black/50 dark:via-transparent dark:to-black/70" />
+          <div className="absolute inset-0 hero-light-overlay dark:hidden transition-opacity duration-500" />
+          <div className="absolute inset-0 hero-vignette" />
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
         </div>
 
         <Container>
           <div className="relative z-10 py-16 md:py-24 text-center">
-            <h1 className="text-[42px] md:text-[52px] lg:text-[58px] font-bold tracking-tight text-white"
-              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.6)" }}>
+            <h1 className="text-[42px] md:text-[52px] lg:text-[58px] font-bold tracking-tight text-[var(--hero-heading)] dark:text-white"
+              style={{ textShadow: "var(--heading-shadow)" }}>
               {info.label}
               <span className="block mt-4 h-1 w-20 bg-gradient-to-r from-primary to-accent-glow rounded-full mx-auto" />
             </h1>
-            <p className="mt-6 text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-6 text-base md:text-lg text-[var(--hero-body)] dark:text-white/80 max-w-2xl mx-auto leading-relaxed">
               {info.description}
             </p>
           </div>

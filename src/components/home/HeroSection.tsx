@@ -4,7 +4,7 @@ import ScrollIndicator from "./ScrollIndicator";
 
 export default function HeroSection() {
  return (
- <section className="relative overflow-hidden pt-[90px] md:pt-[110px] lg:pt-[120px]">
+ <section data-hero-section className="relative overflow-hidden pt-[90px] md:pt-[110px] lg:pt-[120px]">
 
  <HeroBackground />
 

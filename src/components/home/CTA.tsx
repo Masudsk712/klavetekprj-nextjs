@@ -37,7 +37,7 @@ export default function CTA() {
 
  <motion.h2
  variants={itemVariants}
- className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight"
+ className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--heading)] tracking-tight"
  >
  {ctaData.title}
  </motion.h2>
@@ -59,7 +59,7 @@ export default function CTA() {
  href={ctaData.secondaryLink}
  download="Klavetek-AAC-Blocks-Brochure.pdf"
  aria-label="Download Klavetek brochure"
- className="btn-ghost border-[var(--border)] text-white hover:border-[var(--border)] hover:bg-[var(--surface-2)]/5"
+ className="btn-ghost border-[var(--border)] text-[var(--heading)] dark:text-white hover:border-[var(--border)] hover:bg-[var(--surface-2)]/5"
  >
  <Download className="w-4 h-4" />
  <span>{ctaData.secondaryCta}</span>

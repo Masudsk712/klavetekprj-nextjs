@@ -127,7 +127,7 @@ function IconAction({ href, label, external, bounce, children, onClick }: {
         whileHover={bounce ? { y: -5, scale: 1.08 } : { scale: 1.1 }}
         whileTap={{ scale: 0.92 }}
         transition={{ type: "spring", stiffness: 380, damping: 16 }}
-        className="group relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[var(--border)] bg-white/60 text-[var(--heading)] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl transition-colors duration-300 hover:border-primary/40 hover:text-primary dark:bg-white/5"
+        className="group relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[var(--border)] bg-white/70 text-[var(--heading)] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl transition-colors duration-300 hover:border-primary/40 hover:text-primary dark:bg-white/5"
       >
         <span className="absolute inset-0 rounded-full bg-primary/0 transition-colors duration-300 group-hover:bg-primary/10" />
         <span className="relative">{children}</span>
@@ -185,33 +185,79 @@ function NavThemeToggle() {
   // (placeholder), then this flips after hydration — prevents SSR/CSR mismatch.
   // eslint-disable-next-line react-hooks/set-state-in-effect -- standard next-themes mounted pattern; runs once post-hydration to avoid the mismatch.
   useEffect(() => setMounted(true), []);
-  const isDark = theme === "dark";
+  const isDark = mounted ? theme === "dark" : false;
+  const label = mounted
+    ? (isDark ? "Switch to light mode" : "Switch to dark mode")
+    : "Toggle theme";
 
   return (
     <Magnetic strength={0.35}>
       <motion.button
+        type="button"
         onClick={() => setTheme(isDark ? "light" : "dark")}
-        aria-label={mounted ? (isDark ? "Switch to light mode" : "Switch to dark mode") : "Toggle theme"}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
-        transition={{ type: "spring", stiffness: 380, damping: 20 }}
-        className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[var(--border)] bg-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl dark:bg-white/5"
+        aria-label={label}
+        aria-pressed={isDark}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 400, damping: 22 }}
+        className="group relative inline-flex h-[30px] w-[58px] shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)]/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:bg-white/5 hover:border-primary/40"
       >
-        {mounted ? (
+        {/* Track highlight behind active thumb */}
+        <span
+          className={cn(
+            "absolute inset-0 rounded-full transition-colors duration-300",
+            isDark ? "bg-primary/15 dark:bg-primary/20" : "bg-white/10"
+          )}
+        />
+        {/* Sun icon (light) */}
+        <Sun
+          className={cn(
+            "pointer-events-none absolute h-4 w-4 left-[8px] transition-colors duration-300",
+            isDark ? "text-[var(--muted-foreground)]/40" : "text-[#16A34A]"
+          )}
+          strokeWidth={2}
+        />
+        {/* Moon icon (dark) */}
+        <Moon
+          className={cn(
+            "pointer-events-none absolute h-4 w-4 right-[8px] transition-colors duration-300",
+            isDark ? "text-[#22C55E]" : "text-[var(--muted-foreground)]/40"
+          )}
+          strokeWidth={2}
+        />
+        {/* Sliding thumb with active icon */}
+        <motion.span
+          layoutId="theme-thumb"
+          className="absolute left-[5px] top-[3px] flex h-[24px] w-[24px] items-center justify-center rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.25)]"
+          animate={{ x: isDark ? 24 : 0 }}
+          transition={{ type: "spring", stiffness: 500, damping: 32 }}
+        >
           <AnimatePresence mode="wait" initial={false}>
             {isDark ? (
-              <motion.div key="moon" initial={{ rotate: -120, scale: 0, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} exit={{ rotate: 120, scale: 0, opacity: 0 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}>
-                <Moon className="h-5 w-5 text-[#22C55E]" strokeWidth={2} />
-              </motion.div>
+              <motion.span
+                key="thumb-moon"
+                initial={{ rotate: -120, scale: 0, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                exit={{ rotate: 120, scale: 0, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="flex h-5 w-5 items-center justify-center rounded-full"
+              >
+                <Moon className="h-4 w-4 text-white" strokeWidth={2} style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.8))" }} />
+              </motion.span>
             ) : (
-              <motion.div key="sun" initial={{ rotate: 120, scale: 0, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} exit={{ rotate: -120, scale: 0, opacity: 0 }} transition={{ type: "spring", stiffness: 260, damping: 20 }}>
-                <Sun className="h-5 w-5 text-[#16A34A]" strokeWidth={2} />
-              </motion.div>
+              <motion.span
+                key="thumb-sun"
+                initial={{ rotate: 120, scale: 0, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                exit={{ rotate: -120, scale: 0, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="flex h-5 w-5 items-center justify-center rounded-full"
+              >
+                <Sun className="h-4 w-4 text-[#111827] dark:text-white" strokeWidth={2} style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.8))" }} />
+              </motion.span>
             )}
           </AnimatePresence>
-        ) : (
-          <Sun className="h-5 w-5 text-[var(--muted-text)]" />
-        )}
+        </motion.span>
       </motion.button>
     </Magnetic>
   );
@@ -220,7 +266,7 @@ function NavThemeToggle() {
 /* ===== MEGA MENU PANELS ===== */
 function ProductsPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <div className="w-[600px] rounded-3xl border border-[var(--border)] bg-white/85 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.22)] backdrop-blur-3xl dark:bg-[#171717]/85">
+    <div className="w-[600px] rounded-3xl border border-[var(--border)] bg-[var(--dropdown-background)] p-3 shadow-[0_30px_90px_rgba(0,0,0,0.10)] backdrop-blur-3xl dark:border-white/10 dark:shadow-[0_30px_90px_rgba(0,0,0,0.5)]">
       <div className="grid grid-cols-2 gap-1.5">
         {productMenu.map((p) => (
           <Link key={p.id} href={`/products/${p.id}`} onClick={onNavigate}
@@ -252,7 +298,7 @@ function ProductsPanel({ onNavigate }: { onNavigate: () => void }) {
 
 function ProjectsPanel({ onNavigate }: { onNavigate: () => void }) {
   return (
-    <div className="w-[680px] rounded-3xl border border-[var(--border)] bg-white/85 p-3 shadow-[0_30px_90px_rgba(0,0,0,0.22)] backdrop-blur-3xl dark:bg-[#171717]/85">
+    <div className="w-[680px] rounded-3xl border border-[var(--border)] bg-[var(--dropdown-background)] p-3 shadow-[0_30px_90px_rgba(0,0,0,0.10)] backdrop-blur-3xl dark:border-white/10 dark:shadow-[0_30px_90px_rgba(0,0,0,0.5)]">
       <div className="grid grid-cols-3 gap-1.5">
         {projectMenu.map((p) => (
           <Link key={p.key} href={`/projects/${p.key}`} onClick={onNavigate}
@@ -286,7 +332,7 @@ function Hamburger({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
     <motion.button onClick={onClick} aria-label={open ? "Close menu" : "Open menu"}
       whileTap={{ scale: 0.9 }} transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[var(--border)] bg-white/60 text-[var(--heading)] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl dark:bg-white/5">
+      className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[var(--border)] bg-white/70 text-[var(--heading)] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl dark:bg-white/5">
       <AnimatePresence mode="wait" initial={false}>
         {open ? (
           <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.25 }}>
@@ -304,10 +350,14 @@ function Hamburger({ open, onClick }: { open: boolean; onClick: () => void }) {
 
 /* ===== MAIN COMPONENT ===== */
 export default function PremiumNavbar() {
-  // Scrolled once the user travels ~30px. Initialises to `false` so SSR and the
+  // Scrolled once the user travels ~50px. Initialises to `false` so SSR and the
   // first client render are identical (no hydration mismatch); the scroll
   // listener is attached only in a browser `useEffect`.
-  const scrolled = useScrollState(30);
+  const isScrolled = useScrollState(50);
+  // Two visual states only: a fully transparent navbar over the hero at the top,
+  // then a premium glassmorphism bar once the user scrolls ~50px. Theme and
+  // scroll state compose independently (dark/light × top/scrolled).
+  const solidState = isScrolled;
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -340,22 +390,26 @@ export default function PremiumNavbar() {
             the navigation content below stays centered in its own container. */}
         <motion.div
           initial={false}
-          animate={{ opacity: scrolled ? 1 : 0 }}
+          animate={{ opacity: solidState ? 1 : 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className={cn(
-            "pointer-events-none absolute inset-0 z-0 border-b backdrop-blur-xl",
-            "border-[var(--border)] bg-white/60 shadow-[0_10px_40px_rgba(0,0,0,0.08)]",
-            "dark:border-white/10 dark:bg-[#171717]/70 dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            "pointer-events-none absolute inset-0 z-0 border-b transition-all duration-500",
+            isScrolled
+              ? "border-[var(--border)] bg-[var(--navbar-glass)] shadow-[0_10px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.30)]"
+              : "border-transparent bg-transparent"
           )}
-          style={{ backdropFilter: scrolled ? "blur(22px) saturate(150%)" : "blur(0px) saturate(100%)" }}
+          style={{
+            backdropFilter: isScrolled ? "blur(22px) saturate(160%)" : "blur(0px)",
+          }}
         />
-        {/* Ambient green glow (softens once scrolled) */}
-        <div className={cn("pointer-events-none absolute inset-x-0 top-0 z-0 transition-opacity duration-700", scrolled ? "opacity-25" : "opacity-100")}>
+        {/* Ambient green glow (hidden over the transparent hero so it never breaks the
+            integrated look; fades back in subtly with the glass bar after scroll) */}
+        <div className={cn("pointer-events-none absolute inset-x-0 top-0 z-0 transition-opacity duration-700", solidState ? "opacity-100" : "opacity-0")}>
           <div className="absolute left-1/2 top-0 h-44 w-[min(84vw,760px)] -translate-x-1/2 rounded-full bg-[#16A34A]/25 blur-[90px] dark:bg-[#22C55E]/20" />
         </div>
 
         {/* Bar / floating panel */}
-        <div className={cn("relative z-10 mx-auto flex max-w-[1440px] items-center justify-between px-4 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 lg:px-8", "h-[80px]", scrolled && "h-[64px] sm:h-[68px]")}>
+        <div className={cn("relative z-10 mx-auto flex max-w-[1440px] items-center justify-between px-4 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 lg:px-8", "h-[80px]", solidState && "h-[64px] sm:h-[68px]")}>
           {/* Logo — left */}
           <div className="flex shrink-0 items-center">
             <Magnetic strength={0.2}>
@@ -365,7 +419,7 @@ export default function PremiumNavbar() {
                     <span className="absolute inset-0 rounded-2xl bg-primary/0 blur-xl transition-all duration-500 group-hover:bg-primary/35" />
                     <span className="relative block transition-all duration-500">
                       <Image src="/logos/logo.png" alt="Klavetek Green Blocks & Tiles" width={88} height={56} priority quality={100}
-                        className={cn("h-auto w-auto object-contain transition-all duration-700", scrolled ? "h-[46px]" : "h-[52px]")} />
+                        className={cn("h-auto w-auto object-contain transition-all duration-700", solidState ? "h-[46px]" : "h-[52px]")} />
                     </span>
                   </motion.span>
                 </Link>
@@ -388,7 +442,7 @@ export default function PremiumNavbar() {
                         className={cn("group relative flex items-center gap-1.5 rounded-full px-2.5 py-2 text-[15px] font-semibold tracking-[0.2px] transition-colors duration-300 hover:-translate-y-px 2xl:px-4",
                           active
                             ? "text-primary"
-                            : cn("hover:text-primary", scrolled ? "text-[var(--muted-text)]" : "text-white/90"))}>
+                            : cn("hover:text-primary", isScrolled ? "text-[var(--heading)] dark:text-white/95" : "text-white/95"))}>
                         {active && (
                           <motion.span layoutId="desktopActivePill" className="absolute inset-0 rounded-full border border-primary/30 bg-primary/10"
                             style={{ boxShadow: "0 0 24px rgba(var(--primary-rgb),0.35), inset 0 0 14px rgba(var(--primary-rgb),0.15)" }}
@@ -456,7 +510,7 @@ export default function PremiumNavbar() {
               onClick={closeMobile} className="fixed inset-0 z-[55] bg-black/50 backdrop-blur-sm xl:hidden" />
             <motion.aside key="drawer" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 32 }}
-              className="fixed inset-y-0 right-0 z-[60] flex w-[min(92vw,420px)] flex-col border-l border-[var(--border)] bg-white/90 shadow-2xl backdrop-blur-2xl dark:bg-[#171717]/90 xl:hidden">
+              className="fixed inset-y-0 right-0 z-[60] flex w-[min(92vw,420px)] flex-col border-l border-[var(--border)] bg-[var(--dropdown-background)] shadow-2xl backdrop-blur-2xl xl:hidden">
               {/* Drawer header */}
               <div className="flex items-center justify-between border-b border-[var(--border)] px-6 py-5">
                 <Link href="/" onClick={closeMobile} className="flex items-center">

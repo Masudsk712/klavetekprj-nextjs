@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+/* ============================================================
+   THEME-AWARE DARK VARIANT (class-based, not OS-media based)
+   ------------------------------------------------------------
+   The site toggles themes via next-themes with `attribute="class"`,
+   which adds/removes `.dark` on <html> when the user switches to
+   Dark / Light mode. Tailwind v4's `dark:*` variant is media-query
+   driven (`@media (prefers-color-scheme: dark)`) by DEFAULT, so it
+   would keep applying Dark styles even when the site is in LIGHT mode
+   (as long as the OS is Dark) — which made white text linger on light
+   backgrounds. Redirecting `dark:*` to the `.dark` class makes it
+   follow the bespoke in-page toggle instead, so Light mode always
+   shows dark text and Dark mode always shows light text.
+
+   NOTE: the correct template is `(&:where(.dark, .dark &))`. The `&`
+   placeholder is ONLY replaced by the candidate element's selector, so
+   `:where(.dark, .dark &)` matches ONLY when the element itself or a
+   parent carries the `.dark` class. (A naive `(&:where(.dark, &))`
+   would resolve the second `&` to the element's own class and thereby
+   ALWAYS match — wrongly keeping `dark:*` styles active in Light mode. */
+@custom-variant dark (&:where(.dark, .dark &));
+
 @theme {
  /* ====== ULTRA-PREMIUM CORPORATE DESIGN SYSTEM — Green, White, Black ONLY ====== */
 
@@ -13,8 +34,16 @@
  --color-secondary-bg: var(--secondary-bg);
  --color-surface: var(--surface);
  --color-surface-2: var(--surface-2);
+ --color-surface-elevated: var(--surface-elevated);
 
- /* Text — Only Black or White (via CSS custom properties for theme switching) */
+ /* Text — Only Black or White (via CSS custom properties for theme switching).
+    These are the semantic typography tokens consumed by text-foreground /
+    text-heading / text-body / text-muted etc. Light theme resolves to black,
+    dark theme resolves to white, so switching themes recolors all text that
+    uses these semantic classes. */
+ --color-foreground: var(--foreground);
+ --color-muted-foreground: var(--muted-foreground);
+ --color-primary-foreground: var(--primary-foreground);
  --color-heading: var(--heading);
  --color-body: var(--body-text);
  --color-muted: var(--muted-text);
@@ -41,27 +70,50 @@
  --primary-hover: #15803D;
  --accent-glow: #22C55E;
 
- /* Backgrounds — Only Black or White */
- --background: #FFFFFF;
- --secondary-bg: #000000;
+ /* ====== SEMANTIC THEME TOKENS (LIGHT MODE) ======
+    Components consume these tokens instead of hardcoded colors. */
+ --background: #F7FAF8;
+ --foreground: #000000;
+ --muted-foreground: #4B5563;
  --surface: #FFFFFF;
- --surface-2: #000000;
+ --surface-elevated: #FFFFFF;
+ --surface-2: #EDF1EF;
+ --primary-foreground: #FFFFFF;
+ --border: rgba(0, 0, 0, 0.08);
+ --border-strong: rgba(0, 0, 0, 0.16);
 
- /* Text — Only Black or White (with opacity for muted) */
- --heading: #000000;
- --body-text: #000000;
- --muted-text: rgba(0, 0, 0, 0.55);
+ --nav-background: rgba(255, 255, 255, 0.72);
+ --nav-scrolled: rgba(255, 255, 255, 0.92);
+ --dropdown-background: rgba(255, 255, 255, 0.96);
+  --nav-hero: rgba(255, 255, 255, 0.40);
+  --nav-hero-border: rgba(255, 255, 255, 0.20);
 
- /* Borders */
- --border: rgba(0, 0, 0, 0.10);
- --border-strong: rgba(0, 0, 0, 0.20);
-
- /* Glassmorphism */
- --navbar-glass: rgba(255, 255, 255, 0.80);
- --hero-overlay: rgba(0, 0, 0, 0.45);
+ --hero-overlay: rgba(0, 0, 0, 0.16);
+ --hero-secondary-overlay: rgba(0, 0, 0, 0.28);
 
  /* Backdrop Blur */
  --backdrop-blur: 22px;
+
+ /* Legacy aliases (kept for backward compatibility) */
+ --secondary-bg: #EEF2F0;
+ --heading: #000000;
+ --body-text: #000000;
+ --muted-text: #4B5563;
+
+  /* Premium hero text - LIGHT MODE: PURE BLACK on a white readability wash.
+     These run over the factory footage with the light-mode white gradient, so
+     pure #000000 keeps the heading crisp. Dark mode overrides to #FFFFFF below. */
+  --hero-heading: #000000;
+  --hero-body: #000000;
+  --hero-eyebrow: #000000;
+
+ /* Glassmorphism */
+   --navbar-glass: rgba(255, 255, 255, 0.80);
+
+  /* Hero heading — LIGHT MODE: no shadow so the heading renders as solid,
+     crisp #000000 (the white readability wash provides all the separation we
+     need). Dark mode keeps its strong glow below. */
+  --heading-shadow: none;
 
  --black: #000000;
  --white: #FFFFFF;
@@ -70,12 +122,13 @@
  --primary-rgb: 22, 163, 74;
  --primary-hover-rgb: 21, 128, 61;
  --accent-glow-rgb: 34, 197, 94;
- --background-rgb: 255, 255, 255;
+ --background-rgb: 247, 250, 248;
+ --background-rgb-light: 255, 255, 255;
  --surface-rgb: 255, 255, 255;
- --surface-2-rgb: 0, 0, 0;
- --heading-rgb: 0, 0, 0;
- --body-text-rgb: 0, 0, 0;
- --muted-text-rgb: 0, 0, 0;
+ --surface-2-rgb: 237, 241, 239;
+   --heading-rgb: 0, 0, 0;
+   --body-text-rgb: 0, 0, 0;
+   --muted-text-rgb: 75, 85, 99;
 
  /* Legacy aliases for backward compatibility */
  --primary-500: var(--primary);
@@ -97,8 +150,8 @@
  --text-secondary: var(--muted-text);
  --surface-3: var(--surface-2);
  --dark-surface: var(--surface);
- --premium-grey: #000000;
- --section-grey: #000000;
+ --premium-grey: #F2F5F3;
+ --section-grey: #EEF2F0;
 
  /* Premium Table Colors */
  --color-table-row: #F8F9FA;
@@ -127,34 +180,53 @@
  --shadow-card-hover: 0 4px 8px rgba(0, 0, 0, 0.10), 0 24px 60px rgba(0, 0, 0, 0.16);
 }
 
-/* ====== Dark mode — Dark Grey, White Text, Green Accents ONLY ====== */
+/* ====== Dark mode — Deep Klavetek Green-Black, White/Green Text ====== */
 .dark {
-  --background: #171717;
-  --secondary-bg: #1f1f1f;
-  --surface: #171717;
-  --surface-2: #FFFFFF;
+  /* ====== SEMANTIC THEME TOKENS (DARK MODE) ====== */
+  --background: #050706;
+  --foreground: #FFFFFF;
+  --muted-foreground: #B7C0BA;
+  --surface: #0A0F0C;
+  --surface-elevated: #111A14;
+  --surface-2: #0A0F0C;
+  --primary-foreground: #FFFFFF;
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.20);
 
- --heading: #FFFFFF;
- --body-text: #FFFFFF;
- --muted-text: rgba(255, 255, 255, 0.55);
+  --nav-background: rgba(7, 10, 8, 0.6);
+  --nav-scrolled: rgba(7, 10, 8, 0.9);
+  --dropdown-background: rgba(7, 10, 8, 0.92);
+  --nav-hero: rgba(7, 10, 8, 0.30);
+  --nav-hero-border: rgba(255, 255, 255, 0.10);
 
- --border: rgba(255, 255, 255, 0.15);
- --border-strong: rgba(255, 255, 255, 0.25);
-
-  --navbar-glass: rgba(23, 23, 23, 0.80);
   --hero-overlay: rgba(0, 0, 0, 0.55);
+  --hero-secondary-overlay: rgba(0, 0, 0, 0.7);
+
+  --secondary-bg: #0A0F0C;
+  --heading: #FFFFFF;
+  --body-text: #FFFFFF;
+  --muted-text: #B7C0BA;
+
+  --hero-heading: #FFFFFF;
+  --hero-body: rgba(241, 245, 249, 0.92);
+  --hero-eyebrow: rgba(226, 232, 240, 0.95);
+
+  --navbar-glass: rgba(7, 10, 8, 0.85);
+
+  /* Hero heading — strong glow in dark mode keeps white heading off the video */
+  --heading-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 
   --ink: #FFFFFF;
   --text-primary: #FFFFFF;
   --text-secondary: #FFFFFF;
-  --dark-surface: #171717;
-  --premium-grey: #171717;
-  --section-grey: #171717;
+  --dark-surface: var(--surface);
+  --premium-grey: #0A0F0C;
+  --section-grey: #0A0F0C;
 
   /* Premium Table Colors — Dark Mode */
-  --color-table-row: #1E1E1E;
-  --color-table-row-alt: #252525;
-  --color-table-hover: #2F2F2F;
+  --color-table-row: #111A14;
+  --color-table-row-alt: #0A0F0C;
+  --color-table-hover: #15201A;
   --color-table-border: rgba(255, 255, 255, 0.08);
 
  --primary: #16A34A;
@@ -172,13 +244,13 @@
  --primary-900: #15803D;
  --secondary: #FFFFFF;
 
-  --background-rgb: 23, 23, 23;
-  --surface-rgb: 23, 23, 23;
-  --surface-2-rgb: 255, 255, 255;
+  --background-rgb: 5, 7, 6;
+  --surface-rgb: 10, 15, 12;
+  --surface-2-rgb: 10, 15, 12;
   --heading-rgb: 255, 255, 255;
   --heading-rgb: 255, 255, 255;
   --body-text-rgb: 255, 255, 255;
-  --muted-text-rgb: 255, 255, 255;
+  --muted-text-rgb: 183, 192, 186;
 
  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -198,7 +270,11 @@ html {
  -webkit-font-smoothing: antialiased;
  -moz-osx-font-smoothing: grayscale;
  text-rendering: optimizeLegibility;
- transition: background-color 0.35s ease, color 0.35s ease;
+ color-scheme: light;
+ transition: background-color 0.3s ease, color 0.3s ease;
+}
+.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -206,19 +282,28 @@ body {
  background: var(--background);
  color: var(--body-text);
  overflow-x: hidden;
- transition: background-color 0.35s ease, color 0.35s ease;
+ transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
- font-family: var(--font-poppins), system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
- font-weight: 700;
- letter-spacing: -0.02em;
- color: var(--heading);
-}
+@layer base {
+ h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins), system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Themed default; utilities (text-* / dark:*) win over this inside @layer base. */
+  color: var(--heading);
+ }
 
-p, li, span, div {
- color: var(--body-text);
- line-height: 1.7;
+ p, li, span, div {
+  color: var(--body-text);
+  line-height: 1.7;
+ }
+
+ /* Keep :selection themed */
+ ::selection {
+  background: var(--primary);
+  color: white;
+ }
 }
 
 ::selection {
@@ -263,6 +348,105 @@ p, li, span, div {
  -webkit-backdrop-filter: blur(16px) saturate(150%);
  background: rgba(255, 255, 255, 0.04);
  border: 1px solid var(--border);
+}
+
+/* ============ Hero overlays ============ */
+/* Subtle white wash for light mode — sits between the video and the
+   cinematic gradient so black hero typography stays crisp while the
+   factory footage remains visible. Hidden automatically in dark mode
+   where the existing dark cinematic overlay is retained. */
+.hero-light-overlay {
+  /* Content-side readability zone — strongest on the left where the text sits,
+     fading to transparent on the right so the factory footage stays visible. */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(255, 255, 255, 0.72) 25%,
+    rgba(255, 255, 255, 0.42) 48%,
+    rgba(255, 255, 255, 0.08) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Light-mode hero secondary gradient — reinforces the white wash so the
+   black heading stays readable without washing out the factory video. */
+.hero-light-secondary {
+  /* Subtle vertical fade reinforcing the white readability zone where heading
+     lines sit over machinery/details. Kept subtle so the hero isn't washed out. */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.18) 55%,
+    rgba(255, 255, 255, 0.30) 100%
+  );
+}
+
+/* Dark cinematic hero overlay — used in dark mode only. */
+.hero-dark-overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.42) 45%, rgba(0, 0, 0, 0.68) 100%);
+}
+.hero-dark-overlay-secondary {
+  background: linear-gradient(180deg, rgba(2, 6, 4, 0.40), rgba(2, 6, 4, 0.60));
+}
+
+/* Soft vignette — lighter in light mode, cinematic in dark mode */
+.hero-vignette {
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.22);
+}
+.dark .hero-vignette {
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.80);
+}
+
+/* =====================================================================
+   HERO TEXT — SOURCE-OF-CONFLICT FIX (LIGHT THEME PURE BLACK)
+   ---------------------------------------------------------------------
+   Why this block exists:
+   The global base rules `h1,h2,...{color:var(--heading)}` and
+   `p,li,span,div{color:var(--body-text)}` below are written UNLAYERED,
+   so per the CSS cascade they OUT-PRIORITIZE every Tailwind utility
+   (which ships inside `@layer utilities`). As a result the Tailwind
+   `text-[var(--hero-heading)]` classes on the hero were losing and the
+   hero copy was silently resolving to var(--heading)/#111827 (navy-ish)
+   instead of the intended pure-black hero tokens — the "navy that would
+   not go away". These hero-scoped rules are ALSO unlayered but carry a
+   higher specificity ([data-hero-section]), so they win the cascade and
+   pin the hero text to the theme's --hero-* tokens.
+   Dark mode keeps its white heading + green gradient accent via the
+   .dark overrides below.
+   ===================================================================== */
+[data-hero-section] h1,
+[data-hero-section] h1 span {
+  color: var(--hero-heading);
+  opacity: 1;
+  font-weight: 700;
+  text-shadow: none;
+}
+[data-hero-section] p {
+  color: var(--hero-body);
+  opacity: 1;
+  font-weight: 700;
+  text-shadow: none;
+}
+[data-hero-section] .hero-eyebrow-text {
+  color: #000000;
+  opacity: 1;
+}
+/* DARK MODE: preserve the original white header + gradient accent. */
+.dark [data-hero-section] h1 {
+  color: #ffffff;
+  text-shadow: var(--heading-shadow);
+}
+.dark [data-hero-section] h1 span {
+  color: transparent;
+  background-image: linear-gradient(90deg, var(--primary), var(--accent-glow), var(--primary-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.dark [data-hero-section] p {
+  color: rgba(241, 245, 249, 0.92);
+}
+.dark [data-hero-section] .hero-eyebrow-text {
+  color: var(--accent-glow);
 }
 
 /* ============ Premium shadows ============ */

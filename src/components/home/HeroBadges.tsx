@@ -13,7 +13,7 @@ export default function HeroBadges() {
  >
  <ShieldCheck size={17} />
 
- <span>ISO Certified Quality</span>
+ <span className="hero-eyebrow-text text-[#000000] opacity-100 dark:text-accent-glow">ISO Certified Quality</span>
  </motion.div>
  );
 }

@@ -25,7 +25,7 @@ export default function HeroButtons() {
 
    <Link
    href="/products"
-   className="group relative inline-flex items-center gap-2.5 rounded-full border border-white/30 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:border-white/70 hover:bg-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.12)]"
+   className="group relative inline-flex items-center gap-2.5 rounded-full border border-gray-900/25 bg-white/60 px-7 py-3.5 text-sm font-semibold text-[var(--hero-heading)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:scale-[1.03] hover:border-gray-900/50 hover:bg-white/85 dark:border-white/30 dark:bg-white/5 dark:text-white dark:hover:border-white/70 dark:hover:bg-white/10 dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.12)]"
    >
    Explore Products
 

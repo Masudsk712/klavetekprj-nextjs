@@ -44,7 +44,7 @@ export default function SectionHeader({
  {subtitle && (
  <motion.p
  variants={subVariants}
- className={`mt-5 md:mt-7 text-base md:text-lg max-w-2xl leading-relaxed ${centered ? "mx-auto" : ""} ${light ? "text-[var(--body-text)]" : "text-[var(--body-text)]"} dark:text-[var(--muted-text)]`}
+ className={`mt-5 md:mt-7 text-base md:text-lg max-w-2xl leading-relaxed font-semibold ${centered ? "mx-auto" : ""} ${light ? "text-[var(--heading)]" : "text-[var(--body-text)]"} dark:text-[var(--body-text)]`}
  >
  {subtitle}
  </motion.p>

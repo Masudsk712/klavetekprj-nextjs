@@ -17,7 +17,7 @@ export default function InternalHero({
   breadcrumb,
 }: InternalHeroProps) {
   return (
-    <section className="relative overflow-hidden pt-[90px] md:pt-[110px] lg:pt-[120px]">
+    <section data-hero-section className="relative overflow-hidden pt-[90px] md:pt-[110px] lg:pt-[120px]">
       {/* Hero Background Image */}
       <div className="absolute inset-0 -z-20">
         {/* Background image with Ken Burns effect */}
@@ -34,19 +34,18 @@ export default function InternalHero({
           }}
         />
 
-        {/* Soft dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/30" />
+        {/* Soft wash for text readability — light in light mode, dark cinematic in dark mode */}
+        <div className="absolute inset-0 bg-black/10 dark:bg-black/30" />
 
-        {/* Gradient overlay for premium feel */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60" />
+        {/* Gradient overlay — light in light mode, dark cinematic in dark mode */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/10 to-white/60 dark:from-black/50 dark:via-transparent dark:to-black/60" />
 
-        {/* Vignette effect */}
-        <div
-          className="absolute inset-0"
-          style={{
-            boxShadow: "inset 0 0 150px rgba(0,0,0,0.7)",
-          }}
-        />
+        {/* Light-mode only: horizontal readability wash on the content (left) side,
+            fading to transparent on the right so the factory imagery stays visible. Hidden in dark mode. */}
+        <div className="absolute inset-0 hero-light-overlay dark:hidden transition-opacity duration-500" />
+
+        {/* Vignette — lighter in light mode, cinematic in dark mode */}
+        <div className="absolute inset-0 hero-vignette" />
 
         {/* Subtle green glow accents */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
@@ -65,10 +64,10 @@ export default function InternalHero({
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="mb-6"
               >
-                <ol className="flex flex-wrap items-center gap-2 text-sm text-white/70">
+                <ol className="flex flex-wrap items-center gap-2 text-sm text-[var(--heading)] dark:text-white/80">
                   {breadcrumb.map((item, index) => (
                     <li key={index} className="flex items-center gap-2">
-                      {index > 0 && <span className="text-white/40">/</span>}
+                      {index > 0 && <span className="text-[var(--muted-text)]/60 dark:text-white/40">/</span>}
                       {item.href ? (
                         <a
                           href={item.href}
@@ -77,7 +76,7 @@ export default function InternalHero({
                           {item.label}
                         </a>
                       ) : (
-                        <span className="text-white/90 font-medium">
+                        <span className="text-[var(--heading)] dark:text-white/90 font-medium">
                           {item.label}
                         </span>
                       )}
@@ -92,8 +91,8 @@ export default function InternalHero({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-[42px] font-semibold leading-[1.1] tracking-tight text-white md:text-[52px] lg:text-[58px]"
-              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.6)" }}
+              className="text-[42px] font-semibold leading-[1.1] tracking-tight text-[var(--hero-heading)] dark:text-white md:text-[52px] lg:text-[58px]"
+              style={{ textShadow: "var(--heading-shadow)" }}
             >
               {title}
               {/* Green accent line */}
@@ -110,7 +109,7 @@ export default function InternalHero({
                   duration: 0.8,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                className="mt-6 max-w-[650px] text-base leading-[1.75] text-white/90 md:text-lg"
+                className="mt-6 max-w-[650px] text-base leading-[1.75] text-[var(--hero-body)] dark:text-white/90 md:text-lg"
               >
                 {subtitle}
               </motion.p>
