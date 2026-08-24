@@ -40,13 +40,18 @@ Open http://localhost:3000 in your browser.
 
 ## Environment Variables
 
-Configure in `.env.local` for contact & career form email delivery:
+Configure in `.env.local` (and on Vercel under Settings -> Environment Variables)
+for contact & career form email delivery. The Resend client is built lazily at
+request time, so the build succeeds even when the key is absent — a missing key
+only produces a graceful runtime 500, never a build crash.
 
 | Variable | Description |
 |----------|-------------|
-| EMAIL_API_KEY | Resend API key |
+| RESEND_API_KEY | Resend API key (canonical). Legacy `EMAIL_API_KEY` is also accepted as a fallback |
 | EMAIL_FROM | Verified sender email |
 | EMAIL_TO | Recipient email |
+
+See `.env.example` for a template. Never commit real secrets.
 
 ## License
 

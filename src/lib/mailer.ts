@@ -1,24 +1,46 @@
 /**
- * Transactional email delivery via Resend's official Node.js SDK.
+ * Transactional email delivery via the official Resend Node.js SDK.
  *
  * The Resend SDK wraps the same HTTP API (POST https://api.resend.com/emails
  * with a Bearer token) but provides typed responses, proper error handling,
  * and native support for `reply_to` and base64 attachments.
  *
  * Environment variables (server-side only — never expose to the browser):
- *   EMAIL_FROM    e.g. "Klavetek Website <onboarding@resend.dev>"
- *   EMAIL_TO      the destination inbox, e.g. "masudkac712@gmail.com"
- *   EMAIL_API_KEY your Resend API key
+ *   RESEND_API_KEY your Resend API key (canonical).
+ *                   Legacy EMAIL_API_KEY is also accepted as a fallback so
+ *                   existing .env.local configs keep working untouched.
+ *   EMAIL_FROM     e.g. "Klavetek Website <onboarding@resend.dev>"
+ *   EMAIL_TO       the destination inbox, e.g. "masudkac712@gmail.com"
  *
- * The API key is read once at module load and never logged or sent to
- * the browser. If it is missing, sendEmail() fails gracefully (logged
- * server-side) and the caller returns a generic error.
+ * IMPORTANT: The Resend client is constructed LAZILY inside sendEmail(), only
+ * when an API key is present. Building it at module import time throws
+ * "Missing API key. Pass it to the constructor new Resend('re_123')" whenever
+ * the key is unset, which crashes Next.js page-data collection during the
+ * build — the /api/career and /api/contact routes fail before sendEmail()'s
+ * guard even runs. Lazy init keeps this module importable without any key and
+ * defers a misconfiguration to request time, where the API sends a clean JSON
+ * error instead of crashing the build. The key itself is never logged or sent.
  */
 
 import { Resend } from "resend";
 
-// Constructed once at module load. The key itself is never logged.
-const resend = new Resend(process.env.EMAIL_API_KEY);
+// Lazily-initialized Resend client. Null until first use, so importing this
+// module never constructs a client (and never reads a missing key) until an
+// email is actually being sent.
+let resend: Resend | null = null;
+
+/**
+ * Resolve the Resend API key. `RESEND_API_KEY` is canonical (and the only name
+ * the SDK auto-reads from the environment when the constructor is given none).
+ * The legacy `EMAIL_API_KEY` is honored as a fallback so existing configs keep
+ * working without edits.
+ */
+function apiKeyFromEnv(): string {
+  return (
+    (process.env.RESEND_API_KEY ?? "").trim() ||
+    (process.env.EMAIL_API_KEY ?? "").trim()
+  );
+}
 
 export interface EmailAttachment {
   filename: string;
@@ -33,6 +55,15 @@ interface SendEmailInput {
   subject: string;
   text: string;
   attachments?: EmailAttachment[];
+}
+
+/**
+ * Whether email delivery is configured (an API key is present at runtime).
+ * Lets API routes detect a missing key and respond with a clear
+ * misconfiguration error instead of a generic failure.
+ */
+export function isMailerConfigured(): boolean {
+  return apiKeyFromEnv().length > 0;
 }
 
 /**
@@ -57,11 +88,11 @@ export function emailFromEnv(): { to: string; from: string } {
  * server-side only — the API key is never included in log output.
  */
 export async function sendEmail(input: SendEmailInput): Promise<boolean> {
-  const apiKey = (process.env.EMAIL_API_KEY ?? "").trim();
+  const apiKey = apiKeyFromEnv();
 
   if (!apiKey) {
     console.error(
-      "[mailer] EMAIL_API_KEY is not configured. Add it to .env.local / Vercel to enable delivery.",
+      "[mailer] RESEND_API_KEY is not configured. Add it to Vercel (or .env.local) to enable email delivery.",
     );
     return false;
   }
@@ -74,6 +105,10 @@ export async function sendEmail(input: SendEmailInput): Promise<boolean> {
   }
 
   try {
+    // Construct lazily so this module never throws (and never reads a missing
+    // key) until an email is actually being sent.
+    if (!resend) resend = new Resend(apiKey);
+
     const { error } = await resend.emails.send({
       from: input.from,
       to: input.to,
