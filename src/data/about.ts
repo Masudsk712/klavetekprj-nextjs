@@ -47,7 +47,7 @@ export const journeyTimeline = {
       title: "The Founding",
       description:
         "Klavetek Green Blocks & Tiles Pvt. Ltd. is founded in Malda, West Bengal — driven by a vision to bring sustainable, high-performance AAC solutions to construction.",
-      image: "/images/comaparison/AacBlocks.png",
+            image: "/images/comaparison/AacBlocks.webp",
       imageAlt: "Klavetek AAC blocks",
     },
     {

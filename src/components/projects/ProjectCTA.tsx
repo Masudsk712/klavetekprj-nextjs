@@ -16,7 +16,7 @@ export default function ProjectCTA() {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative max-w-4xl mx-auto px-6 sm:px-8 lg:px-10 text-center"
       >
         <div className="rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl p-10 md:p-16 shadow-premium-lg">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">

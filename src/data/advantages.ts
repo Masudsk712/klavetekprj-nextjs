@@ -14,7 +14,7 @@ export const advantages: Advantage[] = [
     shortSummary: "5-6x larger blocks reduce mortar joints, lighter weight saves steel & concrete, less plaster needed, and high insulation saves energy costs.",
     icon: "Zap",
     image: "/images/features/Cost&Time-Saving.webp",
-    brochureContent: `Klavetek AAC Blocks are 5–6 times larger than conventional clay bricks, reducing mortar consumption and accelerating construction. Their lightweight design lowers the structural dead load, helping save steel and concrete in multi-storey buildings. Precision manufacturing minimizes plaster requirements, while superior thermal insulation enhances energy efficiency and reduces long-term operating costs.`,
+    brochureContent: `Klavetek AAC Blocks are 5–6× larger than clay bricks, reducing mortar use and speeding up construction. Their lightweight design lowers structural load, saving steel and concrete, while precision manufacturing reduces plaster requirements. Superior thermal insulation also improves energy efficiency and lowers long-term costs.`,
   },
   {
     id: "fire-resistant",

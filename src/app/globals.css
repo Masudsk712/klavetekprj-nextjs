@@ -311,6 +311,21 @@ body {
  color: white;
 }
 
+/* ============ Form controls: native <select> / <option> follow the theme ============ */
+/* Browsers render native <select>/<option> as opaque, OS-styled controls that default
+   to a WHITE background regardless of the active page theme — a glaring mismatch when
+   Dark mode is on (the closed control AND the opened option list both flash white).
+   Bind them to the semantic surface/body tokens so they match the existing Klavetek
+   design system instead:
+     - light mode → white surface, black text
+     - dark  mode → green-black surface, white text                             */
+select,
+select option,
+select optgroup {
+  background-color: var(--surface);
+  color: var(--body-text);
+}
+
 ::-webkit-scrollbar {
  width: 10px;
 }

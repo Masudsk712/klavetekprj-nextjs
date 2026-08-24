@@ -62,6 +62,9 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
             exit={{ opacity: 0, scale: 0.96, y: 20 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
             className="relative overflow-hidden shadow-2xl border border-white/10"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${advantage.title} details`}
             style={{
               width: "min(94vw, 1200px)",
               maxWidth: "1200px",
@@ -73,7 +76,7 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110 shadow-lg group"
+              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110 shadow-lg group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               aria-label="Close modal"
             >
               <X className="w-5 h-5 text-white transition-transform duration-300 group-hover:rotate-90" />
@@ -96,13 +99,12 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 45vw"
                     priority
-                    unoptimized
                   />
                 </motion.div>
                 {/* Dark Gradient Overlay at bottom */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 {/* Green Tint Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-900/30 via-transparent to-transparent mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-transparent mix-blend-overlay" />
                 
                 {/* Floating Badge */}
                 <div className="absolute bottom-8 left-8 z-10">
@@ -112,7 +114,7 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
                     transition={{ delay: 0.3, duration: 0.5 }}
                     className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl"
                   >
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-accent-glow animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
                     <span className="text-white font-semibold text-sm tracking-wide">
                       {advantage.title}
                     </span>
@@ -134,7 +136,7 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
                   </h2>
 
                   {/* Divider */}
-                  <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-green-400 rounded-full mb-8 shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
+                  <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent-glow rounded-full mb-8 shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
 
                   {/* Brochure Content */}
                   <div className="space-y-5 flex-grow">
@@ -144,7 +146,7 @@ export default function AdvantageModal({ advantage, isOpen, onClose }: Advantage
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 + (index * 0.1), duration: 0.5, ease: "easeOut" }}
-                        className="text-base sm:text-lg text-slate-300 leading-relaxed"
+                        className="text-base sm:text-lg text-white/80 leading-relaxed"
                       >
                         {line}
                       </motion.p>

@@ -77,7 +77,7 @@ export default function Applications() {
   <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors duration-300">
   {category.title}
   </h3>
-  <p className="text-xs text-gray-200 leading-relaxed line-clamp-2">
+  <p className="text-xs text-white/90 leading-relaxed line-clamp-2">
   {category.description}
   </p>
   </div>

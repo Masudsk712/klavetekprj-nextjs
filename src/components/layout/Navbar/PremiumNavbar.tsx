@@ -252,7 +252,7 @@ function NavThemeToggle() {
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
                 className="flex h-5 w-5 items-center justify-center rounded-full"
               >
-                <Sun className="h-4 w-4 text-[#111827] dark:text-white" strokeWidth={2} style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.8))" }} />
+                <Sun className="h-4 w-4 text-black dark:text-white" strokeWidth={2} style={{ filter: "drop-shadow(0 0 6px rgba(34,197,94,0.8))" }} />
               </motion.span>
             )}
           </AnimatePresence>
@@ -329,7 +329,7 @@ function ProjectsPanel({ onNavigate }: { onNavigate: () => void }) {
 
 function Hamburger({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
-    <motion.button onClick={onClick} aria-label={open ? "Close menu" : "Open menu"}
+    <motion.button onClick={onClick} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-nav-drawer"
       whileTap={{ scale: 0.9 }} transition={{ type: "spring", stiffness: 400, damping: 20 }}
       className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[var(--border)] bg-white/70 text-[var(--heading)] shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl dark:bg-white/5">
       <AnimatePresence mode="wait" initial={false}>
@@ -507,7 +507,7 @@ export default function PremiumNavbar() {
           <>
             <motion.div key="backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={closeMobile} className="fixed inset-0 z-[55] bg-black/50 backdrop-blur-sm xl:hidden" />
-            <motion.aside key="drawer" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
+            <motion.aside key="drawer" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation" initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 32 }}
               className="fixed inset-y-0 right-0 z-[60] flex w-[min(92vw,420px)] flex-col border-l border-[var(--border)] bg-[var(--dropdown-background)] shadow-2xl backdrop-blur-2xl xl:hidden">
               {/* Drawer header */}

@@ -16,7 +16,7 @@ export default function RelatedProjects({ projects }: RelatedProjectsProps) {
 
   return (
     <section className="py-20 md:py-28 bg-[var(--secondary-bg)]/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

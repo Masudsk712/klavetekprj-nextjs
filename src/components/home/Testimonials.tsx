@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, useInView, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { testimonials } from "@/data/home";
@@ -115,6 +116,7 @@ export default function Testimonials() {
   const autoplayDuration = 6000;
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const prefersReducedMotion = useReducedMotion();
 
   const next = useCallback(() => {
     setDirection(1);
@@ -180,7 +182,7 @@ export default function Testimonials() {
       />
 
       {/* Floating particles */}
-      <FloatingParticles />
+      {!prefersReducedMotion && <FloatingParticles />}
 
       <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
         <SectionHeader title={testimonials.title} subtitle={testimonials.subtitle} />
@@ -361,10 +363,12 @@ export default function Testimonials() {
                             "
                           />
                           <div className="relative h-16 w-16 md:h-18 md:w-18 rounded-full overflow-hidden ring-4 ring-[var(--surface)] dark:ring-[var(--background)] shadow-xl">
-                            <img
+                            <Image
                               src={item.image}
                               alt={item.name}
-                              className="h-full w-full object-cover transform group-hover/avatar:scale-110 transition-transform duration-700"
+                              fill
+                              sizes="64px"
+                              className="object-cover transform group-hover/avatar:scale-110 transition-transform duration-700"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
                                 target.style.display = "none";

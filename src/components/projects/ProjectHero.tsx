@@ -77,7 +77,7 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
 
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-[42px] font-semibold leading-[1.1] tracking-tight text-black dark:text-white md:text-[52px] lg:text-[58px]"
+              className="text-[42px] font-semibold leading-[1.1] tracking-tight text-[var(--heading)] dark:text-white md:text-[52px] lg:text-[58px]"
               style={{ textShadow: "var(--heading-shadow)" }}>
               {project.title}
               <span className="block mt-4 h-1 w-20 bg-gradient-to-r from-primary to-accent-glow rounded-full" />
@@ -85,7 +85,7 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
 
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-6 text-base md:text-lg text-black/85 dark:text-white/80 max-w-2xl leading-relaxed">
+              className="mt-6 text-base md:text-lg text-[var(--body-text)] dark:text-white/80 max-w-2xl leading-relaxed">
               {project.description.slice(0, 180)}...
             </motion.p>
 

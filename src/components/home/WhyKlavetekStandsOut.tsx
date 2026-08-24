@@ -75,7 +75,7 @@ export default function WhyKlavetekStandsOut() {
         >
           {advantages.map((advantage) => (
             <motion.div key={advantage.id} variants={itemVariants}>
-              <div className="group relative h-full flex flex-col rounded-[28px] border border-green-500/30 bg-white/5 dark:bg-white/5 backdrop-blur-xl overflow-hidden shadow-lg hover:shadow-green-lg transition-all duration-300 hover:-translate-y-2">
+              <div className="group relative h-full flex flex-col rounded-[28px] border border-primary/30 bg-white/5 dark:bg-white/5 backdrop-blur-xl overflow-hidden shadow-lg hover:shadow-green-lg transition-all duration-300 hover:-translate-y-2">
                 
                 {/* Image Section */}
                 <div className="relative h-[200px] overflow-hidden flex-shrink-0">
@@ -86,7 +86,6 @@ export default function WhyKlavetekStandsOut() {
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     loading="lazy"
-                    unoptimized
                     onError={(e) => {
                       const img = e.currentTarget;
                       if (img.getAttribute("data-fallback") !== "1") {
@@ -110,20 +109,20 @@ export default function WhyKlavetekStandsOut() {
                 {/* Content Section - Flex layout to push button to bottom */}
                 <div className="relative p-6 flex flex-col flex-grow">
                   {/* Thin green top border accent */}
-                  <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-green-500 to-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r from-primary to-accent-glow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">
+                  <h3 className="text-lg font-bold text-[var(--heading)] dark:text-white mb-2 line-clamp-1">
                     {advantage.title}
                   </h3>
                   
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2 mb-4 flex-grow">
+                  <p className="text-sm text-[var(--muted-text)] dark:text-[var(--muted-text)] leading-relaxed line-clamp-2 mb-4 flex-grow">
                     {advantage.shortSummary}
                   </p>
 
                   {/* View Details Button - Always at bottom */}
                   <button 
                     onClick={() => setSelectedAdvantage(advantage)}
-                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 mt-auto"
+                    className="btn-primary mt-auto"
                   >
                     View Details
                     <svg 

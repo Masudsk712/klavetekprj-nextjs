@@ -529,7 +529,7 @@ const FinalSuccessSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
               transition={{ duration: 1, delay: 0.4 }}
-              className="text-sm md:text-base lg:text-lg font-bold text-gray-900 dark:text-white mb-1.5 tracking-tight"
+              className="text-sm md:text-base lg:text-lg font-bold text-[var(--heading)] dark:text-white mb-1.5 tracking-tight"
             >
               Manufacturing Excellence
             </motion.h3>
@@ -539,7 +539,7 @@ const FinalSuccessSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="text-xs text-gray-700 dark:text-gray-300 max-w-xl mx-auto leading-relaxed mb-2 tracking-tight"
+              className="text-xs text-[var(--body-text)] dark:text-[var(--muted-text)] max-w-xl mx-auto leading-relaxed mb-2 tracking-tight"
             >
               {manufacturingProcess.bottomStatement}
             </motion.p>
@@ -585,7 +585,7 @@ const FinalSuccessSection = () => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <span className="text-sm md:text-base font-bold text-gray-900 dark:text-white tracking-tight">
+                      <span className="text-sm md:text-base font-bold text-[var(--heading)] dark:text-white tracking-tight">
                         {badge}
                       </span>
                     </div>
@@ -607,7 +607,7 @@ const FinalSuccessSection = () => {
               <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              <span className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
+              <span className="text-xs sm:text-sm font-bold text-[var(--heading)] dark:text-white">
                 Complete Process: {manufacturingProcess.processTime}
               </span>
             </motion.div>
@@ -812,7 +812,7 @@ export default function ManufacturingProcess() {
               hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easePremium } },
             }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--heading)] dark:text-white mb-5 tracking-tight"
           >
             From Raw Material to{" "}
             <span className="bg-gradient-to-r from-primary via-accent-glow to-primary bg-clip-text text-transparent">
@@ -828,7 +828,7 @@ export default function ManufacturingProcess() {
               hidden: { opacity: 0, y: 24 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easePremium } },
             }}
-            className="text-base md:text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-base md:text-lg text-[var(--body-text)] dark:text-[var(--muted-text)] max-w-3xl mx-auto leading-relaxed"
           >
             {manufacturingProcess.subtitle}
           </motion.p>

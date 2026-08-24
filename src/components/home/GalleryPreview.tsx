@@ -21,25 +21,25 @@ const categories = [
  {
  label: "Factory",
  image: "/images/features/Lightweight.webp",
- gradient: "from-emerald-900/60 via-green-900/50 to-slate-900/60",
+ gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏭",
  },
  {
  label: "Machinery",
  image: "/images/features/Eco-Friendly.webp",
- gradient: "from-green-900/60 via-emerald-900/50 to-slate-900/60",
+ gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "⚙️",
  },
  {
  label: "Production",
  image: "/images/features/EnergySavingThermalInsulation.webp",
- gradient: "from-teal-900/60 via-green-900/50 to-slate-900/60",
+ gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏗️",
  },
  {
  label: "Projects",
  image: "/images/features/fire-resistant.webp",
- gradient: "from-green-900/60 via-emerald-900/50 to-slate-900/60",
+ gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏢",
  },
 ];
@@ -81,7 +81,7 @@ export default function GalleryPreview() {
  variants={itemVariants}
  whileHover={{ y: -8, scale: 1.03 }}
  transition={{ type: "spring", stiffness: 350, damping: 20 }}
- className="group relative aspect-[3/4] md:aspect-square rounded-3xl overflow-hidden border border-primary/15 bg-[var(--surface)] shadow-[0_24px_70px_rgba(0, 0, 0,0.08)] cursor-pointer hover:shadow-[0_32px_90px_rgba(16,185,129,0.15)] dark:bg-[var(--surface)] dark:border-primary/25 dark:hover:shadow-[0_32px_90px_rgba(16,185,129,0.25)]"
+ className="group relative aspect-[3/4] md:aspect-square rounded-3xl overflow-hidden border border-primary/15 bg-[var(--surface)] shadow-[0_24px_70px_rgba(0, 0, 0,0.08)] cursor-pointer hover:shadow-green dark:bg-[var(--surface)] dark:border-primary/25 dark:hover:shadow-green-lg"
  >
 {/* Background image with gradient overlay */}
  <div 
@@ -120,7 +120,7 @@ export default function GalleryPreview() {
  >
  <Link
  href="/gallery"
- className="btn-primary inline-flex items-center gap-2 px-8 py-4 text-base font-semibold rounded-full shadow-[0_12px_35px_rgba(var(--primary-rgb),0.3)] hover:shadow-[0_16px_45px_rgba(var(--primary-rgb),0.4)] hover:scale-105 transition-all duration-300"
+ className="btn-primary"
  >
  <span>View Full Gallery</span>
  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

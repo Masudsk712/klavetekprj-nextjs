@@ -99,7 +99,7 @@ export default function ProductExplorer({
           aria-label="Select AAC block thickness"
           className="mt-10 flex overflow-x-auto px-1 pb-1 mx-auto max-w-3xl scrollbar-none"
         >
-          <div className="inline-flex flex-nowrap gap-2 p-1.5 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-green-500/20 shadow-lg">
+          <div className="inline-flex flex-nowrap gap-2 p-1.5 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-primary/20 shadow-lg">
             {products.map((p, index) => {
               const active = index === selectedIndex;
               return (
@@ -135,7 +135,7 @@ export default function ProductExplorer({
             {/* Product image */}
             <div className="relative flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-radial from-primary/15 via-transparent to-transparent opacity-60" />
-              <div className="relative w-full max-w-md aspect-square rounded-[44px] bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-green-500/20 shadow-card overflow-hidden">
+              <div className="relative w-full max-w-md aspect-square rounded-[48px] bg-white/60 dark:bg-white/5 backdrop-blur-xl border border-primary/20 shadow-card overflow-hidden">
                 <div className="relative h-full w-full flex items-center justify-center p-8 md:p-10">
                   <Image
                     src={productImage(product.size)}

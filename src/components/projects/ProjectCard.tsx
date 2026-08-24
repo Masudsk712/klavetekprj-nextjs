@@ -28,7 +28,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       whileInView="visible"
       viewport={viewportOnce}
       whileHover={{ y: -8, scale: 1.01 }}
-      className="group relative rounded-[24px] border border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-xl overflow-hidden shadow-card hover:shadow-green transition-all duration-500"
+      className="group relative rounded-[20px] border border-[var(--border)] bg-[var(--surface)]/80 backdrop-blur-xl overflow-hidden shadow-card hover:shadow-green transition-all duration-500"
     >
       <Link href={`/projects/${project.category}/${project.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden">

@@ -37,22 +37,28 @@ export default function Lightbox({ images, currentIndex, isOpen, onClose, onNext
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
           onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Project image viewer"
         >
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            aria-label="Close image viewer"
+            className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <X className="w-6 h-6" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onPrev(); }}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            aria-label="Previous image"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onNext(); }}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+            aria-label="Next image"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <ChevronRight className="w-6 h-6" />
           </button>

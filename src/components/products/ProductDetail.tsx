@@ -13,7 +13,7 @@ interface ProductDetailProps {
 
 export default function ProductDetail({ product }: ProductDetailProps) {
   return (
-    <section className="relative py-16 md:py-24 overflow-hidden">
+    <section className="relative py-20 md:py-28 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.06] via-transparent to-primary/[0.04] pointer-events-none" />
       
@@ -35,7 +35,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         >
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white text-sm font-semibold hover:border-primary/50 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-[var(--border)] text-[var(--heading)] dark:text-white text-sm font-semibold hover:border-primary/50 transition-all duration-300"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Products
@@ -54,7 +54,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
             <div className="absolute inset-0 bg-gradient-radial from-primary/20 via-transparent to-transparent opacity-60" />
             
             {/* Glass panel */}
-            <div className="relative w-full max-w-lg aspect-square rounded-[48px] bg-white/5 dark:bg-white/5 backdrop-blur-xl border border-green-500/20 shadow-premiumLg overflow-hidden">
+            <div className="relative w-full max-w-lg aspect-square rounded-[48px] bg-white/5 dark:bg-white/5 backdrop-blur-xl border border-primary/30 shadow-card overflow-hidden">
               
               {/* Ambient green glow */}
               <div className="absolute -inset-20 bg-gradient-radial from-primary/30 via-transparent to-transparent opacity-40 blur-3xl" />
@@ -109,13 +109,13 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: easePremium }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-bold text-[var(--heading)] dark:text-[var(--heading)] mb-3 tracking-tight">
                 {product.size} AAC Block
               </h1>
               <p className="text-xl text-primary font-semibold mb-4">
                 {product.tagline}
               </p>
-              <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-base text-[var(--body-text)] dark:text-[var(--muted-text)] leading-relaxed">
                 {product.description}
               </p>
             </motion.div>
@@ -126,7 +126,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: easePremium }}
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-xl font-bold text-[var(--heading)] dark:text-[var(--heading)] mb-4">
                 Specifications
               </h3>
               <div className="grid grid-cols-2 gap-3">
@@ -136,12 +136,12 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
-                    className="p-4 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-green-500/20"
+                    className="p-4 rounded-2xl bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-primary/20"
                   >
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <div className="text-xs text-[var(--muted-text)] dark:text-[var(--muted-text)] mb-1">
                       {spec.label}
                     </div>
-                    <div className="text-sm font-bold text-gray-900 dark:text-white">
+                    <div className="text-sm font-bold text-[var(--heading)] dark:text-[var(--heading)]">
                       {spec.value}
                     </div>
                   </motion.div>
@@ -155,7 +155,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: easePremium }}
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-xl font-bold text-[var(--heading)] dark:text-[var(--heading)] mb-4">
                 Advantages
               </h3>
               <div className="grid grid-cols-1 gap-2">
@@ -168,7 +168,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     className="flex items-start gap-3 p-3 rounded-xl bg-primary/10 border border-primary/20"
                   >
                     <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="text-sm text-[var(--body-text)] dark:text-[var(--muted-text)]">
                       {advantage}
                     </span>
                   </motion.div>
@@ -182,7 +182,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3, ease: easePremium }}
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-xl font-bold text-[var(--heading)] dark:text-[var(--heading)] mb-4">
                 Applications
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -192,7 +192,7 @@ export default function ProductDetail({ product }: ProductDetailProps) {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4 + i * 0.05, duration: 0.4 }}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-gray-700 dark:text-gray-300"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm text-[var(--heading)] dark:text-[var(--heading)]"
                   >
                     <Check className="w-4 h-4 text-primary" />
                     <span>{app}</span>
@@ -208,14 +208,23 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               transition={{ duration: 0.6, delay: 0.4, ease: easePremium }}
               className="flex flex-wrap gap-3 pt-2"
             >
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary to-primary-hover text-white font-semibold transition-all duration-300 shadow-lg">
+              <Link
+                href={`/contact?product=${encodeURIComponent(product.title)}`}
+                className="btn-primary"
+                aria-label={`Get a quote for ${product.title}`}
+              >
                 <MessageSquare className="w-5 h-5" />
                 Get Quote
-              </button>
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-green-500/30 text-gray-900 dark:text-white font-semibold transition-all duration-300">
+              </Link>
+              <a
+                href="/Klavetek-EBrochure-2022-23.pdf"
+                download
+                className="btn-ghost"
+                aria-label="Download the Klavetek product datasheet / brochure PDF"
+              >
                 <Download className="w-5 h-5" />
                 Download Datasheet
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>

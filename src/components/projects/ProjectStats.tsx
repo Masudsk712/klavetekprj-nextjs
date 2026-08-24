@@ -27,7 +27,7 @@ export default function ProjectStats({ stats }: ProjectStatsProps) {
   return (
     <section ref={ref} className="py-20 md:py-28 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 relative">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

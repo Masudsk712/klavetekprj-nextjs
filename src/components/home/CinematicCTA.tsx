@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useInView, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { ctaData } from "@/data/home";
@@ -93,6 +93,7 @@ export default function CinematicCTA() {
 
   // Ken Burns zoom effect - slow cinematic zoom
   const videoScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.08, 1]);
+  const prefersReducedMotion = useReducedMotion();
 
   // Content animations
   const contentY = useTransform(scrollYProgress, [0, 0.5], [50, 0]);
@@ -120,7 +121,7 @@ export default function CinematicCTA() {
       {/* Video Background with Cinematic Zoom */}
       <motion.div
         className="absolute inset-0 z-0"
-        style={{ scale: videoScale }}
+        style={{ scale: prefersReducedMotion ? 1 : videoScale }}
       >
         <video
           autoPlay
@@ -146,7 +147,7 @@ export default function CinematicCTA() {
       {/* Soft Green Ambient Glow */}
       <motion.div
         className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
-        style={{ scale: glowScale, opacity: glowOpacity }}
+        style={{ scale: prefersReducedMotion ? 1 : glowScale, opacity: prefersReducedMotion ? 0.4 : glowOpacity }}
       >
         <div
           className="absolute h-[600px] w-[600px] rounded-full blur-[150px]"
@@ -158,7 +159,7 @@ export default function CinematicCTA() {
 
       {/* Floating Dust Particles */}
       <div className="absolute inset-0 z-30 pointer-events-none">
-        {Array.from({ length: 15 }).map((_, i) => (
+        {!prefersReducedMotion && Array.from({ length: 15 }).map((_, i) => (
           <Particle
             key={i}
             delay={i * 0.4}
@@ -197,7 +198,7 @@ export default function CinematicCTA() {
       {/* Main Content */}
       <motion.div
         className="relative z-60 flex h-full flex-col items-center justify-center px-6"
-        style={{ y: contentY, opacity: contentOpacity }}
+        style={{ y: prefersReducedMotion ? 0 : contentY, opacity: prefersReducedMotion ? 1 : contentOpacity }}
       >
         <div className="mx-auto max-w-[650px] text-center">
           {/* Premium Badge */}

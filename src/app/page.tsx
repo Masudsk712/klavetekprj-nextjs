@@ -12,17 +12,35 @@ import GalleryPreview from "@/components/home/GalleryPreview";
 import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 import CinematicCTA from "@/components/home/CinematicCTA";
+import HomeStructuredData from "@/components/shared/HomeStructuredData";
 
 export const metadata: Metadata = {
  title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
  description:
  "Leading manufacturer of ISI-certified AAC blocks in Eastern India. Sustainable, lightweight, fire-resistant building materials. Sizes: 100mm, 125mm, 150mm, 200mm, 250mm.",
  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://kgbt.in",
+    siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
+    title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
+    description:
+      "Leading manufacturer of ISI-certified AAC blocks in Eastern India. Sustainable, lightweight, fire-resistant building materials.",
+    images: [{ url: "/images/about/about-hero.webp", width: 1200, height: 630, alt: "Klavetek Green Blocks & Tiles" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
+    description: "ISI-certified AAC blocks manufactured in Eastern India since 2010.",
+    images: ["/images/about/about-hero.webp"],
+  },
 };
 
 export default function HomePage() {
  return (
  <>
+ <HomeStructuredData />
  <HeroSection />
  <TrustBar />
  <AboutPreview />

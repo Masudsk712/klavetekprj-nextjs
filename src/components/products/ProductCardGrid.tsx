@@ -100,7 +100,7 @@ export default function ProductCardGrid() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 md:py-24 overflow-hidden"
+      className="relative py-20 md:py-28 overflow-hidden"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.06] via-transparent to-primary/[0.04] pointer-events-none" />
@@ -153,7 +153,7 @@ export default function ProductCardGrid() {
                 className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   index === currentIndex
                     ? "text-white scale-105"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    : "text-[var(--muted-text)] dark:text-[var(--muted-text)] hover:text-[var(--heading)] dark:hover:text-[var(--heading)]"
                 }`}
               >
                 {index === currentIndex && (
@@ -174,7 +174,7 @@ export default function ProductCardGrid() {
               <button
                 key={index}
                 onClick={() => handleProductClick(index)}
-                className="group relative h-1.5 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden transition-all duration-300 hover:h-2"
+                className="group relative h-1.5 flex-1 bg-[var(--border)] dark:bg-white/10 rounded-full overflow-hidden transition-all duration-300 hover:h-2"
               >
                 <motion.div
                   className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-accent-glow rounded-full"
@@ -264,13 +264,13 @@ export default function ProductCardGrid() {
                 {/* Dimensions */}
                 <div className="flex items-center justify-center gap-4 pt-2">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white">600</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">Length (mm)</div>
+                    <div className="text-2xl font-bold text-[var(--heading)] dark:text-white">600</div>
+                    <div className="text-xs text-[var(--muted-text)]">Length (mm)</div>
                   </div>
-                  <div className="w-px h-8 bg-gray-300 dark:bg-gray-700" />
+                  <div className="w-px h-8 bg-[var(--border)] dark:bg-white/10" />
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white">200</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">Height (mm)</div>
+                    <div className="text-2xl font-bold text-[var(--heading)] dark:text-white">200</div>
+                    <div className="text-xs text-[var(--muted-text)]">Height (mm)</div>
                   </div>
                 </div>
 
@@ -302,12 +302,12 @@ export default function ProductCardGrid() {
                   {currentProduct.specs.slice(0, 4).map((spec) => (
                     <div
                       key={spec.label}
-                      className="p-2.5 rounded-xl bg-white/50 dark:bg-white/5 border border-gray-200/50 dark:border-gray-700/50"
+                      className="p-2.5 rounded-xl bg-white/50 dark:bg-white/5 border border-[var(--border)]"
                     >
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                      <div className="text-[10px] text-[var(--muted-text)] dark:text-[var(--muted-text)] uppercase tracking-wide">
                         {spec.label}
                       </div>
-                      <div className="text-sm font-bold text-gray-900 dark:text-white tabular-nums">
+                      <div className="text-sm font-bold text-[var(--heading)] dark:text-white tabular-nums">
                         {spec.value}
                       </div>
                     </div>
@@ -320,14 +320,14 @@ export default function ProductCardGrid() {
                     {currentProduct.applications.slice(0, 3).map((app) => (
                       <span
                         key={app}
-                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-primary/10 border border-primary/20 text-[11px] text-gray-700 dark:text-gray-300"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-primary/10 border border-primary/20 text-[11px] text-[var(--heading)] dark:text-white"
                       >
                         <Check className="w-3 h-3 text-primary" />
                         {app}
                       </span>
                     ))}
                     {currentProduct.applications.length > 3 && (
-                      <span className="inline-flex items-center px-2 py-1 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] text-gray-600 dark:text-gray-400 font-medium">
+                      <span className="inline-flex items-center px-2 py-1 rounded-lg bg-[var(--surface-2)] dark:bg-white/10 text-[11px] text-[var(--muted-text)] dark:text-[var(--muted-text)] font-medium">
                         +{currentProduct.applications.length - 3} more
                       </span>
                     )}
@@ -337,7 +337,7 @@ export default function ProductCardGrid() {
                 {/* Details Button */}
                 <Link
                   href={`/products/${currentProduct.id}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary to-primary-hover text-white text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
+                  className="btn-primary"
                 >
                   <FileText className="w-4 h-4" />
                   Details

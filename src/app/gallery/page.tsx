@@ -4,8 +4,24 @@ import GalleryGrid from "@/components/gallery/GalleryGrid";
 
 export const metadata: Metadata = {
  title: "Gallery | Klavetek Green Blocks & Tiles",
- description: "Explore our manufacturing facility, machinery, production process, projects, and construction sites through our visual gallery.",
-};
+    description: "Explore our manufacturing facility, machinery, production process, projects, and construction sites through our visual gallery.",
+    alternates: { canonical: "/gallery" },
+    openGraph: {
+      type: "website",
+      locale: "en_IN",
+      url: "https://kgbt.in/gallery",
+      siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
+      title: "Gallery | Klavetek Green Blocks & Tiles",
+      description: "Explore Klavetek's manufacturing facility, projects and construction sites.",
+      images: [{ url: "/images/gallery/gallery-hero.webp", width: 1200, height: 630, alt: "Klavetek Gallery" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Gallery | Klavetek Green Blocks & Tiles",
+      description: "Explore Klavetek's manufacturing facility, projects and construction sites.",
+      images: ["/images/gallery/gallery-hero.webp"],
+    },
+  };
 
 export default function GalleryPage() {
   return (

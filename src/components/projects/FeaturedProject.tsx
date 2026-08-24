@@ -28,7 +28,7 @@ export default function FeaturedProject({ project, related }: FeaturedProjectPro
 
   return (
     <section className="py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="text-3xl md:text-4xl font-bold text-center text-[var(--heading)] dark:text-white mb-16">
           Featured Showcase

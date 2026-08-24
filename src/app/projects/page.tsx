@@ -13,6 +13,21 @@ export const metadata: Metadata = {
   description:
     "Explore Klavetek's premium project showcase - residential, commercial, industrial, hospitals, educational institutions, and warehouses built with AAC blocks.",
   alternates: { canonical: "/projects" },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://kgbt.in/projects",
+    siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
+    title: "Our Projects | Klavetek Green Blocks & Tiles",
+    description: "Explore Klavetek's premium project showcase built with AAC blocks.",
+    images: [{ url: "/images/features/Eco-Friendly.webp", width: 1200, height: 630, alt: "Klavetek Projects" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Projects | Klavetek Green Blocks & Tiles",
+    description: "Explore Klavetek's premium project showcase built with AAC blocks.",
+    images: ["/images/features/Eco-Friendly.webp"],
+  },
 };
 
 export default function ProjectsPage() {
