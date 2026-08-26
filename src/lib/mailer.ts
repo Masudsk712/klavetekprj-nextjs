@@ -6,9 +6,7 @@
  * and native support for `reply_to` and base64 attachments.
  *
  * Environment variables (server-side only — never expose to the browser):
- *   RESEND_API_KEY your Resend API key (canonical).
- *                   Legacy EMAIL_API_KEY is also accepted as a fallback so
- *                   existing .env.local configs keep working untouched.
+ *   RESEND_API_KEY your Resend API key (required; the only accepted name).
  *   EMAIL_FROM     e.g. "Klavetek Website <onboarding@resend.dev>"
  *   EMAIL_TO       the destination inbox, e.g. "masudkac712@gmail.com"
  *
@@ -30,16 +28,13 @@ import { Resend } from "resend";
 let resend: Resend | null = null;
 
 /**
- * Resolve the Resend API key. `RESEND_API_KEY` is canonical (and the only name
- * the SDK auto-reads from the environment when the constructor is given none).
- * The legacy `EMAIL_API_KEY` is honored as a fallback so existing configs keep
- * working without edits.
+ * Resolve the Resend API key. `RESEND_API_KEY` is the only accepted name —
+ * it is also the name the SDK auto-reads from the environment when the
+ * constructor is given none. Legacy `EMAIL_API_KEY` is intentionally NOT read:
+ * the project standardizes on `RESEND_API_KEY` everywhere.
  */
 function apiKeyFromEnv(): string {
-  return (
-    (process.env.RESEND_API_KEY ?? "").trim() ||
-    (process.env.EMAIL_API_KEY ?? "").trim()
-  );
+  return (process.env.RESEND_API_KEY ?? "").trim();
 }
 
 export interface EmailAttachment {

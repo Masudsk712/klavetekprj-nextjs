@@ -47,7 +47,7 @@ only produces a graceful runtime 500, never a build crash.
 
 | Variable | Description |
 |----------|-------------|
-| RESEND_API_KEY | Resend API key (canonical). Legacy `EMAIL_API_KEY` is also accepted as a fallback |
+| RESEND_API_KEY | Resend API key (required; canonical — only accepted name) |
 | EMAIL_FROM | Verified sender email |
 | EMAIL_TO | Recipient email |
 
