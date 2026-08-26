@@ -197,9 +197,9 @@ export const awardsCertifications = {
 export const impactStats = {
   title: "Impact in Numbers",
   stats: [
-    { value: "2010", label: "Founded" },
-    { value: "15+", label: "Years of Experience" },
-    { value: "250+", label: "Team Members" },
+    { value: "2020", label: "Founded" },
+    { value: "6+", label: "Years of Experience" },
+    { value: "50+", label: "Team Members" },
     { value: "4+", label: "States Served" },
   ],
 };
