@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import InternalHero from "@/components/shared/InternalHero";
 import BlogContent from "@/components/blog/BlogContent";
+import BlogHighlights from "@/components/blog/BlogHighlights";
 
 export const metadata: Metadata = {
  title: "Blog & Insights | Klavetek Green Blocks & Tiles",
@@ -35,6 +36,7 @@ export default function BlogPage() {
       { label: "Blog" }
     ]}
   />
+  <BlogHighlights />
   <BlogContent />
  </>
  );
