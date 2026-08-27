@@ -556,7 +556,7 @@ export default function PremiumNavbar() {
                 <CTAButton onClick={closeMobile} full />
                 <div className="flex items-center justify-center gap-1.5 pt-1 text-xs text-[var(--muted-text)]">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#16A34A]" strokeWidth={2} />
-                  ISI-certified AAC blocks since 2010
+                  ISI-certified AAC blocks since 2020
                 </div>
               </motion.div>
 

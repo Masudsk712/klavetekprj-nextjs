@@ -137,7 +137,7 @@ export const projects: Record<string, Project[]> = {
     {
       id: "prm-centrepoint-malda", slug: "prm-centrepoint-malda", title: "PRM Centrepoint Malda", location: "Malda, West Bengal", status: "completed", category: "commercial-buildings",
       heroImage: "/images/projects/PRM-Centrepoint-Malda.webp", coverImage: "/images/projects/PRM-Centrepoint-Malda.webp",
-      gallery: ["/images/projects/PRM-Centrepoint-Malda.webp"],
+      gallery: ["/images/projects/PRM-Centrepoint-Malda.webp", "/images/projects/prm%20centerMall.webp"],
       description: "A commercial centre in Malda built with Klavetak AAC blocks for modern retail and business spaces.",
       highlights: ["Retail spaces", "Commercial design", "Durable walls", "Energy-efficient", "Fire-safe"],
       client: "PRM Group", year: 2023, completionDate: "January 2023", constructionDuration: "18 months", aacBlockSize: "150mm",
@@ -151,23 +151,7 @@ export const projects: Record<string, Project[]> = {
       ],
     },
     {
-      id: "prm-centre-mall", slug: "prm-centre-mall", title: "PRM Centre Mall", location: "Malda, West Bengal", status: "completed", category: "commercial-buildings",
-      heroImage: "/images/projects/prm%20centerMall.webp", coverImage: "/images/projects/prm%20centerMall.webp",
-      gallery: ["/images/projects/prm%20centerMall.webp"],
-      description: "A shopping mall in Malda built with Klavetak AAC blocks for a modern retail and entertainment experience.",
-      highlights: ["Shopping mall", "Retail floors", "Fire-rated zones", "Energy-efficient", "Quick construction"],
-      client: "PRM Group", year: 2023, completionDate: "May 2023", constructionDuration: "16 months", aacBlockSize: "150mm / 200mm",
-      area: "55,000 sq.ft", blocksUsed: "1,35,000 blocks", co2Reduction: "430 tonnes", energySavings: "26%",
-      projectStats: { totalBlocksUsed: "1,35,000", projectArea: "55,000", constructionTimeSaved: "24%", co2Reduction: "430", energySavings: "26", completionPercentage: "100" },
-      timeline: [
-        { title: "Project Start", description: "Design stage", date: "October 2021", icon: "Flag" },
-        { title: "Foundation", description: "Foundation completed", date: "January 2022", icon: "Layers" },
-        { title: "Structure", description: "Structural completion", date: "March 2023", icon: "Building2" },
-        { title: "Completion", description: "Mall opened", date: "May 2023", icon: "CheckCircle" },
-      ],
-    },
-    {
-      id: "prm-prestige-malda", slug: "prm-prestige-malda", title: "PRM Prestige Malda", location: "Malda, West Bengal", status: "completed", category: "commercial-buildings",
+      id: "prm-prestige-malda", slug: "prm-prestige-malda", title: "PRM Prestige Malda", location: "Malda, West Bengal", status: "ongoing", category: "commercial-buildings",
       heroImage: "/images/projects/prm%20prestige%20malda.webp", coverImage: "/images/projects/prm%20prestige%20malda.webp",
       gallery: ["/images/projects/prm%20prestige%20malda.webp", "/images/projects/prm%20prestige%20malda%202.webp"],
       description: "A premium commercial development in Malda built with Klavetak AAC blocks for modern business spaces.",
@@ -185,9 +169,9 @@ export const projects: Record<string, Project[]> = {
   ],
   "residential-buildings": [
     {
-      id: "riviera-purnia", slug: "riviera-purnia", title: "Riviera, Purnia", location: "Purnia, Bihar", status: "completed", category: "residential-buildings",
-      heroImage: "/images/projects/Riviera%28purnia%29.webp", coverImage: "/images/projects/riviera-purnia.webp",
-      gallery: ["/images/projects/Riviera%28purnia%29.webp", "/images/projects/riviera-purnia.webp"],
+      id: "riviera-purnia", slug: "riviera-purnia", title: "Riviera, Purnia", location: "Purnia, Bihar", status: "upcoming", category: "residential-buildings",
+      heroImage: "/images/projects/riviera-purnia.webp", coverImage: "/images/projects/riviera-purnia.webp",
+      gallery: ["/images/projects/riviera-purnia.webp"],
       description: "Riviera is a premium residential project in Purnia built with Klavetak AAC blocks for comfortable and durable living.",
       highlights: ["Premium apartments", "Comfortable living", "Thermal insulation", "Durable walls", "Energy-efficient"],
       client: "Riviera Developers", year: 2022, completionDate: "October 2022", constructionDuration: "20 months", aacBlockSize: "100mm / 125mm",

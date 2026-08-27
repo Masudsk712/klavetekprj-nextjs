@@ -9,7 +9,7 @@ export const aboutHero = {
   titleLine: "Building Better.",
   titleAccent: "Building Greener.",
   subtitle:
-    "From a vision in 2010 to a trusted AAC manufacturing partner across Eastern India.",
+    "From a vision in 2020 to a trusted AAC manufacturing partner across Eastern India.",
   cta: "Discover Our Story",
   ctaHref: "#story",
   scrollLabel: "Scroll to explore",
@@ -22,11 +22,11 @@ export const whoWeAre = {
   statement: "More than a block manufacturer.",
   belief: "Built on a simple belief: better materials create better buildings.",
   paragraphs: [
-    "Founded in 2010, Klavetek Green Blocks & Tiles Pvt. Ltd. began with a simple yet powerful vision: to transform construction in Eastern India with sustainable, high-performance building materials. What started as a manufacturing unit in Malda, West Bengal has grown into a state-of-the-art facility producing premium AAC blocks at scale.",
+    "Founded in 2020, Klavetek Green Blocks & Tiles Pvt. Ltd. began with a simple yet powerful vision: to transform construction in Eastern India with sustainable, high-performance building materials. What started as a manufacturing unit in Malda, West Bengal has grown into a state-of-the-art facility producing premium AAC blocks at scale.",
     "We recognised early that construction needed a shift — away from materials that deplete natural resources and towards eco-friendly alternatives that never compromise on strength or durability. AAC blocks, made largely from fly-ash (a thermal power plant by-product), were the answer.",
   ],
   facts: [
-    { value: "2010", label: "Founded" },
+    { value: "2020", label: "Founded" },
     { value: "Malda, WB", label: "Based in West Bengal" },
     { value: "AAC", label: "Premium manufacturing" },
     { value: "QST", label: "Quality · Sustainability · Technology" },
@@ -34,7 +34,7 @@ export const whoWeAre = {
   image: "/images/about/klavetek-prevent-cracks.webp",
   imageAlt:
     "Klavetek elephant with an AAC block — crack-resistant, premium green construction",
-  badge: "Since 2010",
+  badge: "Since 2020",
   badgeSub: "Malda, West Bengal",
 };
 
@@ -43,7 +43,7 @@ export const journeyTimeline = {
   subtitle: "From a small vision to a growing force in sustainable construction.",
   milestones: [
     {
-      year: "2010",
+      year: "2020",
       title: "The Founding",
       description:
         "Klavetek Green Blocks & Tiles Pvt. Ltd. is founded in Malda, West Bengal — driven by a vision to bring sustainable, high-performance AAC solutions to construction.",

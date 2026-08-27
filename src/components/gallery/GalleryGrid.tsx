@@ -21,8 +21,12 @@ const categoryImages: Record<string, string> = {
   videos: "/images/features/Pest-Resistant.webp",
 };
 
-export default function GalleryGrid() {
-  const [activeCategory, setActiveCategory] = useState(galleryData.categories[0].id);
+export default function GalleryGrid({ initialCategory = "" }: { initialCategory?: string }) {
+  const defaultCategoryId = galleryData.categories[0].id;
+  const validInitialCategory = galleryData.categories.some((c) => c.id === initialCategory)
+    ? initialCategory
+    : defaultCategoryId;
+  const [activeCategory, setActiveCategory] = useState(validInitialCategory);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [direction, setDirection] = useState(0);
 

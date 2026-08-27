@@ -4,7 +4,6 @@ import ProjectHero from "@/components/projects/ProjectHero";
 import FeaturedProject from "@/components/projects/FeaturedProject";
 import ProjectStats from "@/components/projects/ProjectStats";
 import ProjectGallery from "@/components/projects/ProjectGallery";
-import ProjectTimeline from "@/components/projects/ProjectTimeline";
 import RelatedProjects from "@/components/projects/RelatedProjects";
 import {
   getProjectBySlug,
@@ -103,8 +102,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <ProjectStats stats={project.projectStats} />
 
       <ProjectGallery images={project.gallery} title={project.title} />
-
-      <ProjectTimeline events={project.timeline} />
 
       <RelatedProjects projects={related} />
     </>

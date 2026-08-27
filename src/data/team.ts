@@ -28,7 +28,7 @@ export interface TeamMember {
 export const teamMembers: TeamMember[] = [
   {
     id: "member-01",
-    name: "Priya Sharma",
+    name: "Ariyan Sharma",
     position: "Senior Production Manager",
     department: "Production",
     experience: "12+ Years",
@@ -108,7 +108,7 @@ export const teamMembers: TeamMember[] = [
     name: "Sanjay Verma",
     position: "Technical Sales Manager",
     department: "Sales",
-    experience: "10+ Years",
+    experience: "6+ Years",
     shortDescription:
       "Bridges technical specifications and client needs across Eastern India.",
     about:

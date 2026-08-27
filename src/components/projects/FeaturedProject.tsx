@@ -3,8 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Play, ChevronRight as ChevronRightIcon } from "lucide-react";
-import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Project } from "@/types/project";
 
 interface FeaturedProjectProps {
@@ -87,10 +86,6 @@ export default function FeaturedProject({ project, related }: FeaturedProjectPro
                 ))}
               </ul>
             </div>
-
-            <Link href={`/projects/${project.category}/${project.slug}`} className="inline-flex items-center gap-2 btn-primary">
-              View Full Project <ChevronRightIcon className="w-4 h-4" />
-            </Link>
           </motion.div>
         </div>
       </div>

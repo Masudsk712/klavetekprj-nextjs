@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Container from "@/components/shared/Container";
 import { ArrowRight, Download, ChevronDown } from "lucide-react";
 import { getCategoryBreadcrumb } from "@/lib/project-utils";
@@ -29,6 +29,7 @@ interface ProjectHeroProps {
 }
 
 export default function ProjectHero({ project, category }: ProjectHeroProps) {
+  const reduceMotion = useReducedMotion() ?? false;
   const breadcrumb = getCategoryBreadcrumb(category);
   const lastCrumb = breadcrumb[breadcrumb.length - 1];
   breadcrumb[breadcrumb.length - 1] = { ...lastCrumb, href: `/projects/${category}/${project.slug}` };
@@ -39,7 +40,7 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
         <motion.div className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${project.heroImage}')` }}
           initial={{ scale: 1.15 }} animate={{ scale: 1 }}
-          transition={{ duration: 25, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 25, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
         />
         <div className="absolute inset-0 bg-black/10 dark:bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-b from-white/55 via-white/10 to-white/60 dark:from-black/50 dark:via-transparent dark:to-black/60" />
@@ -50,7 +51,7 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
       </div>
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {heroDots.map((p) => (
+        {!reduceMotion && heroDots.map((p) => (
           <motion.div key={p.id} className="absolute w-1 h-1 bg-primary/40 rounded-full"
             initial={{ x: `${p.x}%`, y: `${p.y}%`, opacity: 0 }}
             animate={{ y: [null, `${p.y + p.drift}%`], opacity: [0, 0.6, 0] }}
@@ -118,7 +119,7 @@ export default function ProjectHero({ project, category }: ProjectHeroProps) {
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
+        <motion.div animate={reduceMotion ? undefined : { y: [0, 8, 0] }} transition={reduceMotion ? undefined : { duration: 1.5, repeat: Infinity }}
           className="flex flex-col items-center gap-2 text-[var(--muted-text)] dark:text-white/60">
           <span className="text-xs tracking-widest uppercase">Scroll</span>
           <ChevronDown className="w-5 h-5" />

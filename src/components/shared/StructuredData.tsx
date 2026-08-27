@@ -15,7 +15,7 @@ export default function StructuredData() {
     url: "https://kgbt.in",
     logo: "https://kgbt.in/logos/logo.png",
     description:
-      "Premium AAC block manufacturer in Eastern India. ISI-certified, sustainable building materials since 2010.",
+      "Premium AAC block manufacturer in Eastern India. ISI-certified, sustainable building materials since 2020.",
     telephone: company.phone,
     email: company.email,
     address: {
@@ -24,7 +24,7 @@ export default function StructuredData() {
       addressRegion: "West Bengal",
       addressCountry: "IN",
     },
-    foundingDate: "2010",
+    foundingDate: "2020",
     sameAs: [
       "https://www.facebook.com/share/1HL2eZV5kX/",
       "https://www.instagram.com/klavetekaacblocks?igsh=MTg3dHpybXk0MGRzZw==",

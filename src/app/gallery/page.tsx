@@ -23,7 +23,15 @@ export const metadata: Metadata = {
     },
   };
 
-export default function GalleryPage() {
+interface GalleryPageProps {
+  searchParams: Promise<{ category?: string | string[] }>;
+}
+
+export default async function GalleryPage({ searchParams }: GalleryPageProps) {
+  const params = await searchParams;
+  const raw = Array.isArray(params.category) ? params.category[0] : params.category;
+  const initialCategory = typeof raw === "string" ? raw : "";
+
   return (
     <>
   <InternalHero
@@ -35,7 +43,7 @@ export default function GalleryPage() {
       { label: "Gallery" }
     ]}
   />
-  <GalleryGrid />
+  <GalleryGrid key={initialCategory} initialCategory={initialCategory} />
  </>
  );
 }

@@ -49,7 +49,7 @@ const trustBarInfo = {
     },
   ],
   trustStrip: [
-    { icon: "🏆", text: "15+ Years Experience" },
+    { icon: "🏆", text: "6+ Years Experience" },
     { icon: "🚚", text: "Pan India Delivery" },
     { icon: "🛡", text: "Quality Assured" },
     { icon: "⚡", text: "Fast Manufacturing" },

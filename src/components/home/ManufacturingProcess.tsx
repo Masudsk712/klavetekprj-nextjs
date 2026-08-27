@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useAnimation, AnimatePresence } from "framer-motion";
+import type { Variants } from "framer-motion";
 import Image from "next/image";
 import { manufacturingProcess } from "@/data/home";
-import { easePremium, viewportOnce } from "@/lib/animations";
+import { easePremium, easeOut, viewportOnce } from "@/lib/animations";
 import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 
 interface ManufacturingStep {
@@ -212,50 +213,118 @@ const PremiumStoryCard = ({
   isRevealed,
   isActive,
   imageOnLeft,
+  isMobile,
 }: {
   step: ManufacturingStep;
   index: number;
   isRevealed: boolean;
   isActive: boolean;
   imageOnLeft: boolean;
+  isMobile: boolean;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  // ROOT-CAUSE FIX: the card content used to be gated behind
-  // useInView(cardRef, { once: true, margin: "-100px" }). A negative
-  // rootMargin shrinks the observed viewport, so large / last cards could
-  // stay outside it and their reveal never fired — leaving every inner image,
-  // heading and paragraph stuck at opacity:0. Reveal on mount instead so the
-  // card is guaranteed visible.
-  const isInView = true;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
   // Ken Burns effect
   const kenBurnsScale = useMotionValue(1);
-  
+
   useEffect(() => {
     if (prefersReducedMotion || !isActive) return;
-    
+
     const interval = setInterval(() => {
       kenBurnsScale.set(1.05 + Math.random() * 0.05);
     }, 8000);
-    
+
     return () => clearInterval(interval);
   }, [prefersReducedMotion, isActive, kenBurnsScale]);
+
+  // ── Scroll-linked parallax on the process image (restrained & premium) ──
+  // useScroll tracks this card through the viewport and maps its progress to
+  // a subtle y-shift on the image. It updates the transform on the compositor
+  // — no window scroll listener and no React re-render for each pixel scrolled.
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+  // Parallax travel: reduced motion => none; mobile => small; desktop => ~36px.
+  const parallaxAmount = prefersReducedMotion ? 0 : isMobile ? 14 : 36;
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [parallaxAmount, -parallaxAmount]);
+
+  // ── Motion-aware reveal variants (respect prefers-reduced-motion) ──
+  const travelY = prefersReducedMotion ? 0 : isMobile ? 16 : 36;
+  const cardVariants: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.6, ease: easePremium } } }
+    : {
+        hidden: { opacity: 0, y: travelY },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easePremium } },
+      };
+
+  const imageReveal: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.7, ease: easePremium } } }
+    : {
+        hidden: { opacity: 0, scale: isMobile ? 0.96 : 0.94 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.9, ease: easePremium } },
+      };
+
+  const contentStagger: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: isMobile ? 0.09 : 0.12, delayChildren: 0.08 },
+    },
+  };
+
+  const contentItem: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.6, ease: easePremium } } }
+    : {
+        hidden: { opacity: 0, y: isMobile ? 14 : 26 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easePremium } },
+      };
+
+  // Decorative STEP indicator — dot glow + label pop with a small scale/opacity.
+  const badgeContainer: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.15 } },
+  };
+
+  const badgeItem: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, scale: 0.75 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: easeOut } },
+      };
+
+  // Highlight / tag chips — subtle staggered pop.
+  const tagsContainer: Variants = {
+    hidden: { opacity: 0, y: isMobile ? 10 : 14 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: easePremium, staggerChildren: 0.08, delayChildren: 0.05 },
+    },
+  };
+
+  const tagVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.88 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.45, ease: easeOut } },
+  };
+
+  const iconVariant: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.6 } } }
+    : {
+        hidden: { opacity: 0, scale: 0.7 },
+        visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: easeOut } },
+      };
 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 80 }}
-      animate={{
-        opacity: isRevealed ? 1 : 0,
-        y: isRevealed ? 0 : 40,
-      }}
-      transition={{
-        duration: 1,
-        ease: easePremium,
-      }}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOnce}
       className={`relative min-h-[60vh] flex items-center ${
         imageOnLeft ? "" : "flex-row-reverse"
       }`}
@@ -273,17 +342,13 @@ const PremiumStoryCard = ({
         )}
       </AnimatePresence>
 
-      {/* Image Section */}
+      {/* Image Section (scroll-linked parallax + scale/fade reveal) */}
       <motion.div
-        initial={{ opacity: 0, x: imageOnLeft ? -100 : 100 }}
-        animate={{
-          opacity: isInView ? 1 : 0,
-          x: isInView ? 0 : (imageOnLeft ? -50 : 50),
-        }}
-        transition={{ duration: 1.2, ease: easePremium }}
+        style={{ y: parallaxY }}
         className="relative w-full lg:w-[55%] h-[40vh] lg:h-[55vh] p-3 lg:p-6"
       >
-        <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
+        <motion.div variants={imageReveal} className="relative w-full h-full">
+          <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
           {/* Image */}
           <motion.div
             className="absolute inset-0"
@@ -326,68 +391,45 @@ const PremiumStoryCard = ({
           {!imageLoaded && (
             <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
           )}
-        </div>
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* Content Section */}
+      {/* Content Section (staggered reveal) */}
       <motion.div
-        initial={{ opacity: 0, x: imageOnLeft ? 100 : -100 }}
-        animate={{
-          opacity: isInView ? 1 : 0,
-          x: isInView ? 0 : (imageOnLeft ? 50 : -50),
-        }}
-        transition={{ duration: 1.2, delay: 0.2, ease: easePremium }}
+        variants={contentStagger}
         className="relative w-full lg:w-[45%] p-4 lg:p-8 flex flex-col justify-center"
       >
-        {/* Step Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="inline-flex items-center gap-2 mb-3"
-        >
+        {/* Step Badge (decorative dot glow + label scale-in) */}
+        <motion.div variants={badgeContainer} className="inline-flex items-center gap-2 mb-3">
           <div className="relative">
-            <div className="absolute inset-0 bg-primary/40 rounded-full blur-md" />
+            <motion.div
+              variants={badgeItem}
+              className="absolute inset-0 bg-primary/40 rounded-full blur-md"
+            />
             <div className="relative w-3 h-3 rounded-full bg-primary" />
           </div>
-          <span className="text-sm font-bold text-primary tracking-[0.3em]">
+          <motion.span variants={badgeItem} className="text-sm font-bold text-primary tracking-[0.3em]">
             STEP {step.step}
-          </span>
+          </motion.span>
         </motion.div>
 
         {/* Title */}
-        <motion.h3
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 30 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight leading-tight"
-        >
+        <motion.h3 variants={contentItem} className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight leading-tight">
           {step.title}
         </motion.h3>
 
         {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4"
-        >
+        <motion.p variants={contentItem} className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
           {step.description}
         </motion.p>
 
-        {/* Highlights */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-wrap gap-2 mb-4"
-        >
+        {/* Highlights (tags — subtle staggered pop) */}
+        <motion.div variants={tagsContainer} className="flex flex-wrap gap-2 mb-4">
           {step.highlights.map((highlight: string, i: number) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.7 + i * 0.1 }}
+              variants={tagVariants}
               className="px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 text-xs font-medium text-gray-900 dark:text-gray-100"
             >
               {highlight}
@@ -396,12 +438,7 @@ const PremiumStoryCard = ({
         </motion.div>
 
         {/* Process Time */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex items-center gap-2"
-        >
+        <motion.div variants={contentItem} className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
             <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -425,9 +462,7 @@ const PremiumStoryCard = ({
 
         {/* Icon */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: isInView ? 1 : 0, scale: isInView ? 1 : 0.5 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          variants={iconVariant}
           className="mt-6 w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 flex items-center justify-center text-primary"
         >
           {iconMap[step.icon]}
@@ -440,7 +475,14 @@ const PremiumStoryCard = ({
 // ─── Section Divider ─────────────────────────────────────────
 
 const SectionDivider = () => (
-  <div className="relative h-24 w-full overflow-hidden">
+  <motion.div
+    initial={{ opacity: 0, scaleY: 0.6 }}
+    whileInView={{ opacity: 1, scaleY: 1 }}
+    viewport={viewportOnce}
+    transition={{ duration: 0.8, ease: easePremium }}
+    style={{ transformOrigin: "center" }}
+    className="relative h-24 w-full overflow-hidden"
+  >
     <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
     <motion.div
       className="absolute inset-x-0 top-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent blur-sm"
@@ -455,7 +497,7 @@ const SectionDivider = () => (
       }}
       style={{ transformOrigin: "center" }}
     />
-  </div>
+  </motion.div>
 );
 
 // ─── Final Success Section ───────────────────────────────────
@@ -728,6 +770,7 @@ export default function ManufacturingProcess() {
                 isRevealed={isRevealed}
                 isActive={isActive}
                 imageOnLeft={idx % 2 === 0}
+                isMobile={isMobile}
               />
               {/* Mobile Divider */}
               {idx < steps.length - 1 && <SectionDivider />}
@@ -758,6 +801,7 @@ export default function ManufacturingProcess() {
               isRevealed={isRevealed}
               isActive={isActive}
               imageOnLeft={imageOnLeft}
+              isMobile={isMobile}
             />
             {/* Desktop Divider */}
             {idx < steps.length - 1 && <SectionDivider />}

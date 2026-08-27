@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { BarChart3, Ruler, Clock, Leaf, Zap, Percent } from "lucide-react";
+import { BarChart3, Ruler, Leaf } from "lucide-react";
 import AnimatedCounter from "@/components/shared/AnimatedCounter";
 import { easePremium, viewportOnce } from "@/lib/animations";
 import type { ProjectStats } from "@/types/project";
@@ -14,10 +14,7 @@ interface ProjectStatsProps {
 const statItems = [
   { key: "totalBlocksUsed", label: "Total Blocks Used", icon: BarChart3, suffix: "" },
   { key: "projectArea", label: "Project Area", icon: Ruler, suffix: " sq.ft" },
-  { key: "constructionTimeSaved", label: "Time Saved", icon: Clock, suffix: "" },
   { key: "co2Reduction", label: "CO₂ Reduction", icon: Leaf, suffix: " tonnes" },
-  { key: "energySavings", label: "Energy Savings", icon: Zap, suffix: "%" },
-  { key: "completionPercentage", label: "Completion", icon: Percent, suffix: "%" },
 ] as const;
 
 export default function ProjectStats({ stats }: ProjectStatsProps) {
@@ -45,7 +42,7 @@ export default function ProjectStats({ stats }: ProjectStatsProps) {
           Measurable results that showcase the power of Klavetek AAC blocks.
         </motion.p>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {statItems.map((item, i) => {
             const Icon = item.icon;
             const value = stats[item.key];

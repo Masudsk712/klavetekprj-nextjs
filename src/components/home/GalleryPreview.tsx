@@ -20,24 +20,28 @@ const itemVariants: Variants = {
 const categories = [
  {
  label: "Factory",
+ href: "/gallery?category=factory",
  image: "/images/features/Lightweight.webp",
  gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏭",
  },
  {
  label: "Machinery",
+ href: "/gallery?category=machinery",
  image: "/images/features/Eco-Friendly.webp",
  gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "⚙️",
  },
  {
  label: "Production",
+ href: "/gallery?category=production",
  image: "/images/features/EnergySavingThermalInsulation.webp",
  gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏗️",
  },
  {
  label: "Projects",
+ href: "/gallery?category=projects",
  image: "/images/features/fire-resistant.webp",
  gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏢",
@@ -76,8 +80,13 @@ export default function GalleryPreview() {
  className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
  >
  {categories.map((category, index) => (
- <motion.div
+ <Link
  key={category.label}
+ href={category.href}
+ aria-label={`View ${category.label} gallery`}
+ className="block h-full"
+ >
+ <motion.div
  variants={itemVariants}
  whileHover={{ y: -8, scale: 1.03 }}
  transition={{ type: "spring", stiffness: 350, damping: 20 }}
@@ -108,6 +117,7 @@ export default function GalleryPreview() {
  {/* Corner accent */}
  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
  </motion.div>
+ </Link>
  ))}
  </motion.div>
 

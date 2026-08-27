@@ -1,7 +1,7 @@
 export const trustBar = {
   title: "Trusted by Builders & Developers Across West Bengal",
   stats: [
-  { value: "2010", label: "Established" },
+  { value: "2020", label: "Established" },
   { value: "500+", label: "Projects Delivered" },
   { value: "50M+", label: "Bricks Produced" },
   { value: "98%", label: "Client Satisfaction" },
@@ -12,9 +12,9 @@ export const trustBar = {
 export const aboutPreview = {
   badge: "ABOUT KLAVETEK",
   title: "Redefining Construction with Green Innovation",
-  description: "Founded in 2010, Klavetek Green Blocks & Tiles Pvt. Ltd. has built a strong reputation by delivering premium AAC Blocks that combine superior strength, lightweight performance, thermal insulation and sustainable manufacturing. Backed by years of industry experience, we are committed to quality, innovation and customer satisfaction across India.",
+  description: "Founded in 2020, Klavetek Green Blocks & Tiles Pvt. Ltd. has built a strong reputation by delivering premium AAC Blocks that combine superior strength, lightweight performance, thermal insulation and sustainable manufacturing. Backed by years of industry experience, we are committed to quality, innovation and customer satisfaction across India.",
   highlights: [
-  "Established in 2010",
+  "Established in 2020",
   "Premium AAC Block Manufacturer",
   "Eco-Friendly Manufacturing",
   "BIS Quality Standards",
@@ -26,8 +26,8 @@ export const aboutPreview = {
   ctaLink: "/about",
   image: "/images/about/about-hero.webp",
   stats: [
-  { value: "Since 2010", label: "Our Journey Began" },
-  { value: "15+ Years", label: "Of Excellence" },
+  { value: "Since 2020", label: "Our Journey Began" },
+  { value: "6+ Years", label: "Of Excellence" },
   { value: "50M+", label: "AAC Blocks Produced" },
   ],
   };

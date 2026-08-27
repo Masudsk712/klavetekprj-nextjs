@@ -21,7 +21,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
  title: "Klavetek Green Blocks & Tiles Pvt. Ltd. | Premium AAC Block Manufacturer",
  description:
- "Klavetek manufactures premium ISI-certified AAC blocks in 100mm, 125mm, 150mm, 200mm & 250mm sizes. Sustainable, lightweight, fire-resistant building materials since 2010.",
+ "Klavetek manufactures premium ISI-certified AAC blocks in 100mm, 125mm, 150mm, 200mm & 250mm sizes. Sustainable, lightweight, fire-resistant building materials since 2020.",
  keywords: [
  "AAC blocks",
  "AAC block manufacturer",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
  siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
  title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
  description:
- "ISI-certified AAC blocks manufactured with German technology. Sustainable, lightweight, fire-resistant building materials since 2010.",
+ "ISI-certified AAC blocks manufactured with German technology. Sustainable, lightweight, fire-resistant building materials since 2020.",
  images: [
  {
  url: "/images/about/about-hero.webp",
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
  card: "summary_large_image",
  title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
  description:
- "ISI-certified AAC blocks manufactured with German technology. Sustainable, lightweight, fire-resistant building materials since 2010.",
+ "ISI-certified AAC blocks manufactured with German technology. Sustainable, lightweight, fire-resistant building materials since 2020.",
  images: ["/images/about/about-hero.webp"],
  },
  robots: {

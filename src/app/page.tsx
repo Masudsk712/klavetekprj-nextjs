@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
-    description: "ISI-certified AAC blocks manufactured in Eastern India since 2010.",
+    description: "ISI-certified AAC blocks manufactured in Eastern India since 2020.",
     images: ["/images/about/about-hero.webp"],
   },
 };
