@@ -1,29 +1,33 @@
 /**
  * =====================================================================
- * Klavetek Blog — Featured Articles & Insights.
+ * Klavetek Blog — Single source of truth (Featured + Insights).
  * =====================================================================
  *
- * Each entry maps to a REAL local image under `/images/blog/` that is
- * already present in `public/images/blog`:
+ * This is the ONE authoritative data file for the blog. It contains both
+ * the single FEATURED article and every grid card. It merges the former
+ * facebook-driven content with the editorial blog articles into a single
+ * list so there is no duplicated / conflicting data anywhere else.
+ *
+ * Images: each post references a REAL local image that already exists under
+ * `public/images/blog`:
  *
  *   - `blog-hero.webp`  → the single FEATURED article (spotlight)
  *   - `klavetek_1.webp` … `klavetek_5.webp` → the individual blog cards
  *
- * Titles and excerpts reflect factual Klavetek / AAC-block subject
- * matter (products the company actually makes and publishes about).
+ * Titles and excerpts reflect factual Klavetek / AAC-block subject matter
+ * (drawn verbatim from the existing content — nothing invented).
  *
- * There is intentionally NO database / CMS here. `featuredPost` and
- * `blogPosts` are a plain data file consumed by `BlogHighlights` — this
- * keeps content changes to a simple edit of this array, matching the
- * existing `facebookPosts.ts` convention.
- *
- * NOTE: There is no per-article detail route on this site, so each
- * "Read More" links to Klavetek's verified public page to keep things
- * truthful and simple (the same pattern as the existing blog cards).
+ * There is NO per-article detail route on this site, so every "Read More" /
+ * "Read Full Article" link points to Klavetek's verified public Facebook page
+ * (the same pattern the previous blog cards used). Replace `articleUrl` per
+ * post with the exact permalink whenever one becomes available.
  * =====================================================================
  */
 
 export const blogPageUrl = "https://www.facebook.com/klavetekaacblocks/";
+
+/** Tasteful local fallback used only if a post is ever missing an image. */
+export const FALLBACK_IMAGE = "/images/blog/blog-hero.webp";
 
 export type BlogPost = {
   id: string;
@@ -31,6 +35,8 @@ export type BlogPost = {
   excerpt: string;
   category: string;
   image: string;
+  /** Article link. Defaults to `blogPageUrl` when omitted. */
+  articleUrl?: string;
 };
 
 /** The single featured post — uses `/images/blog/blog-hero.webp`. */
@@ -39,29 +45,32 @@ export const featuredPost: BlogPost = {
   title: "AAC Blocks: The Smart Choice for Modern, Sustainable Construction",
   excerpt:
     "Autoclaved aerated concrete (AAC) is transforming how buildings go up — lighter, more precise, better insulated and far gentler on the environment. Discover how Klavetek's autoclaved AAC blocks combine engineered precision with genuine sustainability, from the fly-ash based manufacturing process to faster, more economical walls on site.",
-  category: "Featured",
+  category: "AAC Blocks",
   image: "/images/blog/blog-hero.webp",
 };
 
 /**
- * The five individual blog cards — one per local image
- * (`klavetek_1.webp` … `klavetek_5.webp`).
+ * The blog card grid — one post per source category so the category filter
+ * (All | Company Updates | Products | Sustainability | Construction |
+ * AAC Blocks | Projects) always has content. Every card maps to a REAL local
+ * image (some images are reused across thematically aligned posts rather than
+ * ever showing a blank placeholder).
  */
 export const blogPosts: BlogPost[] = [
   {
-    id: "manufacturing-excellence",
+    id: "welcome-to-klavetek",
+    title: "Welcome to Klavetek — Eco-Friendly AAC Blocks & Tiles",
+    excerpt:
+      "Klavetek manufactures premium autoclaved aerated concrete (AAC) blocks and tiles in Old Malda, focused on strong, lightweight and environmentally friendly building materials.",
+    category: "Company Updates",
+    image: "/images/blog/klavetek_1.webp",
+  },
+  {
+    id: "engineering-excellence",
     title: "Inside Klavetek — Engineering Excellence at Every Stage",
     excerpt:
       "Step inside our Old Malda facility to see how fly ash, cement, lime and gypsum are precisely batched, moulded and autoclaved into strong, lightweight, dimensionally exact AAC blocks.",
     category: "Products",
-    image: "/images/blog/klavetek_1.webp",
-  },
-  {
-    id: "science-of-aac",
-    title: "The Science Behind Autoclaved Aerated Concrete",
-    excerpt:
-      "Learn how air pockets formed during autoclaving give AAC its signature light weight and thermal performance — without sacrificing the compressive strength your walls need.",
-    category: "AAC Blocks",
     image: "/images/blog/klavetek_2.webp",
   },
   {
@@ -76,16 +85,46 @@ export const blogPosts: BlogPost[] = [
     id: "faster-construction",
     title: "Why AAC Blocks Speed Up Every Construction Project",
     excerpt:
-      "Large-format, lightweight AAC blocks are easy to handle and lay quickly with thin mortar beds — shortening project timelines and reducing labour demand site.",
+      "Large-format, lightweight AAC blocks are easy to handle and lay quickly with thin mortar beds — shortening project timelines and reducing labour demand on site.",
     category: "Construction",
     image: "/images/blog/klavetek_4.webp",
+  },
+  {
+    id: "science-of-aac",
+    title: "The Science Behind Autoclaved Aerated Concrete",
+    excerpt:
+      "Learn how air pockets formed during autoclaving give AAC its signature light weight and thermal performance — without sacrificing the compressive strength your walls need.",
+    category: "AAC Blocks",
+    image: "/images/blog/klavetek_5.webp",
+  },
+  {
+    id: "economic-walls",
+    title: "Klavetek AAC Blocks — Cost-Effective, Precision-Made Walls",
+    excerpt:
+      "Engineered to precise dimensions, Klavetek AAC blocks reduce mortar usage and finishing work, delivering clean, strong and economical walls for homes and buildings.",
+    category: "Projects",
+    image: "/images/blog/klavetek_1.webp",
   },
   {
     id: "thermal-efficiency",
     title: "Thermal Insulation & Energy Efficiency Floor to Ceiling",
     excerpt:
-      "The porous structure of AAC provides natural thermal insulation, keeping interiors cooler in summer and cutting long-term air-conditioning energy costs.",
-    category: "Insulation",
-    image: "/images/blog/klavetek_5.webp",
+      "The porous structure of AAC materials provides natural thermal insulation, keeping interiors cooler in summer and cutting long-term air-conditioning energy costs.",
+    category: "Sustainability",
+    image: "/images/blog/klavetek_4.webp",
   },
+];
+
+/**
+ * Category filter options shown on the blog page. Kept in the exact order the
+ * design calls for so the filter rail looks intentional and always has results.
+ */
+export const categories: string[] = [
+  "All",
+  "Company Updates",
+  "Products",
+  "Sustainability",
+  "Construction",
+  "AAC Blocks",
+  "Projects",
 ];

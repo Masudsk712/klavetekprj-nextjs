@@ -5,7 +5,7 @@ export const trustBar = {
   { value: "500+", label: "Projects Delivered" },
   { value: "50M+", label: "Bricks Produced" },
   { value: "98%", label: "Client Satisfaction" },
-  { value: "250+", label: "Skilled Workforce" },
+  { value: "50+", label: "Skilled Workforce" },
   ],
   };
 

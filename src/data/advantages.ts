@@ -46,7 +46,7 @@ export const advantages: Advantage[] = [
     shortSummary: "STC-44 Sound Transmission Class rating makes these blocks an excellent sound barrier for peaceful environments.",
     icon: "Volume2",
     image: "/images/features/Noise-Resistant.webp",
-    brochureContent: `Klevetek AAC Blocks fall in STC-44 (Sound Transmission Class) which makes it a good sound barrier.`,
+    brochureContent: `Klavetek AAC Blocks fall in STC-44 (Sound Transmission Class) which makes it a good sound barrier.`,
   },
   {
     id: "eco-friendly",
@@ -70,6 +70,6 @@ export const advantages: Advantage[] = [
     shortSummary: "High thermal insulation rating of 30 protects walls from external temperature changes, saving energy costs.",
     icon: "Thermometer",
     image: "/images/features/EnergySavingThermalInsulation.webp",
-    brochureContent: `Having high thermal insulation of rating 30, Klevetek AAC blocks are not affected by change in external temperature on walls thus saving energy costs.`,
+    brochureContent: `Having high thermal insulation of rating 30, Klavetek AAC blocks are not affected by change in external temperature on walls thus saving energy costs.`,
   },
 ];

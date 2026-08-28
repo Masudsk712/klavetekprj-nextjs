@@ -4,21 +4,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Image, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
 import NextImage from "next/image";
-import { galleryData } from "@/data/gallery";
+import { galleryData, type GalleryItem } from "@/data/gallery";
 import { easePremium, viewportOnce } from "@/lib/animations";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: easePremium } },
-};
-
-const categoryImages: Record<string, string> = {
-  factory: "/images/features/Lightweight.webp",
-  machinery: "/images/features/Eco-Friendly.webp",
-  production: "/images/features/EnergySavingThermalInsulation.webp",
-  projects: "/images/features/fire-resistant.webp",
-  construction: "/images/features/Noise-Resistant.webp",
-  videos: "/images/features/Pest-Resistant.webp",
 };
 
 export default function GalleryGrid({ initialCategory = "" }: { initialCategory?: string }) {
@@ -31,7 +22,9 @@ export default function GalleryGrid({ initialCategory = "" }: { initialCategory?
   const [direction, setDirection] = useState(0);
 
   const activeCategoryData = galleryData.categories.find((c) => c.id === activeCategory);
-  const selectedImage = selectedImageIndex !== null ? activeCategoryData?.images[selectedImageIndex] : null;
+  const selectedImage = selectedImageIndex !== null
+    ? (activeCategoryData?.images[selectedImageIndex] as GalleryItem | undefined)
+    : null;
 
   const openLightbox = (index: number) => {
     setSelectedImageIndex(index);
@@ -130,7 +123,7 @@ export default function GalleryGrid({ initialCategory = "" }: { initialCategory?
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${categoryImages[activeCategory] || image.src})` }}
+                  style={{ backgroundImage: `url(${image.src})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-opacity duration-500 group-hover:from-black/80" />
 
@@ -191,34 +184,31 @@ export default function GalleryGrid({ initialCategory = "" }: { initialCategory?
                 onClick={(e) => e.stopPropagation()}
                 className="relative max-w-6xl w-full aspect-video md:aspect-[16/9] rounded-3xl overflow-hidden bg-black shadow-[0_24px_80px_rgba(0,0,0,0.5)]"
               >
-                {/* ACTUAL SELECTED IMAGE - the fix (was a gradient + icon placeholder) */}
-                <NextImage
-                  src={selectedImage.src}
-                  alt={selectedImage.alt || selectedImage.title}
-                  fill
-                  sizes="(max-width: 1280px) 100vw, 1280px"
-                  className="object-cover"
-                />
+                {selectedImage.videoSrc ? (
+                  <video
+                    src={selectedImage.videoSrc}
+                    poster={selectedImage.poster || selectedImage.src}
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                ) : (
+                  <NextImage
+                    src={selectedImage.src}
+                    alt={selectedImage.alt || selectedImage.title}
+                    fill
+                    sizes="(max-width: 1280px) 100vw, 1280px"
+                    className="object-cover"
+                  />
+                )}
 
                 {/* Subtle bottom scrim so the title/counter stay legible over any image */}
                 <div className="absolute bottom-0 inset-x-0 p-6 md:p-8 bg-gradient-to-t from-black/80 via-black/30 to-transparent">
                   <h3 className="text-white text-xl md:text-2xl font-bold mb-1">{selectedImage.title}</h3>
                   {selectedImage.alt && <p className="text-white/70 text-sm">{selectedImage.alt}</p>}
                 </div>
-
-                {/* Play badge for video entries (image still shown underneath) */}
-                {selectedImage.isVideo && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <motion.span
-                      className="flex h-16 w-16 rounded-full bg-white/15 backdrop-blur-md items-center justify-center border border-white/20"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.2, type: "spring" }}
-                    >
-                      <Play className="w-7 h-7 text-white ml-0.5" />
-                    </motion.span>
-                  </div>
-                )}
                 {/* Close button */}
                 <motion.button
                   autoFocus

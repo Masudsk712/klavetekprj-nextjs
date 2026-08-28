@@ -54,7 +54,7 @@ export const journeyTimeline = {
       year: "Today",
       title: "A Trusted Manufacturer",
       description:
-        "A skilled team of 250+ professionals working from a modern facility, serving builders, contractors and developers across 4+ states in Eastern India.",
+        "A skilled team of 50+ professionals working from a modern facility, serving builders, contractors and developers across 4+ states in Eastern India.",
       image: "/images/process/Autoclaving.webp",
       imageAlt: "Autoclaving stage of Klavetek AAC production",
     },
