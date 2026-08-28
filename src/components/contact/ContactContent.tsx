@@ -259,7 +259,7 @@ export default function ContactContent({ preselectedProduct = "" }: ContactConte
               <GlassCard hover={false} elevated className="overflow-hidden">
                 <div className="aspect-video w-full">
                   <iframe
-                    src={`https://maps.google.com/maps?q=${encodeURIComponent(company.address)}&output=embed`}
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d90240.68654007485!2d88.1876632!3d25.011885599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fb03b7832414cf%3A0x48557a1c564874fd!2sKLAVETEK%20GREEN%20BLOCKS%20%26%20TILES%20PVT.%20LTD!5e1!3m2!1sen!2sin!4v1786015735258!5m2!1sen!2sin"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
