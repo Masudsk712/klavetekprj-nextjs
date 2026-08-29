@@ -99,7 +99,7 @@ export const teamMembers: TeamMember[] = [
       "Production planning & output",
       "Safety & quality standards",
     ],
-    image: "/images/team/NasimAli.webp",
+    image: "/images/team/NasimAli1.webp",
     linkedin: "",
     facebook: "",
   },
