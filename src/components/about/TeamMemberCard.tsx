@@ -55,6 +55,13 @@ export default function TeamMemberCard({
             sizes="(max-width: 640px) 70vw, (max-width: 900px) 45vw, 22vw"
           />
         </div>
+        {/* Member number — stable 01–06, over the top-left of the photo */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-primary/30 bg-[var(--surface)]/85 text-[12px] font-bold tracking-tight text-primary shadow-[0_6px_20px_-6px_rgba(0,0,0,0.6)] backdrop-blur-sm"
+        >
+          {member.memberNumber}
+        </div>
         {/* Bottom gradient blends the portrait into the dark-glass info panel */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--surface)] via-black/5 to-transparent" />
         {/* soft green ambient glow on hover */}
@@ -63,7 +70,7 @@ export default function TeamMemberCard({
 
       {/* ── Dark glass lower info panel ── */}
       <div className="relative -mt-px flex flex-col border-t border-[var(--border)] bg-[var(--surface)]/85 p-4 backdrop-blur-md sm:p-5">
-        <h3 className="text-[17px] font-semibold leading-tight text-[var(--heading)]">
+        <h3 className="mt-2.5 text-[17px] font-semibold leading-tight text-[var(--heading)]">
           {member.name}
         </h3>
         <div className="mt-1 text-sm font-semibold text-primary">

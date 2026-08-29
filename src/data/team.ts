@@ -11,6 +11,9 @@
 
 export interface TeamMember {
   id: string;
+  /** Stable premium member number "01"–"06" in original array order.
+   *  Same value for original + duplicate carousel cards (never 07+). */
+  memberNumber: string;
   name: string;
   position: string;
   department: string;
@@ -28,6 +31,7 @@ export interface TeamMember {
 export const teamMembers: TeamMember[] = [
   {
     id: "member-01",
+    memberNumber: "01",
     name: "Rabiul Sekh",
     position: "General Manager",
     department: "Management",
@@ -47,6 +51,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "member-02",
+    memberNumber: "02",
     name: "Mohan Kumar Saha",
     position: "Sales Manager",
     department: "Sales & Marketing",
@@ -64,28 +69,9 @@ export const teamMembers: TeamMember[] = [
     linkedin: "",
     facebook: "",
   },
-
   {
     id: "member-03",
-    name: "Sahanoyaj Ali",
-    position: "Accountant",
-    department: "Accounting & Finance",
-    experience: "5+ Years",
-    shortDescription:
-      "Manages accounts, payroll and financial reporting to keep operations compliant and transparent.",
-    about:
-      "Handles day-to-day accounting, bookkeeping, tax compliance and financial reporting, ensuring accurate and transparent records for the business.",
-    responsibilities: [
-      "Bookkeeping & financial reporting",
-      "Tax & statutory compliance",
-      "Payroll & vendor payments",
-    ],
-    image: "/images/team/SahanoyajAli.webp",
-    linkedin: "",
-    facebook: "",
-  },
-  {
-    id: "member-04",
+    memberNumber: "03",
     name: "Nasim Ali",
     position: "Plant Head",
     department: "Production & Operations",
@@ -104,7 +90,28 @@ export const teamMembers: TeamMember[] = [
     facebook: "",
   },
   {
+    id: "member-04",
+    memberNumber: "04",
+    name: "Sahanoyaj Ali",
+    position: "Accountant",
+    department: "Accounting & Finance",
+    experience: "9+ Years",
+    shortDescription:
+      "Manages accounts, payroll and financial reporting to keep operations compliant and transparent.",
+    about:
+      "Handles day-to-day accounting, bookkeeping, tax compliance and financial reporting, ensuring accurate and transparent records for the business.",
+    responsibilities: [
+      "Bookkeeping & financial reporting",
+      "Taxation, Journal entries, Audit, GST, TDS & Tally ",
+      "Payroll & vendor payments",
+    ],
+    image: "/images/team/SahanoyajAli.webp",
+    linkedin: "",
+    facebook: "",
+  },
+  {
     id: "member-05",
+    memberNumber: "05",
     name: "Rahul Sekh",
     position: "Sales Executive",
     department: "Sales & Marketing",
@@ -124,6 +131,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "member-06",
+    memberNumber: "06",
     name: "Biswajit Sarkar",
     position: "Boiler Operator",
     department: "Production & Operations",
