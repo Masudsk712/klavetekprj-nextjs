@@ -627,6 +627,87 @@ select optgroup {
 .animate-marquee { animation: marquee 30s linear infinite; }
 .animate-spin-slow { animation: spin-slow 18s linear infinite; }
 
+/* ============ Team marquee carousel ============
+   The parent that holds the entire team list in ONE horizontal,
+   non-wrapping track and moves it continuously (seamless infinite
+   loop) with a transform-based keyframe.
+
+   Architecture:
+     .team-carousel (viewport — overflow hidden + subtle edge fade)
+       .team-drag  (manual swipe target, translate3d)
+         .team-marquee-track (CSS animation, translate3d 0 -> -50%)
+           .team-seq (complete list - original)
+           .team-seq (complete list - duplicate, aria-hidden)
+
+   The track contains the full sequence EXACTLY twice. Translating by
+   exactly -50% therefore equals the width of ONE complete sequence,
+   so when the first copy finishes exiting, the duplicate is already in
+   the identical position — the loop rejoins with NO visible reset,
+   jump, blank gap or layout shift. */
+.team-carousel {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  /* Subtle left/right edge fade so cards enter from the right and
+     leave to the left gradually instead of being hard-clipped. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 80px,
+    black calc(100% - 80px),
+    transparent 100%
+  );
+}
+.team-drag {
+  width: max-content;
+  will-change: transform;
+}
+.team-marquee-track {
+  display: flex;
+  flex-wrap: nowrap; /* never wraps — always one single row */
+  width: max-content;
+  will-change: transform;
+}
+.team-seq {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
+  width: max-content;
+}
+.team-seq > * {
+  flex: 0 0 auto;
+}
+
+/* One complete sequence translated per loop step — equals -50% of the
+   two-copy track width. */
+@keyframes klavetek-team-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Pause auto-movement on hover / keyboard focus; resume on leave. The
+   animation is never torn down/recreated — only its play state toggles. */
+.team-carousel:hover .team-marquee-track,
+.team-carousel:focus-within .team-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Automatic movement only when the user did not request reduced motion.
+   With reduced motion the track simply stays put but stays fully
+   keyboard/touch accessible and draggable. */
+@media (prefers-reduced-motion: no-preference) {
+  .team-marquee-track {
+    animation: klavetek-team-marquee 46s linear infinite;
+  }
+}
+
 /* ============ Skeleton shimmer ============ */
 .skeleton {
  background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface) 37%, var(--surface-2) 63%);

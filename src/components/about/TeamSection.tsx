@@ -6,7 +6,7 @@ import Container from "@/components/shared/Container";
 import { teamMembers, type TeamMember } from "@/data/team";
 import { teamSection } from "@/data/about";
 import { easePremium, viewportOnce } from "@/lib/animations";
-import TeamMemberCard from "@/components/about/TeamMemberCard";
+import TeamCarousel from "@/components/about/TeamCarousel";
 import TeamProfileModal from "@/components/about/TeamProfileModal";
 
 export default function TeamSection() {
@@ -72,24 +72,16 @@ export default function TeamSection() {
             {teamSection.intro}
           </motion.p>
         </motion.div>
-
-        {/* ── Team grid ── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          variants={stagger}
-          className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6"
-        >
-          {teamMembers.map((member) => (
-            <TeamMemberCard
-              key={member.id}
-              member={member}
-              onSelect={() => setSelected(member)}
-            />
-          ))}
-        </motion.div>
       </Container>
+
+      {/* ── Team marquee carousel ──
+          Full-bleed parent: ONE horizontal non-wrapping track that moves
+          continuously right → left as a seamless infinite loop. The parent
+          holds the complete sequence twice and animates it by -50% (= one
+          complete list), so the loop rejoins with no visible reset. */}
+      <div className="mt-2 md:mt-6">
+        <TeamCarousel members={teamMembers} onSelect={setSelected} />
+      </div>
 
       <TeamProfileModal
         open={selected !== null}
