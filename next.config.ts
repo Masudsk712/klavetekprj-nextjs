@@ -4,11 +4,12 @@ const nextConfig: NextConfig = {
   // Allow trusted development origins so HMR works when the site is accessed
   // over the local network.
   allowedDevOrigins: [
-    "192.168.1.115",
-    "192.168.1.116",
-    "192.168.1.119",
-    "localhost",
-  ],
+  "192.168.1.22",
+  "192.168.1.115",
+  "192.168.1.116",
+  "192.168.1.119",
+  "localhost",
+],
 
   async redirects() {
     return [

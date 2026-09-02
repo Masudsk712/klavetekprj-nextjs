@@ -93,6 +93,12 @@
 
  /* Backdrop Blur */
  --backdrop-blur: 22px;
+ /* Fixed navbar bar height at the top of the page — single source of truth.
+     Mirrors the PremiumNavbar bar's `h-[80px]` top-state height. Hero sections
+     derive their top padding from this token (`calc(var(--navbar-height, 80px) + Npx)`)
+     so content always starts BELOW the fixed navbar by design, at every breakpoint,
+     without hard-coding 90/110/120px values that drift out of sync with the bar. */
+ --navbar-height: 80px;
 
  /* Legacy aliases (kept for backward compatibility) */
  --secondary-bg: #EEF2F0;

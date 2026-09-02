@@ -408,7 +408,7 @@ export default function PremiumNavbar() {
         </div>
 
         {/* Bar / floating panel */}
-        <div className={cn("relative z-10 mx-auto flex max-w-[1440px] items-center justify-between px-4 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 lg:px-8", "h-[80px]", solidState && "h-[64px] sm:h-[68px]")}>
+        <div className={cn("relative z-10 mx-auto flex w-full max-w-[1360px] items-center justify-between gap-2 px-4 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6 lg:px-8", "h-[80px]", solidState && "h-[64px] sm:h-[68px]")}>
           {/* Logo — left */}
           <div className="flex shrink-0 items-center">
             <Magnetic strength={0.2}>
@@ -427,8 +427,8 @@ export default function PremiumNavbar() {
           </div>
 
           {/* Center nav — desktop */}
-          <nav className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 xl:block">
-            <motion.ul variants={menuStagger} initial="hidden" animate="visible" className="pointer-events-auto m-0 flex list-none items-center gap-4 p-0 2xl:gap-8 3xl:gap-11">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center xl:flex">
+            <motion.ul variants={menuStagger} initial="hidden" animate="visible" className="pointer-events-auto m-0 flex list-none items-center justify-center gap-2 p-0 2xl:gap-3 3xl:gap-4">
               {navItems.map((item) => {
                 const active = isActive(item.href, item.dropdown);
                 const hasDropdown = !!item.dropdown;
@@ -438,7 +438,7 @@ export default function PremiumNavbar() {
                     onMouseLeave={() => setOpenDropdown(null)}>
                     <Magnetic strength={0.22}>
                       <Link href={item.href} onClick={closeAll}
-                        className={cn("group relative flex items-center gap-1.5 rounded-full px-2.5 py-2 text-[15px] font-semibold tracking-[0.2px] transition-colors duration-300 hover:-translate-y-px 2xl:px-4",
+                        className={cn("group relative flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-[14px] font-semibold tracking-[0.2px] transition-colors duration-300 hover:-translate-y-px 2xl:px-3 2xl:text-[15px]",
                           active
                             ? "text-primary"
                             : cn("hover:text-primary", isScrolled ? "text-[var(--heading)] dark:text-white/95" : "text-white/95"))}>
