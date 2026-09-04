@@ -45,6 +45,8 @@ export const manufacturingProcess = {
   title: "Raw Material",
   description: "Premium cement, lime, gypsum and fly ash are carefully selected and tested for optimal composition. Each material undergoes rigorous quality testing before entering the production line.",
   icon: "Box",
+  image: "/images/gallery/raw-material.webp",
+  imageAlt: "Raw material stock stacked at the Klavetek plant",
   highlights: [
   "Premium grade materials",
   "Laboratory tested",
@@ -57,6 +59,8 @@ export const manufacturingProcess = {
   title: "Mixing",
   description: "Raw materials are automatically mixed with precision to create a uniform, homogeneous slurry. Computer-controlled mixing ensures consistent quality batch after batch.",
   icon: "Mixer",
+  image: "/images/gallery/mixing.webp",
+  imageAlt: "Computer-controlled slurry mixing at the Klavetek plant",
   highlights: [
   "Computer-controlled",
   "Precision ratios",
@@ -69,6 +73,8 @@ export const manufacturingProcess = {
   title: "Casting",
   description: "The mixture is poured into molds where chemical reactions begin forming the AAC structure. Aluminum powder reacts to create the characteristic lightweight cellular structure.",
   icon: "Mold",
+  image: "/images/gallery/casting.webp",
+  imageAlt: "Fresh AAC slurry poured into casting moulds",
   highlights: [
   "Automated pouring",
   "Controlled curing",
@@ -81,6 +87,8 @@ export const manufacturingProcess = {
   title: "Precision Cutting",
   description: "Advanced wire cutting ensures accurate dimensions and smooth block surfaces. Multi-wire cutting technology delivers precision to within ±1.5mm tolerance.",
   icon: "CuttingMachine",
+  image: "/images/gallery/cutting_1.webp",
+  imageAlt: "Automatic wire cutting line shaping AAC cakes",
   highlights: [
   "Multi-wire system",
   "±1.5mm accuracy",
@@ -93,6 +101,8 @@ export const manufacturingProcess = {
   title: "Autoclaving",
   description: "High-pressure steam curing delivers exceptional strength and durability to each block. The autoclave process transforms the green cake into a high-strength building material.",
   icon: "SteamPressure",
+  image: "/images/gallery/AutoclaveMachine.webp",
+  imageAlt: "High-pressure autoclave curing AAC blocks with steam",
   highlights: [
   "12 bar pressure",
     "High-temperature curing",
@@ -105,6 +115,8 @@ export const manufacturingProcess = {
   title: "Quality Check",
   description: "Every block undergoes strict inspection before dispatch to ensure perfection. Multiple quality parameters are tested including strength, density, and dimensional accuracy.",
   icon: "ShieldCheck",
+  image: "/images/gallery/LabRoom.webp",
+  imageAlt: "Klavetek laboratory where blocks undergo quality testing",
   highlights: [
   "BIS certified testing",
   "Multi-parameter checks",
@@ -117,6 +129,8 @@ export const manufacturingProcess = {
   title: "Curing",
   description: "Final curing process ensures dimensional stability and long-term performance. Controlled curing environment prevents cracking and ensures optimal moisture content.",
   icon: "WaterDrop",
+  image: "/images/gallery/curing_1.webp",
+  imageAlt: "AAC cakes resting in the curing racks",
   highlights: [
   "Controlled environment",
   "Dimensional stability",
@@ -129,6 +143,8 @@ export const manufacturingProcess = {
   title: "Delivery",
   description: "Products are safely packed and delivered across India to your doorstep. Fleet management ensures timely delivery with real-time tracking and complete documentation.",
   icon: "Truck",
+  image: "/images/gallery/delivery_1.webp",
+  imageAlt: "Klavetek AAC blocks loaded and ready for delivery",
   highlights: [
   "Pan-India delivery",
   "Safe packaging",

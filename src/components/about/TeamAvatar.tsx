@@ -9,6 +9,9 @@ interface TeamAvatarProps {
   objectPosition?: string;
   priority?: boolean;
   quality?: number;
+  /** object-fit of the real portrait. "cover" (default) fills the frame;
+   *  "contain" shows the uncropped passport-style portrait at native ratio. */
+  fit?: "cover" | "contain";
 }
 
 function initials(name: string): string {
@@ -30,6 +33,7 @@ export default function TeamAvatar({
   objectPosition = "center 35%",
   priority = false,
   quality = 90,
+  fit = "cover",
 }: TeamAvatarProps) {
   if (member.image) {
     return (
@@ -43,7 +47,7 @@ export default function TeamAvatar({
         }
         quality={quality}
         priority={priority}
-        className="object-cover"
+        className={fit === "contain" ? "object-contain" : "object-cover"}
         style={{ objectPosition }}
       />
     );

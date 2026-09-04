@@ -41,7 +41,7 @@ const categories = [
  },
  {
  label: "Projects",
- href: "/gallery?category=projects",
+ href: "/projects",
  image: "/images/features/fire-resistant.webp",
  gradient: "from-black/70 via-primary/25 to-black/70",
  icon: "🏢",
