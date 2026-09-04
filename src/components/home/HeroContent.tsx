@@ -30,9 +30,9 @@ export default function HeroContent() {
             className="mt-10 text-[46px] font-bold leading-[1.08] tracking-tight text-[var(--hero-heading)] opacity-100 dark:text-white md:text-[54px] lg:text-[60px]"
             style={{ textShadow: 'var(--heading-shadow)' }}
           >
-            Building Tomorrow
+            AAC Block Manufacturer
             <span className="mt-3 block text-[var(--hero-heading)] opacity-100 animate-gradient dark:bg-gradient-to-r dark:from-primary dark:via-accent-glow dark:to-primary-hover dark:bg-clip-text dark:text-transparent">
-              With Premium AAC Blocks
+              in Malda, West Bengal
             </span>
           </motion.h1>
 
@@ -42,7 +42,7 @@ export default function HeroContent() {
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mt-7 max-w-[520px] text-base leading-[1.75] text-[var(--hero-body)] opacity-100 dark:text-white/90 md:text-lg"
           >
-            Engineered for superior strength, thermal insulation and sustainable construction — trusted by builders across India.
+            Engineered for superior strength, thermal insulation and sustainable construction — trusted by builders across West Bengal and North Bengal.
           </motion.p>
 
           <motion.div

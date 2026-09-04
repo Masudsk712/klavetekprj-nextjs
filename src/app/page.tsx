@@ -1,4 +1,5 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
+import { homeTitle } from "@/constants/seo";
 import HeroSection from "@/components/home/HeroSection";
 import TrustBar from "@/components/home/TrustBar";
 import AboutPreview from "@/components/home/AboutPreview";
@@ -13,47 +14,49 @@ import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 import CinematicCTA from "@/components/home/CinematicCTA";
 import HomeStructuredData from "@/components/shared/HomeStructuredData";
+import AacGuideLinks from "@/components/home/AacGuideLinks";
 
 export const metadata: Metadata = {
- title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
- description:
- "Leading manufacturer of ISI-certified AAC blocks in Eastern India. Sustainable, lightweight, fire-resistant building materials. Sizes: 100mm, 125mm, 150mm, 200mm, 250mm.",
- alternates: { canonical: "/" },
+  title: homeTitle,
+  description:
+    "KLAVETEK manufactures premium AAC blocks in Malda, West Bengal — lightweight, autoclaved aerated concrete blocks for homes, hospitals, commercial buildings and industrial projects. Supplied across West Bengal and North Bengal.",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://kgbt.in",
     siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
-    title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
+    title: "KLAVETEK | AAC Block Manufacturer in Malda, West Bengal",
     description:
-      "Leading manufacturer of ISI-certified AAC blocks in Eastern India. Sustainable, lightweight, fire-resistant building materials.",
-    images: [{ url: "/images/about/about-hero.webp", width: 1200, height: 630, alt: "Klavetek Green Blocks & Tiles" }],
+      "Premium AAC block manufacturer in Malda, West Bengal. Lightweight, fire-resistant, IS 2185-compliant blocks for modern construction across West Bengal and North Bengal.",
+    images: [{ url: "/images/about/about-hero.webp", width: 1200, height: 630, alt: "Klavetek AAC blocks manufacturedin Malda, West Bengal" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Klavetek Green Blocks & Tiles | Premium AAC Block Manufacturer",
-    description: "ISI-certified AAC blocks manufactured in Eastern India since 2020.",
+    title: "KLAVETEK | AAC Block Manufacturer in Malda, West Bengal",
+    description: "Premium AAC block manufacturer in Malda, West Bengal. Supplying lightweight AAC blocks across West Bengal and North Bengal.",
     images: ["/images/about/about-hero.webp"],
   },
 };
 
 export default function HomePage() {
- return (
- <>
- <HomeStructuredData />
- <HeroSection />
- <TrustBar />
- <AboutPreview />
-<WhyKlavetekStandsOut />
-<ManufacturingProcess />
-  <ProductCardGrid />
- <ComparisonTable />
- <TechnicalSpecs />
- <Applications />
- <GalleryPreview />
- <Testimonials />
- <FAQ />
-  <CinematicCTA />
- </>
- );
+  return (
+    <>
+      <HomeStructuredData />
+      <HeroSection />
+      <TrustBar />
+      <AboutPreview />
+      <WhyKlavetekStandsOut />
+      <ManufacturingProcess />
+      <ProductCardGrid />
+      <ComparisonTable />
+      <TechnicalSpecs />
+      <Applications />
+      <AacGuideLinks />
+      <GalleryPreview />
+      <Testimonials />
+      <FAQ />
+      <CinematicCTA />
+    </>
+  );
 }

@@ -23,6 +23,17 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  async rewrites() {
+    return [
+      {
+        // Serve the KLAVETEK logo for legacy /favicon.ico requests so the
+        // default scaffold (Vercel) icon can never appear in the browser tab.
+        source: "/favicon.ico",
+        destination: "/logos/logo.png",
+      },
+    ];
+  },
+
   images: {
     // Allow every quality value requested by <Image> across the app.
     qualities: [75, 80, 85, 88, 90, 95, 100],

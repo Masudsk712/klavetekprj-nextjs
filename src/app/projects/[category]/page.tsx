@@ -27,6 +27,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${cat.label} Projects | Klavetek Green Blocks & Tiles`,
     description: cat.description,
     alternates: { canonical: `/projects/${category}` },
+    openGraph: {
+      type: "website",
+      locale: "en_IN",
+      url: `https://kgbt.in/projects/${category}`,
+      siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
+      title: `${cat.label} Projects | Klavetek Green Blocks & Tiles`,
+      description: cat.description,
+    },
   };
 }
 

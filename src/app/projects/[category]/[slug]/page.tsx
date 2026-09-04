@@ -40,6 +40,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: project.description,
     alternates: { canonical: `/projects/${category}/${slug}` },
     openGraph: {
+      type: "website",
+      locale: "en_IN",
+      url: `https://kgbt.in/projects/${category}/${slug}`,
+      siteName: "Klavetek Green Blocks & Tiles Pvt. Ltd.",
       title: `${project.title} | Klavetek`,
       description: project.description,
       images: [{ url: project.coverImage, width: 1200, height: 630, alt: project.title }],

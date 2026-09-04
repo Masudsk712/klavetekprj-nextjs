@@ -1,28 +1,37 @@
 import Script from "next/script";
 import { company } from "@/constants/company";
+import { addressLocality, addressRegion, addressCountry, areaServed, openingHours, siteUrl } from "@/constants/seo";
 
 /**
- * Global Organization structured data, injected once in the root layout so it
- * applies to the entire site. Product and FAQ schemas are intentionally scoped
- * to the pages they belong on (Home / Products) to avoid duplicate or
- * conflicting structured data across unrelated routes.
+ * Global Organization / LocalBusiness structured data, injected once in the root
+ * layout so it applies to the entire site. Product and FAQ schemas are intentionally
+ * scoped to the pages they belong on (Home / Products / SEO landing pages) to
+ * avoid duplicate or conflicting structured data across unrelated routes.
  */
 export default function StructuredData() {
-  const organizationSchema = {
+  const businessSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     name: company.name,
-    url: "https://kgbt.in",
-    logo: "https://kgbt.in/logos/logo.png",
+    url: siteUrl,
+    logo: `${siteUrl}/logos/logo.png`,
     description:
-      "Premium AAC block manufacturer in Eastern India. ISI-certified, sustainable building materials since 2020.",
+      "Premium AAC (autoclaved aerated concrete) block manufacturer in Malda, West Bengal. Lightweight, fire-resistant building materials since 2020.",
     telephone: company.phone,
     email: company.email,
     address: {
       "@type": "PostalAddress",
       streetAddress: company.address,
-      addressRegion: "West Bengal",
-      addressCountry: "IN",
+      addressLocality,
+      addressRegion,
+      addressCountry,
+    },
+    areaServed,
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: openingHours.weekday.split(","),
+      opens: openingHours.opens,
+      closes: openingHours.closes,
     },
     foundingDate: "2020",
     sameAs: [
@@ -36,7 +45,7 @@ export default function StructuredData() {
     <Script
       id="organization-schema"
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
     />
   );
 }

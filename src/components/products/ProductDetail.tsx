@@ -109,9 +109,9 @@ export default function ProductDetail({ product }: ProductDetailProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: easePremium }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-[var(--heading)] dark:text-[var(--heading)] mb-3 tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-[var(--heading)] dark:text-[var(--heading)] mb-3 tracking-tight">
                 {product.size} AAC Block
-              </h1>
+              </h2>
               <p className="text-xl text-primary font-semibold mb-4">
                 {product.tagline}
               </p>

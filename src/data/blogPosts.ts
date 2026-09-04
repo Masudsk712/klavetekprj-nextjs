@@ -17,10 +17,10 @@
  * Titles and excerpts reflect factual Klavetek / AAC-block subject matter
  * (drawn verbatim from the existing content — nothing invented).
  *
- * There is NO per-article detail route on this site, so every "Read More" /
- * "Read Full Article" link points to Klavetek's verified public Facebook page
- * (the same pattern the previous blog cards used). Replace `articleUrl` per
- * post with the exact permalink whenever one becomes available.
+ * Posts whose `articleUrl` starts with "/" link to INTERNAL article pages at
+ * /blog/[slug] — full article bodies live in src/data/blogArticles.ts and are
+ * rendered by src/app/blog/[slug]/page.tsx. Posts without an internal article
+ * keep pointing to Klavetek's verified public Facebook page.
  * =====================================================================
  */
 
@@ -112,6 +112,55 @@ export const blogPosts: BlogPost[] = [
       "The porous structure of AAC materials provides natural thermal insulation, keeping interiors cooler in summer and cutting long-term air-conditioning energy costs.",
     category: "Sustainability",
     image: "/images/blog/klavetek_4.webp",
+  },
+  /* ------------------------------------------------------------------
+   * Full in-depth guides — each card links to a real internal article
+   * page at /blog/[slug] (content in src/data/blogArticles.ts).
+   * ------------------------------------------------------------------ */
+  {
+    id: "aac-blocks-vs-traditional-bricks",
+    title: "AAC Blocks vs Traditional Bricks: An Honest Comparison",
+    excerpt:
+      "Weight, strength, insulation, cost and construction speed — a balanced look at how AAC blocks and clay bricks really compare, so you can pick the right wall material for your project.",
+    category: "AAC Blocks",
+    image: "/images/blog/klavetek_2.webp",
+    articleUrl: "/blog/aac-blocks-vs-traditional-bricks",
+  },
+  {
+    id: "how-to-choose-aac-blocks-for-construction",
+    title: "How to Choose the Right AAC Blocks for Your Construction",
+    excerpt:
+      "Block sizes, density, strength, dimensional accuracy and supplier reliability — the practical checks that matter when selecting AAC blocks for a residential or commercial build.",
+    category: "Construction",
+    image: "/images/blog/klavetek_4.webp",
+    articleUrl: "/blog/how-to-choose-aac-blocks-for-construction",
+  },
+  {
+    id: "aac-block-advantages-for-residential-construction",
+    title: "AAC Block Advantages for Residential Construction",
+    excerpt:
+      "Why homes built with AAC blocks are cooler, quieter and faster to finish — and how lighter walls reduce structural load and long-term running costs for homeowners.",
+    category: "Construction",
+    image: "/images/blog/klavetek_1.webp",
+    articleUrl: "/blog/aac-block-advantages-for-residential-construction",
+  },
+  {
+    id: "aac-block-applications",
+    title: "Where AAC Blocks Are Used: Applications Across Building Types",
+    excerpt:
+      "From homes and hospitals to schools, commercial complexes and industrial sheds — a practical overview of how AAC blocks are applied across building types.",
+    category: "AAC Blocks",
+    image: "/images/blog/klavetek_5.webp",
+    articleUrl: "/blog/aac-block-applications",
+  },
+  {
+    id: "aac-block-quality-testing",
+    title: "AAC Block Quality Testing: What to Look For",
+    excerpt:
+      "Density, compressive strength, dimensional accuracy, water absorption and shrinkage — the quality checks that separate dependable AAC blocks from inconsistent ones.",
+    category: "Products",
+    image: "/images/process/QualityCheck.webp",
+    articleUrl: "/blog/aac-block-quality-testing",
   },
 ];
 

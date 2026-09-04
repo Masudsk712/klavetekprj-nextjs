@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ArrowRight, ArrowUpRight, BookOpen } from "lucide-react";
@@ -78,16 +79,27 @@ export default function BlogSection() {
                     {featuredPost.excerpt}
                   </p>
 
-                  <a
-                    href={postUrl(featuredPost)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Read full article: ${featuredPost.title}`}
-                    className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-[var(--primary)] text-white text-sm font-semibold transition-all duration-300 hover:bg-[var(--primary-hover)] hover:gap-3"
-                  >
-                    Read Full Article
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
+                  {postUrl(featuredPost).startsWith("/") ? (
+                    <Link
+                      href={postUrl(featuredPost)}
+                      aria-label={`Read full article: ${featuredPost.title}`}
+                      className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-[var(--primary)] text-white text-sm font-semibold transition-all duration-300 hover:bg-[var(--primary-hover)] hover:gap-3"
+                    >
+                      Read Full Article
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  ) : (
+                    <a
+                      href={postUrl(featuredPost)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Read full article: ${featuredPost.title}`}
+                      className="inline-flex items-center gap-2 self-start px-6 py-3 rounded-full bg-[var(--primary)] text-white text-sm font-semibold transition-all duration-300 hover:bg-[var(--primary-hover)] hover:gap-3"
+                    >
+                      Read Full Article
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
               </div>
             </GlassCard>
@@ -172,16 +184,27 @@ export default function BlogSection() {
                           {post.excerpt}
                         </p>
 
-                        <a
-                          href={postUrl(post)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Read more: ${post.title}`}
-                          className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-[var(--primary)] transition-all duration-300 group-hover:gap-2.5"
-                        >
-                          Read More
-                          <ArrowUpRight className="h-4 w-4" />
-                        </a>
+                        {postUrl(post).startsWith("/") ? (
+                          <Link
+                            href={postUrl(post)}
+                            aria-label={`Read more: ${post.title}`}
+                            className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-[var(--primary)] transition-all duration-300 group-hover:gap-2.5"
+                          >
+                            Read More
+                            <ArrowUpRight className="h-4 w-4" />
+                          </Link>
+                        ) : (
+                          <a
+                            href={postUrl(post)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Read more: ${post.title}`}
+                            className="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-[var(--primary)] transition-all duration-300 group-hover:gap-2.5"
+                          >
+                            Read More
+                            <ArrowUpRight className="h-4 w-4" />
+                          </a>
+                        )}
                       </div>
                     </GlassCard>
                   </motion.div>

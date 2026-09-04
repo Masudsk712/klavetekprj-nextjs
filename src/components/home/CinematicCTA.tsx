@@ -222,12 +222,12 @@ export default function CinematicCTA() {
             viewport={viewportOnce}
             className="mb-8"
           >
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl xl:text-7xl">
+            <h2 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl xl:text-7xl">
               <span className="block text-white">Build Strong.</span>
               <span className="block bg-gradient-to-r from-[var(--primary)] to-[var(--primary-hover)] bg-clip-text text-transparent">
                 Build Smarter.
               </span>
-            </h1>
+            </h2>
           </motion.div>
 
 
